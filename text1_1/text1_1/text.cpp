@@ -94,33 +94,226 @@
 //}
 
 
+//#include<iostream>
+//#include<vector>
+//#include<algorithm>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int jump(vector<int>& nums)
+//	{
+//		int curDistance = 0;
+//		int nextDistance = 0;
+//		int count = 0;
+//		for (int i = 0; i < (int)nums.size() - 1; i++)
+//		{
+//			nextDistance = max(nums[i] + i, nextDistance);
+//			if (i == curDistance)
+//			{
+//				curDistance = nextDistance;
+//				count++;
+//			}
+//		}
+//		return count;
+//	}
+//};
+//int main()
+//{
+//	vector<int> nums{ 2,0,0 };
+//	cout << Solution().jump(nums) << endl;
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<string>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	bool checkString(string s)
+//	{
+//		int i = 0;
+//		while (i < s.size())
+//		{
+//			if (s[i] != 'a')
+//				break;
+//			i++;
+//		}
+//		for (i; i < s.size(); i++)
+//		{
+//			if (s[i] == 'a')
+//				return false;
+//		}
+//		return true;
+//	}
+//};
+//
+//int main()
+//{
+//	string s{ "aaabbb" };
+//	cout << Solution().checkString(s) << endl;
+//	return 0;
+//}
+
+
+//#include<iostream>
+//#include<string>
+//#include<vector>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int oneSize(const string& s)
+//	{
+//		int count = 0;
+//		for (int i = 0; i < s.size(); i++)
+//		{
+//			if (s[i] == '1')
+//				count++;
+//		}
+//		return count;
+//	}
+//	int numberOfBeams(vector<string>& bank)
+//	{
+//		int i = 0;
+//		int r1 = 0, r2 = 0;
+//		int count = 0;
+//		for (i; i < bank.size() - 1; i++)
+//		{
+//			r1 = oneSize(bank[i]);
+//			if (r1)
+//				break;
+//		}
+//		i++;
+//		while (i < bank.size())
+//		{
+//			while (i < bank.size())
+//			{
+//				r2 = oneSize(bank[i]);
+//				if (r2)
+//					break;
+//				i++;
+//			}
+//
+//			count += r1 * r2;
+//			r1 = r2;
+//			i++;
+//		}
+//		return count;
+//	}
+//};
+//int main()
+//{
+//	vector<string>nums{ "011001","000000","010100","001000" };
+//	cout << Solution().numberOfBeams(nums) << endl;
+//	return 0;
+//}
+
+
+//#include<iostream>
+//#include<vector>
+//#include<algorithm>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	bool asteroidsDestroyed(int mass, vector<int>& asteroids)
+//	{
+//		sort(asteroids.begin(), asteroids.end());
+//		long long tmp = mass;
+//		for (int i = 0; i < asteroids.size(); i++)
+//		{
+//			if (tmp >= asteroids[i])
+//				tmp += asteroids[i];
+//			else
+//				return false;
+//		}
+//		return true;
+//	}
+//};
+
+
+//#include<iostream>
+//#include<vector>
+//#include<algorithm>
+//using namespace std;
+//
+//class Solution
+//{
+//public:
+//	static bool compar(const int a, const int b)
+//	{
+//		return abs(a) > abs(b);
+//	}
+//
+//	int largestSumAfterKNegations(vector<int>& nums, int k)
+//	{
+//		sort(nums.begin(), nums.end(), compar);
+//		int sz = nums.size();
+//		for (int i =  0; i < sz; i++)
+//		{
+//			if (nums[i] < 0 && k>0)
+//			{
+//				nums[i] = -nums[i];
+//				k--;
+//			}
+//		}
+//		//选最小的
+//		while (k > 0)
+//		{
+//			nums[sz - 1] = -nums[sz - 1];
+//			k--;
+//		}
+//		int sum = 0;
+//		for (auto e : nums)
+//		{
+//			sum += e;
+//		}
+//		return sum;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<int>nums{ -2,9,9,8,4 };
+//	int k = 5;
+//	cout << Solution().largestSumAfterKNegations(nums, k) << endl;
+//	return 0;
+//}
+
+
 #include<iostream>
 #include<vector>
-#include<algorithm>
 using namespace std;
 
 class Solution {
 public:
-	int jump(vector<int>& nums)
+	int canCompleteCircuit(vector<int>& gas, vector<int>& cost)
 	{
-		int curDistance = 0;
-		int nextDistance = 0;
-		int count = 0;
-		for (int i = 0; i < (int)nums.size() - 1; i++)
+		for (int i = 0; i < gas.size(); i++)
 		{
-			nextDistance = max(nums[i] + i, nextDistance);
-			if (i == curDistance)
+			int over = gas[i];
+			if (gas[i] < cost[i])
+				continue;
+			over = gas[i] - cost[i];
+			int index = (i + 1) % gas.size();
+			while (index != i)
 			{
-				curDistance = nextDistance;
-				count++;
+				over += cost[index] - gas[index];
+				index = (index + 1) % gas.size();
+				if (over < 0)
+					break;
 			}
+
+			if (index == i)
+				return i;
 		}
-		return count;
+		return -1;
 	}
 };
+
 int main()
 {
-	vector<int> nums{ 2,0,0 };
-	cout << Solution().jump(nums) << endl;
 	return 0;
 }
