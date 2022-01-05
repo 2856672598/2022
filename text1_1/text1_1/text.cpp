@@ -540,30 +540,124 @@
 //}
 
 
-//1877. 数组中最大数对和的最小值
-#include<iostream>
-#include<vector>
-#include<algorithm>
-using namespace std;
+////1877. 数组中最大数对和的最小值
+//#include<iostream>
+//#include<vector>
+//#include<algorithm>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int minPairSum(vector<int>& nums)
+//	{
+//		sort(nums.begin(), nums.end());
+//		int left = 0, right = nums.size() - 1;
+//		int ret = nums[left] + nums[right];
+//		while (left < right)
+//		{
+//			ret = max(ret, nums[left++] + nums[right--]);
+//		}
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<int>nums = { 3,5,4,2,4,6 };
+//	cout << Solution().minPairSum(nums) << endl;
+//	return 0;
+//}
 
-class Solution {
-public:
-	int minPairSum(vector<int>& nums)
-	{
-		sort(nums.begin(), nums.end());
-		int left = 0, right = nums.size() - 1;
-		int ret = nums[left] + nums[right];
-		while (left < right)
-		{
-			ret = max(ret, nums[left++] + nums[right--]);
-		}
-		return ret;
-	}
-};
 
-int main()
-{
-	vector<int>nums = { 3,5,4,2,4,6 };
-	cout << Solution().minPairSum(nums) << endl;
-	return 0;
-}
+//#include<iostream>
+//#include<vector>
+//#include<string>
+//using namespace std;
+//
+//class Solution
+//{
+//public:
+//	int lengthOfLongestSubstring(string s)
+//	{
+//		if (s.size() == 0)
+//			return 0;
+//		vector<int>prev(256, -1);
+//		int prevMax = 0;
+//		int curMax = 0;
+//		int max = 1;
+//		for (int i = 0; i < (int)s.size(); i++)
+//		{
+//			curMax = prevMax + 1 < i - prev[s[i]] ? prevMax + 1 : i - prev[s[i]];
+//			if (curMax > max)
+//				max = curMax;
+//			prev[s[i]] = i;
+//			prevMax = curMax;
+//		}
+//		return max;
+//	}
+//};
+//int main()
+//{
+//	string s{ " " };
+//	cout << Solution().lengthOfLongestSubstring(s);
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<string>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	string modifyString(string s)
+//	{
+//		for (int i = 0; i < (int)s.size(); i++)
+//		{
+//			if (s[i] == '?')
+//			{
+//				for (int j = 'a'; j <= 'z'; j++)
+//				{
+//					if ((i > 0 && s[i - 1] == j) || (i < s.size() - 1 && s[i + 1] == j))
+//						continue;
+//					s[i] = j;
+//					break;
+//				}
+//			}
+//		}
+//		return s;
+//	}
+//};
+//
+//int main()
+//{
+//	return 0;
+//}
+
+////1689. 十-二进制数的最少数目
+//#include<iostream>
+//#include<string>
+//using namespace std;
+//
+//class Solution
+//{
+//public:
+//	int minPartitions(string n)
+//	{
+//		char max = n[0];
+//		for (int i = 0; i < (int)n.size(); i++)
+//		{
+//			if (n[i] > max)
+//				max = n[i];
+//		}
+//		return max - '0';
+//	}
+//};
+//
+//int main()
+//{
+//	string n{ "429434832" };
+//	cout << Solution().minPartitions(n) << endl;
+//	return 0;
+//}
+
+
