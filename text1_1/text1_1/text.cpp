@@ -661,3 +661,222 @@
 //}
 
 
+//#include<iostream>
+//#include<vector>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int matrixScore(vector<vector<int>>& grid)
+//	{
+//		int sum = 0;
+//		//将第一列不为1的行进行转换
+//		for (int i = 0; i < (int)grid.size(); i++)
+//		{
+//			int j = 0;
+//			if (grid[i][0] != 1)
+//			{
+//				while (j < grid[i].size())
+//				{
+//					grid[i][j] ^= 1;
+//					j++;
+//				}
+//			}
+//		}
+//
+//		int row = grid.size(), col = grid[0].size();
+//		for (int i = 1; i < col; i++)
+//		{
+//			int zeroSize = 0;
+//			for (int j = 0; j < row; j++)
+//			{
+//				if (grid[j][i] == 0)
+//					zeroSize++;
+//			}
+//			if (zeroSize > row - zeroSize)
+//			{
+//				int j = 0;
+//				while (j < row)
+//				{
+//					grid[j][i] ^= 1;
+//					j++;
+//				}
+//			}
+//		}
+//
+//		//求和
+//		for (int i =0; i < row; i++)
+//		{
+//			int tmp = 0;
+//			for (int j = col-1; j >=0; j--)
+//			{
+//				tmp += grid[i][j] << col - 1 - j;
+//			}
+//			sum += tmp;
+//		}
+//		return sum;
+//	}
+//};
+//int main()
+//{
+//	vector<vector<int>>grid{ {0,1},{1,1} };
+//	cout << Solution().matrixScore(grid) << endl;
+//	return 0;
+//}
+
+
+//#include<iostream>
+//#include<vector>
+//#include<algorithm>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int maxCoins(vector<int>& piles)
+//	{
+//		if (piles.size() < 3)
+//			return 0;
+//		sort(piles.begin(), piles.end());
+//		int begin = 0, end = piles.size() - 1;
+//		int prev = end - 1, sum = 0;
+//		while (begin < prev)
+//		{
+//			sum += piles[prev];
+//			end = prev - 1;
+//			prev = end - 1;
+//			begin += 1;
+//		}
+//		return sum;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<int>nums{ 2,4,1,2,7,8 };
+//	cout << Solution().maxCoins(nums) << endl;
+//	return 0;
+//}
+
+////921. 使括号有效的最少添加
+//#include<iostream>
+//#include<string>
+//using namespace std;
+//
+//class Solution
+//{
+//public:
+//	int minAddToMakeValid(string s)
+//	{
+//		int flag = 0;
+//		int count = 0;
+//		for (int i = 0; i < s.size(); i++)
+//		{
+//			if (s[i] == '(')
+//				flag++;
+//			else
+//				flag--;
+//			if (flag < 0)
+//			{
+//				count += abs(flag);
+//				flag = 0;
+//			}
+//		}
+//		count += flag;
+//		return count;
+//	}
+//};
+//
+//int main()
+//{
+//	string s{ "())" };
+//	cout << Solution().minAddToMakeValid(s) << endl;
+//	return 0;
+//}
+
+
+//#include<iostream>
+//#include<vector>
+//#include<string>
+//#include<algorithm>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int candy(vector<int>& ratings)
+//	{
+//		int count = 0;
+//		vector<int>left;
+//		for (int i = 0; i < (int)ratings.size(); i++)
+//		{
+//			if (i > 0 && ratings[i] > ratings[i - 1])
+//				left.push_back(left[i - 1] + 1);
+//			else
+//				left.push_back(1);
+//		}
+//		int right = 0;
+//		for (int i = ratings.size() - 1; i >= 0; i--)
+//		{
+//			if (i<ratings.size() - 1 && ratings[i]>ratings[i + 1])
+//				right++;
+//			else
+//				right = 1;
+//			count += max(right, left[i]);
+//		}
+//		return count;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<int>ratings{ 1,0,2 };
+//	cout << Solution().candy(ratings) << endl;
+//	return 0;
+//}
+
+
+#include<iostream>
+#include<vector>
+using namespace std;
+
+class Solution {
+public:
+	bool lemonadeChange(vector<int>& bills)
+	{
+		int arr[3] = { 0 };
+		for (int i = 0; i < (int)bills.size(); i++)
+		{
+			if (bills[i] == 5)
+				arr[0]++;
+			else if (bills[i] == 10)
+			{
+				if (arr[0] > 0)
+				{
+					arr[0] -= 1;
+					arr[1] += 1;
+				}
+				else
+					return false;
+			}
+			else
+			{
+				if (arr[0] >= 3 || arr[1] >= 1 && arr[0] >= 1)
+				{
+					if (arr[1] >= 1)
+					{
+						arr[1] -= 1;
+						arr[0] -= 1;
+					}
+					else
+						arr[0] -= 3;
+				}
+				else
+					return false;
+			}
+		}
+		return true;
+	}
+};
+int main()
+{
+	return 0;
+}
