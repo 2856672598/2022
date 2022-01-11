@@ -248,54 +248,54 @@
 //}
 
 
-#include<iostream>
-#include<vector>
-#include<string>
-#include<algorithm>
-#include<unordered_map>
-using namespace std;
-class Solution {
-public:
-	int longestPalindrome(vector<string>& words)
-	{
-		unordered_map<string, int>m;
-		for (auto e : words)
-			m[e]++;
-		int ret = 0;
-		int sigMax = 0;
-		for (auto& e : m)
-		{
-			string tmp = e.first;
-			reverse(tmp.begin(), tmp.end());
-			auto it = m.find(tmp);
-			if (it != m.end() && e.first == (*it).first)
-			{
-				//aa bb
-				ret += e.second*e.first.size();
-				if (e.second % 2)
-				{
-					ret -= e.first.size();
-					sigMax = max(sigMax, (int)e.first.size());
-				}
-			}
-			else if (it != m.end())
-			{
-				ret += 2 * min(e.second, (*it).second)*e.first.size();
-				int dev = min(e.second, (*it).second);
-				e.second -= dev;
-				(*it).second -= dev;
-			}
-		}
-		return ret += sigMax;
-	}
-};
-
-int main()
-{
-	vector<string>words{ "mt","lt","tt","lt","mt","tl","mm","lt","tt","mt","ml","mm" };
-	cout << Solution().longestPalindrome(words) << endl;
-	return 0;
-}
+//#include<iostream>
+//#include<vector>
+//#include<string>
+//#include<algorithm>
+//#include<unordered_map>
+//using namespace std;
+//class Solution {
+//public:
+//	int longestPalindrome(vector<string>& words)
+//	{
+//		unordered_map<string, int>m;
+//		for (auto e : words)
+//			m[e]++;
+//		int ret = 0;
+//		int sigMax = 0;
+//		for (auto& e : m)
+//		{
+//			string tmp = e.first;
+//			reverse(tmp.begin(), tmp.end());
+//			auto it = m.find(tmp);
+//			if (it != m.end() && e.first == (*it).first)
+//			{
+//				//aa bb
+//				ret += e.second*e.first.size();
+//				if (e.second % 2)
+//				{
+//					ret -= e.first.size();
+//					sigMax = max(sigMax, (int)e.first.size());
+//				}
+//			}
+//			else if (it != m.end())
+//			{
+//				ret += 2 * min(e.second, (*it).second)*e.first.size();
+//				int dev = min(e.second, (*it).second);
+//				e.second -= dev;
+//				(*it).second -= dev;
+//			}
+//		}
+//		return ret += sigMax;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<string>words{ "mt","lt","tt","lt","mt","tl","mm","lt","tt","mt","ml","mm" };
+//	cout << Solution().longestPalindrome(words) << endl;
+//	return 0;
+//}
 
 
 //#include<iostream>
@@ -332,3 +332,259 @@ int main()
 //	cout << Solution().checkValid(max);
 //	return 0;
 //}
+
+
+//#include<iostream>
+//#include<vector>
+//#include<algorithm>
+//using namespace std;
+//
+//class Solution
+//{
+//public:
+//	static bool compare(const vector<int>&x, const vector<int>&y)
+//	{
+//		return x[0] < y[0];
+//	}
+//
+//	int findMinArrowShots(vector<vector<int>>& points)
+//	{
+//		sort(points.begin(), points.end(), compare);
+//		int count = 1;
+//		int prev = points[0][1];
+//		for (int i = 1; i < points.size(); i++)
+//		{
+//			if (points[i][0] > prev)
+//			{
+//				count++;
+//				prev = points[i][1];
+//			}
+//			else
+//			{
+//				prev = min(prev, points[i][1]);
+//			}
+//		}
+//		return count;
+//	}
+//};
+//int main()
+//{
+//	return 0;
+//}
+
+
+//#include<iostream>
+//#include<vector>
+//#include<algorithm>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	static bool compare(const vector<int>&x, const vector<int>&y)
+//	{
+//		return x[1] < y[1];
+//	}
+//
+//	int eraseOverlapIntervals(vector<vector<int>>& intervals)
+//	{
+//		sort(intervals.begin(), intervals.end(), compare);
+//		int count = 0;
+//		int prev = intervals[0][1];
+//		for (int i = 1; i < intervals.size(); i++)
+//		{
+//			if (intervals[i][0] < prev)
+//			{
+//				count++;
+//			}
+//			else
+//				prev = intervals[i][1];
+//		}
+//		return count;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<vector<int>>intervals{{-52,31},{-73,-26},{82,97},{-65,-11},{-62,-49},{95,99},{58,95}
+//		,{-31,49},{66,98},{-63,2},{30,47},{-40,-26} };
+//	cout << Solution().eraseOverlapIntervals(intervals);
+//	return 0;
+//}
+
+
+//#include<iostream>
+//#include<vector>
+//#include<algorithm>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	static bool compar(const vector<int>& x, const vector<int>&y)
+//	{
+//		return x[0] < y[0];
+//	}
+//	
+//	vector<vector<int>> merge(vector<vector<int>>& intervals)
+//	{
+//		sort(intervals.begin(), intervals.end(), compar);
+//		vector<vector<int>>ret;
+//		int prev = 0;
+//		for (int i = 1; i < intervals.size(); i++)
+//		{
+//			if (intervals[i][0] <= intervals[prev][1])
+//			{
+//				if (intervals[i][1] > intervals[prev][1])
+//					intervals[prev][1] = intervals[i][1];
+//			}
+//			else
+//			{
+//				ret.push_back(intervals[prev]);
+//				prev = i;
+//			}
+//		}
+//		if (prev != intervals.size())
+//			ret.push_back(intervals[prev]);
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<vector<int>>intervals{ {2,3},{3,4},{1,5} };
+//	Solution().merge(intervals);
+//	return 0;
+//}
+
+
+//#include<iostream>
+//#include<vector>
+//#include<string>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int monotoneIncreasingDigits(int n)
+//	{
+//		string nums = to_string(n);
+//		int flag = nums.size();
+//		for (int i = nums.size() - 1; i > 0; i--)
+//		{
+//			if (nums[i] < nums[i - 1])
+//			{
+//				nums[i - 1] -= 1;
+//				flag = i;
+//			}
+//		}
+//		while (flag < nums.size())
+//		{
+//			nums[flag++] = '9';
+//		}
+//		return stoi(nums);
+//	}
+//};
+//int main()
+//{
+//	int n = 332643;
+//	cout << Solution().monotoneIncreasingDigits(n) << endl;
+//	return  0;
+//}
+
+//#include<iostream>
+//#include<vector>
+//#include<algorithm>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int minCostClimbingStairs(vector<int>& cost)
+//	{
+//		vector<int>dp(cost.size());
+//		dp[0] = cost[0], dp[1] = cost[1];
+//		for (int i = 2; i < (int)cost.size(); i++)
+//		{
+//			dp[i] = min(dp[i - 1], dp[i - 2]) + cost[i];
+//		}
+//		for (auto e : dp)
+//			cout << e << " ";
+//		return min(dp[cost.size() - 1], dp[cost.size() - 2]);
+//	}
+//};
+//
+//int main()
+//{
+//	vector<int>cost{ 1,100,1,1,1,100,1,1,100,1 };
+//	cout << Solution().minCostClimbingStairs(cost) << endl;
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<vector>
+//using namespace std;
+//
+//class Solution
+//{
+//public:
+//	int uniquePaths(int m, int n)
+//	{
+//		vector<vector<int>>ret;
+//		for (int i = 0; i < m; i++)
+//		{
+//			vector<int>tmp;
+//			for (int j = 0; j < n; j++)
+//			{
+//				tmp.push_back(1);
+//			}
+//			ret.push_back(tmp);
+//		}
+//		for (int i = 1; i < m; i++)
+//		{
+//			for (int j = 1; j < n; j++)
+//			{
+//				ret[i][j] = ret[i - 1][j] + ret[i][j - 1];
+//			}
+//		}
+//		return ret[m - 1][n - 1];
+//	}
+//};
+//
+//int main()
+//{
+//	int m = 3, n = 7;
+//	cout << Solution().uniquePaths(m, n);
+//	return 0;
+//}
+
+#include<iostream>
+#include<vector>
+using namespace std;
+
+class Solution {
+public:
+	int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid)
+	{
+		int row = obstacleGrid.size(), col = obstacleGrid[0].size();
+		vector<vector<int>>dp(row, vector<int>(col, 0));
+		for (int i = 0; i < col&&obstacleGrid[0][i] != 1; i++)
+			dp[0][i] = 1;
+		for (int i = 0; i < row&&obstacleGrid[i][0] != 1; i++)
+			dp[i][0] = 1;
+
+		for (int i = 1; i < row; i++)
+		{
+			for (int j = 1; j < col; j++)
+			{
+				if (obstacleGrid[i][j] == 1)
+					continue;
+				dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+			}
+		}
+		return dp[row - 1][col - 1];
+	}
+};
+
+int main()
+{
+	vector<vector<int>>obstacleGrid{ {0, 1},{0, 0} };
+	cout << Solution().uniquePathsWithObstacles(obstacleGrid);
+	return 0;
+}
