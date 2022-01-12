@@ -554,37 +554,181 @@
 //	return 0;
 //}
 
+//#include<iostream>
+//#include<vector>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid)
+//	{
+//		int row = obstacleGrid.size(), col = obstacleGrid[0].size();
+//		vector<vector<int>>dp(row, vector<int>(col, 0));
+//		for (int i = 0; i < col&&obstacleGrid[0][i] != 1; i++)
+//			dp[0][i] = 1;
+//		for (int i = 0; i < row&&obstacleGrid[i][0] != 1; i++)
+//			dp[i][0] = 1;
+//
+//		for (int i = 1; i < row; i++)
+//		{
+//			for (int j = 1; j < col; j++)
+//			{
+//				if (obstacleGrid[i][j] == 1)
+//					continue;
+//				dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+//			}
+//		}
+//		return dp[row - 1][col - 1];
+//	}
+//};
+//
+//int main()
+//{
+//	vector<vector<int>>obstacleGrid{ {0, 1},{0, 0} };
+//	cout << Solution().uniquePathsWithObstacles(obstacleGrid);
+//	return 0;
+//}
+
+
+//#include<iostream>
+//#include<vector>
+//#include<algorithm>
+//using namespace std;
+//
+//class Solution
+//{
+//public:
+//	int integerBreak(int n)
+//	{
+//		vector<int>dp(n + 1, 0);
+//		for (int i = 2; i <= n; i++)
+//		{
+//			int tmp = 0;
+//			for (int j = 1; j <= i / 2; j++)
+//			{
+//				tmp = j * max((i - j), dp[i - j]);
+//				dp[i] = max(tmp, dp[i]);
+//			}
+//		}
+//		return dp[n];
+//	}
+//};
+//
+//int main()
+//{
+//	int n = 10;
+//	cout << Solution().integerBreak(n) << endl;
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<vector>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int numTrees(int n)
+//	{
+//		vector<int>dp(n + 1, 0);
+//		dp[0] = 1;
+//		dp[1] = 1;
+//		for (int i = 2; i <= n; i++)
+//		{
+//			int left = 0;
+//			for (int j = i - 1; j >= 0; j--)
+//			{
+//				dp[i] += dp[left] * dp[j];
+//				left++;
+//			}
+//		}
+//		return dp[n];
+//	}
+//};
+//
+//int main()
+//{
+//	int n = 3;
+//	cout << Solution().numTrees(n);
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<vector>
+//#include<unordered_map>
+//#include<unordered_set>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	vector<vector<int>> groupThePeople(vector<int>& groupSizes)
+//	{
+//		unordered_map<int, vector<int>>m;
+//		unordered_set<int>s;
+//		for (int i = 0; i < groupSizes.size(); i++)
+//		{
+//			m[groupSizes[i]].push_back(i);
+//			s.insert(groupSizes[i]);
+//		}
+//		vector<vector<int>>ret;
+//		for (auto e : s)
+//		{
+//			auto it = m.find(e);
+//			vector<int>tmp;
+//			int count = 0;
+//			for (int i = 0; i < (*it).second.size(); i++)
+//			{
+//				tmp.push_back((*it).second[i]);
+//				count++;
+//				if (count == e)
+//				{
+//					ret.push_back(tmp);
+//					tmp.clear();
+//					count = 0;
+//				}
+//			}
+//		}
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	return 0;
+//}
+
 #include<iostream>
 #include<vector>
+#include<string>
 using namespace std;
 
 class Solution {
 public:
-	int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid)
-	{
-		int row = obstacleGrid.size(), col = obstacleGrid[0].size();
-		vector<vector<int>>dp(row, vector<int>(col, 0));
-		for (int i = 0; i < col&&obstacleGrid[0][i] != 1; i++)
-			dp[0][i] = 1;
-		for (int i = 0; i < row&&obstacleGrid[i][0] != 1; i++)
-			dp[i][0] = 1;
-
-		for (int i = 1; i < row; i++)
-		{
-			for (int j = 1; j < col; j++)
-			{
-				if (obstacleGrid[i][j] == 1)
-					continue;
-				dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
-			}
+	vector<string> findAndReplacePattern(vector<string>& words, string pattern) {
+		vector<string> res;
+		for (int i = 0; i < words.size(); i++) {
+			if (check(words[i], pattern))
+				res.push_back(words[i]);
 		}
-		return dp[row - 1][col - 1];
+		return res;
+	}
+	bool check(string word, string pattern) {
+		if (word.length() != pattern.length())
+			return false;
+		for (int i = 0; i < pattern.length(); i++)
+		{
+			int pos1 = word.find(word[i]);
+			int pos2 = pattern.find(pattern[i]);
+			if (word.find(word[i]) != pattern.find(pattern[i]))
+				return false;
+		}
+		return true;
 	}
 };
 
 int main()
 {
-	vector<vector<int>>obstacleGrid{ {0, 1},{0, 0} };
-	cout << Solution().uniquePathsWithObstacles(obstacleGrid);
+	vector<string>words{ "abc","deq","mee","aqq","dkd","ccc" };
+	string pattren = "abb";
+	Solution().findAndReplacePattern(words, pattren);
 	return 0;
 }
