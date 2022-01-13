@@ -696,39 +696,396 @@
 //	return 0;
 //}
 
+//#include<iostream>
+//#include<vector>
+//#include<string>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	vector<string> findAndReplacePattern(vector<string>& words, string pattern) {
+//		vector<string> res;
+//		for (int i = 0; i < words.size(); i++) {
+//			if (check(words[i], pattern))
+//				res.push_back(words[i]);
+//		}
+//		return res;
+//	}
+//	bool check(string word, string pattern) {
+//		if (word.length() != pattern.length())
+//			return false;
+//		for (int i = 0; i < pattern.length(); i++)
+//		{
+//			int pos1 = word.find(word[i]);
+//			int pos2 = pattern.find(pattern[i]);
+//			if (word.find(word[i]) != pattern.find(pattern[i]))
+//				return false;
+//		}
+//		return true;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<string>words{ "abc","deq","mee","aqq","dkd","ccc" };
+//	string pattren = "abb";
+//	Solution().findAndReplacePattern(words, pattren);
+//	return 0;
+//}
+
+
+//#include<iostream>
+//#include<vector>
+//using namespace std;
+//
+//struct TreeNode {
+//	int val;
+//	TreeNode *left;
+//	TreeNode *right;
+//	TreeNode() : val(0), left(nullptr), right(nullptr) {}
+//	TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+//	TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+//};
+// 
+//class Solution {
+//public:
+//	void Backtrakcing(TreeNode* root, int num, vector<int>&arr)
+//	{
+//		if (root == nullptr)
+//			return;
+//		if (root->left == nullptr&&root->right == nullptr);
+//		{
+//			num = num * 10 + root->val;
+//			arr.push_back(num);
+//			return;
+//		}
+//		Backtrakcing(root->left, num * 10 + root->val, arr);
+//		Backtrakcing(root->right, num * 10 + root->val, arr);
+//	}
+//
+//	int sumNumbers(TreeNode* root)
+//	{
+//		int num = 0;
+//		vector<int>arr;
+//		Backtrakcing(root, num, arr);
+//		int sum = 0;
+//		for (int i = 0; i < (int)arr.size(); i++)
+//		{
+//			sum += arr[i];
+//		}
+//		return sum;
+//	}
+//};
+//int main()
+//{
+//	return 0;
+//}
+
+
+//#include<iostream>
+//#include<vector>
+//using namespace std;
+//class Solution {
+//public:
+//	vector<int> swapNumbers(vector<int>& numbers)
+//	{
+//		numbers[0] ^= numbers[1];
+//		numbers[1] ^= numbers[0];
+//		numbers[0] ^= numbers[1];
+//		return numbers;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<int>numbers{ 1,2 };
+//	vector<int>ret = Solution().swapNumbers(numbers);
+//	for (auto e : ret)
+//		cout << e << " ";
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<vector>
+//#include<string>
+//#include<algorithm>
+//using namespace std;
+//class Solution
+//{
+//public:
+//	vector<string>ret;
+//	void Backtracking(string S, vector<bool>used, string tmp)
+//	{
+//		if (tmp.size() == S.size())
+//		{
+//			ret.push_back(tmp);
+//			return;
+//		}
+//		for (int i = 0; i < (int)S.size(); i++)
+//		{
+//			if (i > 0 && S[i] == S[i - 1] && used[i - 1] == false)
+//				continue;
+//			if (used[i] == false)
+//			{
+//				tmp.push_back(S[i]);
+//				used[i] = true;
+//				Backtracking(S, used, tmp);
+//				used[i] = false;
+//				tmp.pop_back();
+//			}
+//		}
+//	}
+//
+//	vector<string> permutation(string S)
+//	{
+//		sort(S.begin(), S.end());
+//		vector<bool>used;
+//		for (int i = 0; i < S.size(); i++)
+//			used.push_back(false);
+//		Backtracking(S, used, {});
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	string S{ "aab" };
+//	vector<string>ret = Solution().permutation(S);
+//	for (int i = 0; i < ret.size(); i++)
+//		cout << ret[i] << endl;
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<vector>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	void rotate(vector<vector<int>>& matrix)
+//	{
+//		vector<vector<int>>tmp(matrix.size(), vector<int>(matrix[0].size(), 0));
+//		int row = matrix.size();
+//		int col = matrix[0].size();
+//		for (int i = 0; i < row; i++)
+//		{
+//			for (int j = 0; j < col; j++)
+//			{
+//				tmp[j][col - i - 1] = matrix[i][j];
+//			}
+//		}
+//		for (int i = 0; i < row; i++)
+//		{
+//			for (int j = 0; j < col; j++)
+//			{
+//				matrix[i][j] = tmp[i][j];
+//			}
+//		}
+//	}
+//};
+//int main()
+//{
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<vector>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	vector<vector<int>>ret;
+//	void Backtracking(const vector<int>&nums, vector<int>tmp, int index)
+//	{
+//		ret.push_back(tmp);
+//		for (int i = index; i < nums.size(); i++)
+//		{
+//			tmp.push_back(nums[i]);
+//			Backtracking(nums, tmp, i + 1);
+//			tmp.pop_back();
+//		}
+//	}
+//
+//	vector<vector<int>> subsets(vector<int>& nums)
+//	{
+//		Backtracking(nums, {}, 0);
+//		return ret;
+//	}
+//};
+//int main()
+//{
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<string>
+//#include<vector>
+//#include<unordered_map>
+//#include<algorithm>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	vector<vector<string>> groupAnagrams(vector<string>& strs)
+//	{
+//		unordered_map<string, vector<string>>m;
+//		for (int i = 0; i < strs.size(); i++)
+//		{
+//			string tmp = strs[i];
+//			sort(tmp.begin(), tmp.end());
+//			m[tmp].push_back(strs[i]);
+//		}
+//		vector<vector<string>>ret;
+//		for (auto e : m)
+//		{
+//			vector<string>tmp;
+//			for (int i = 0; i < e.second.size(); i++)
+//				tmp.push_back(e.second[i]);
+//			ret.push_back(tmp);
+//		}
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<string> strs{ "eat", "tea", "tan", "ate", "nat", "bat" };
+//	Solution().groupAnagrams(strs);
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<vector>
+//#include<string>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	vector<string> getValidT9Words(string num, vector<string>& words)
+//	{
+//		vector<string>flag{ "abc", "def", "ghi", "jkl"
+//			, "mno", "pqrs", "tuv", "wxyz" };
+//		vector<string>ret;
+//		for (int i = 0; i < words.size(); i++)
+//		{
+//			int j = 0;
+//			for (j = 0; j < num.size(); j++)
+//			{
+//				if (flag[num[j] - '0' - 2].find(words[i][j]) == -1)
+//					break;
+//			}
+//			if (j >= num.size())
+//				ret.push_back(words[i]);
+//		}
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<string>words{ "tree", "used" };
+//	string num = "8733";
+//	Solution().getValidT9Words(num, words);
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//
+//
+//struct TreeNode {
+//	int val;
+//	TreeNode *left;
+//	TreeNode *right;
+//	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+//};
+// 
+//class Solution {
+//public:
+//	bool Check(TreeNode* t1, TreeNode* t2)
+//	{
+//		if (t1 == nullptr&&t2 == nullptr)
+//			return true;
+//		if (t1 == nullptr || t2 == nullptr)
+//			return false;
+//		if (t1->val != t2->val)
+//			return false;
+//		return Check(t1->left, t2->left) || Check(t1->right, t2->right);
+//	}
+//	bool checkSubTree(TreeNode* t1, TreeNode* t2)
+//	{
+//		if (t1 == nullptr)
+//			return false;
+//		if (t2 == nullptr)
+//			return true;
+//		if (t1 == nullptr)
+//			return false;
+//		if (Check(t1, t2))
+//			return true;
+//		return checkSubTree(t1->left, t2) || checkSubTree(t1->right, t2);
+//	}
+//};
+//
+//int main()
+//{
+//	return 0;
+//}
+
 #include<iostream>
-#include<vector>
 #include<string>
+#include<vector>
+#include<set>
 using namespace std;
 
 class Solution {
 public:
-	vector<string> findAndReplacePattern(vector<string>& words, string pattern) {
-		vector<string> res;
-		for (int i = 0; i < words.size(); i++) {
-			if (check(words[i], pattern))
-				res.push_back(words[i]);
-		}
-		return res;
-	}
-	bool check(string word, string pattern) {
-		if (word.length() != pattern.length())
-			return false;
-		for (int i = 0; i < pattern.length(); i++)
+	void setZeroes(vector<vector<int>>& matrix)
+	{
+		set<int>row;
+		set<int>col;
+		for (int i = 0; i < matrix.size(); i++)
 		{
-			int pos1 = word.find(word[i]);
-			int pos2 = pattern.find(pattern[i]);
-			if (word.find(word[i]) != pattern.find(pattern[i]))
-				return false;
+			for (int j = 0; j < (int)matrix[i].size(); j++)
+			{
+				if (matrix[i][j] == 0)
+				{
+					row.insert(i);
+					col.insert(j);
+				}
+			}
 		}
-		return true;
+		int index = 0;
+		for (auto it = row.begin(); it != row.end(); it++)
+		{
+			index = *it;
+			for (int j = 0; j < matrix[0].size(); j++)
+			{
+				matrix[index][j] = 0;
+			}
+		}
+
+		for (auto it = col.begin(); it != col.end(); it++)
+		{			
+			index = *it;
+			for (int j = 0; j < matrix.size(); j++)
+			{
+				matrix[j][index] = 0;
+			}
+		}
 	}
 };
 
 int main()
 {
-	vector<string>words{ "abc","deq","mee","aqq","dkd","ccc" };
-	string pattren = "abb";
-	Solution().findAndReplacePattern(words, pattren);
+	vector<vector<int>>matrix{ {1,1,1},{1,0,1},{1,1,1} };
+	Solution().setZeroes(matrix);
+	for (int i = 0; i < matrix.size(); i++)
+	{
+		for (int j = 0; j < matrix[i].size(); j++)
+			cout << matrix[i][j] << " ";
+		cout << endl;
+	}
 	return 0;
 }
+
