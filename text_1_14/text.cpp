@@ -638,57 +638,396 @@
 // 	return 0;
 // }
 
-#include<iostream>
-#include<string>
-using namespace std;
+// #include<iostream>
+// #include<string>
+// using namespace std;
 
+// class Solution
+// {
+// public:
+// 	int strToInt(string str)
+// 	{
+// 		//去掉前导空格
+// 		int i = 0;
+// 		int size = str.size();
+// 		while(i<size)
+// 		{
+// 			if(str[i]!=' ')
+// 				break;
+// 			i++;
+// 		}
+// 		int flag = 1;
+// 		if(str[i]=='-'||str[i] == '+')
+// 		{
+// 			if(str[i] == '-')
+// 				flag = -1;
+// 			i++;
+// 		}
+// 		long long sum = 0;
+// 		while(i<str.size())
+// 		{
+// 			if(isdigit(str[i]))
+// 			{
+// 				sum = sum * 10 + (str[i] - '0')*flag;
+// 				if(sum>INT_MAX)
+// 					return INT_MAX;
+// 				else if(sum<INT_MIN)
+// 					return INT_MIN;
+// 			}
+// 			else
+// 				break;
+// 			i++;
+// 		}
+// 		return sum;
+// 	}
+// };
+
+// int main()
+// {
+// 	string str("42");
+// 	cout<<Solution().strToInt(str);
+// 	return 0;
+// }
+
+// #include<iostream>
+// #include<algorithm>
+// #include<string>
+// #include<vector>
+// #include<unordered_map>
+// using namespace std;
+
+// class Solution
+// {
+// public:
+// 	int findClosest(vector<string> &words, string word1, string word2)
+// 	{
+// 		unordered_map<string,vector<int>>flag;
+// 		for(int i = 0;i < words.size();i++)
+// 		{
+// 			flag[words[i]].push_back(i);
+// 		}
+// 		int minlength = words.size();
+// 		//可能查找的单词不存在
+// 		if(flag.find(word1)==flag.end()|| flag.find(word2)==flag.end())
+// 			return minlength;
+// 		for(int i = 0,j = 0;i < flag[word1].size()&&j < flag[word2].size();)
+// 		{
+// 			if(flag[word1][i] == flag[word2][j])
+// 				return 0;
+// 			minlength = min(minlength,abs(flag[word1][i] - flag[word2][j]));
+// 			flag[word1][i] > flag[word2][j]?j++:i++;
+// 		}
+// 		return minlength;
+// 	}
+// };
+// int main()
+// {
+// 	vector<string>words{"I","am","a","student","from","a","university","in","a","city"};
+// 	string word1("a"),word2("student");
+// 	cout<<Solution().findClosest(words,word1,word2);
+// 	return 0;
+// }
+
+// #include<iostream>
+// #include<vector>
+// #include<algorithm>
+// using namespace std;
+// class Solution
+// {
+
+// public:
+// 	int maxAliveYear(vector<int> &birth, vector<int> &death)
+// 	{
+// 		vector<int>arr(101,0);
+// 		for(auto e: birth)
+// 		{
+// 			arr[e-1900]++;
+// 		}
+// 		for(auto e: death)
+// 		{
+// 			if(e-1900+1<arr.size())
+// 				arr[e-1900+1]--;
+// 		}
+// 		//求每一年的人数
+// 		int ret = 0;
+// 		for(int i = 1;i < arr.size();i++)
+// 		{
+// 			arr[i]+=arr[i-1];
+// 			if(arr[i]> arr[ret])
+// 				ret = i;
+// 		}
+// 		return 1900+ret;
+// 	}
+// };
+
+// int main()
+// {
+// 	vector<int>birth {1972,1908,1915,1957,1960,1948,1912,1903,1949,1977,1900,1957,1934,1929,1913,1902,1903,1901};
+// 	vector<int>death {1997,1932,1963,1997,1983,2000,1926,1962,1955,1997,1998,1989,1992,1975,1940,1903,1983,1969};
+// 	cout<<Solution().maxAliveYear(birth,death);
+// 	return 0;
+// }
+
+// #include<iostream>
+// #include<vector>
+// using namespace std;
+// class Solution
+// {
+// public:
+// 	bool searchMatrix(vector<vector<int>> &matrix, int target)
+// 	{
+// 		if (matrix.size() == 0)
+// 			return false;
+// 		int i = 0, j = matrix[0].size() - 1;
+// 		while (i < matrix.size() && j >= 0)
+// 		{
+// 			if (matrix[i][j] > target)
+// 				j--;
+// 			else if (matrix[i][j] < target)
+// 				i++;
+// 			else
+// 				return true;
+// 		}
+// 		return false;
+// 	}
+// };
+
+// int main()
+// {
+// 	return 0;
+// }
+
+
+// #include<iostream>
+// #include<vector>
+// #include<queue>
+// using namespace std;
+
+// struct TreeNode
+// {
+// 	int val;
+// 	TreeNode *left;
+// 	TreeNode *right;
+// 	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+// };
+
+// struct ListNode
+// {
+// 	int val;
+// 	ListNode *next;
+// 	ListNode(int x) : val(x), next(NULL) {}
+// };
+// class Solution
+// {
+// public:
+// 	vector<ListNode *> listOfDepth(TreeNode *tree)
+// 	{
+// 		queue<TreeNode *> q;
+// 		q.push(tree);
+// 		vector<ListNode *> ret;
+// 		while (!q.empty())
+// 		{
+// 			int size = q.size();
+// 			//size也就是当前层的节点数
+// 			ListNode *head = new ListNode(0);
+// 			ListNode *cur = head;
+// 			for (int i = 0; i < size; i++)
+// 			{
+// 				TreeNode *node = q.front();
+// 				q.pop();
+// 				if (node->left != nullptr)
+// 					q.push(node->left);
+// 				if (node->right != nullptr)
+// 					q.push(node->right);
+// 				cur->next = new ListNode(node->val);
+// 				cur = cur->next;
+// 			}
+// 			ret.push_back(head->next);
+// 		}
+// 		return ret;
+// 	}
+// };
+
+// #include<iostream>
+// #include<vector>
+// #include<algorithm>
+// using namespace std;
+
+// class Solution
+// {
+// public:
+// 	void wiggleSort(vector<int> &nums)
+// 	{
+// 		if(nums.size()<2)
+// 			return;
+// 		sort(nums.begin(), nums.end());
+// 		for(int i=1;i<nums.size()-1;i+=2)
+// 		{
+// 			swap(nums[i],nums[i+1]);
+// 		}
+// 	}
+// };
+
+// int main()
+// {
+// 	vector<int>nums{5, 3, 1, 2, 3};
+// 	Solution().wiggleSort(nums);
+// 	return 0;
+// }
+
+// #include<iostream>
+// #include<string>
+// #include<vector>
+// using namespace std;
+// class Solution {
+// public:
+//     vector<string> divideString(string s, int k, char fill) {
+//         vector<string>ret;
+// 		int flag = 0;
+// 		string tmp;
+// 		for(int i=0;i<s.size();i++)
+// 		{
+// 			tmp.push_back(s[i]);
+// 			flag++;
+// 			if(flag==k)
+// 			{
+// 				ret.push_back(tmp);
+// 				tmp.clear();
+// 				flag = 0;
+// 			}
+// 		}
+// 		if(tmp.size()!=0)
+// 		{
+// 			while(tmp.size()!=k)
+// 			{
+// 				tmp.push_back(fill);
+// 			}
+// 			ret.push_back(tmp);
+// 		}
+// 		return ret;
+//     }
+// };
+
+// //5194. 得到目标值的最少行动次数
+// #include<iostream>
+// using namespace std;
+// class Solution
+// {
+// public:
+// 	int minMoves(int target, int maxDoubles)
+// 	{
+// 		int count = 0;
+// 		int tmp = 0;
+// 		while (maxDoubles && target > 1)
+// 		{
+// 			if (target % 2)
+// 				count++;
+// 			target /= 2;
+// 			maxDoubles--;
+// 			count++;
+// 		}
+// 		count += target - 1;
+// 		return count;
+// 	}
+// };
+
+// int main()
+// {
+// 	return 0;
+// }
+
+
+// #include<iostream>
+// #include<vector>
+// using namespace std;
+
+// void Prime(vector<bool> &number)
+// {
+// 	for (int i = 2; i < number.size(); i++)
+// 	{
+// 		if (number[i] == true)
+// 		{
+// 			for (int j = 2 * i; j < number.size(); j += i)
+// 			{
+// 				number[j] = false;
+// 			}
+// 		}
+// 	}
+// }
+
+// int main()
+// {
+// 	vector<bool> number(100000, true);
+// 	Prime(number);
+// 	int k = 10;
+// 	for (int i = 2; i < number.size() - 10; i++)
+// 	{
+// 		if (number[i] == true)
+// 		{
+// 			//公差值
+// 			for (int z = 2; z < 1000; z++)
+// 			{
+// 				int j=0;
+// 				for (j = 0; j < k; j++)
+// 				{
+// 					if (number[i + z * j] == false)
+// 						break;
+// 				}
+
+// 				if (j == k)
+// 				{
+// 					cout << z << endl;
+// 					return 0;
+// 				}
+// 			}
+// 		}
+// 	}
+// 	return 0;
+// }
+
+#include<iostream>
+#include<vector>
+#include<queue>
+#include<algorithm>
+using namespace std;
+struct TreeNode
+{
+	int val;
+	TreeNode *left;
+	TreeNode *right;
+	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
 class Solution
 {
 public:
-	int strToInt(string str)
+	vector<vector<int>> levelOrder(TreeNode *root)
 	{
-		//去掉前导空格
-		int i = 0;
-		int size = str.size();
-		while(i<size)
+		if (root == nullptr)
+			return {};
+		vector<vector<int>> ret;
+		queue<TreeNode *> q;
+		q.push(root);
+		int flag = 0;
+		while (!q.empty())
 		{
-			if(str[i]!=' ')
-				break;
-			i++;
-		}
-
-		if(str[i]!='-'&&str[i]!='+'&& str[i]<'0'&&str[i]>'9')
-			return 0;
-		int flag = 1;
-		if(str[i]=='-'|| str[i]=='+')
-		{
-            if(str[i]=='-')
-			    flag *= -1;
-            i++;
-		}
-		int ret = 0;
-		while(i<size)
-		{
-			if(str[i]<'0'||str[i]>'9')
-				break;
-			if(ret > INT_MAX /10.0 -str[i]-'0')
+			vector<int> tmp;
+			int size = q.size();
+			for (int i = 0; i < size; i++)
 			{
-				ret = INT_MAX;
-				break;
+				TreeNode *node = q.front();
+				tmp.push_back(node->val);
+				if (node->left != nullptr)
+					q.push(node->left);
+				if (node->right != nullptr)
+					q.push(node->right);
+				q.pop();
 			}
-			cout<< str[i] - '0'<<endl;
-			ret= ret*10+str[i]-'0';
-			i++;
+
+			if (flag == 1)
+				reverse(tmp.begin(), tmp.end());
+			flag = flag == 0 ? 1 : 0;
+			ret.push_back(tmp);
 		}
-		if(ret == INT_MAX && flag ==-1)
-			ret =INT_MIN;
-		return flag *= ret;
+		return ret;
 	}
 };
-
-int main()
-{
-	string str("2147483646");
-	cout<<Solution().strToInt(str);
-	return 0;
-}
