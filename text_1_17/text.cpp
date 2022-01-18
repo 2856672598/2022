@@ -18,5 +18,6 @@ int main()
     Date d4(2046,1,31);
     cout<<d4-d1<<endl;
     d4.WeekDay();
+    cout<<d4;
     return 0;
 }

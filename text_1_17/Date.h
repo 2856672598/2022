@@ -1,7 +1,14 @@
 #pragma once
 #include <iostream>
+//using namespace std;
+using std::ostream;
+using std::istream;
 class Date
 {
+public:
+    friend ostream &operator<<(ostream &out, const Date &d);
+    friend istream &operator>>(istream &in, Date &d);
+
 public:
     Date(int year = 1, int month = 1, int day = 1)
         : _year(year),
@@ -33,3 +40,6 @@ private:
     int _month;
     int _day;
 };
+
+ostream& operator<<(ostream& out,const Date &d);
+istream& operator>>(istream &in, Date &d);
