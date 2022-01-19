@@ -247,35 +247,164 @@
 //};
 
 
+//#include<iostream>
+//#include<vector>
+//#include<algorithm>
+//using namespace std;
+//class Solution {
+//public:
+//	int getKthMagicNumber(int k)
+//	{
+//		vector<int>arr(k, 0);
+//		arr[0] = 1;
+//		int a1 = 0, a2 = 0, a3 = 0;
+//		for (int i = 1; i < k; i++)
+//		{
+//			arr[i] = min(min(arr[a1] * 3, arr[a2] * 5), arr[a3] * 7);
+//			if (arr[i] == arr[a1] * 3)
+//				a1++;
+//			else if (arr[i] == arr[a2] * 5)
+//				a2++;
+//			else
+//				a3++;
+//			if (arr[i] == arr[i - 1])
+//				i--;
+//		}
+//		return arr[k - 1];
+//	}
+//};
+//int main()
+//{
+//	int k = 10;
+//	cout << Solution().getKthMagicNumber(k) << endl;
+//	return 0;
+//}
+
+//#include<iostream>
+//using namespace std;
+//
+//class A
+//{
+//public:
+//	A(int a = 0)
+//	{
+//		_a = a;
+//		cout << "A(int a)" << endl;
+//	}
+//
+//	A(const A& a)
+//	{
+//		_a = a._a;
+//		cout << "A(const A& a)" << endl;
+//	}
+//
+//	A& operator=(const A& a)
+//	{
+//		cout << "A operator=(const A& a)" << endl;
+//		return *this;
+//	}
+//private:
+//	int _a;
+//};
+//
+//class Date
+//{
+//public:
+//	//Date(int _year, const A& a)
+//	//	:_year(_year)
+//	//	, _aa(a)
+//	//{}
+//
+//	Date(int _year, const A& a)
+//	{
+//		_year = _year;
+//		_aa = a;
+//	}
+//
+//private:
+//	//这是成员变量的声明，定义是在初始化列表
+//	int _year;
+//	A _aa;
+//};
+//
+//int main()
+//{
+//	Date d(2022, A(1));
+//	return 0;
+//}
+
+//#include<iostream>
+//using namespace std;
+//
+//class Date
+//{
+//public:
+//	void Print()
+//	{
+//		cout << _year << "-" << _month << "-" << _day << endl;
+//	}
+//private:
+//	//这里是声明;
+//	int _year = 1;
+//	int _month = 1;
+//	int _day = 1;
+//};
+//int main()
+//{
+//	Date d;
+//	d.Print();
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<vector>
+//#include<unordered_set>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	bool containsNearbyDuplicate(vector<int>& nums, int k)
+//	{
+//		unordered_set<int>s;
+//		for (int i = 0; i < nums.size(); i++)
+//		{
+//			if (i > k)
+//				s.erase(nums[i - k - 1]);
+//			if (s.count(nums[i]))
+//				return true;
+//			s.insert(nums[i]);
+//		}
+//		return false;
+//	}
+//};
+//int main()
+//{
+//	vector<int>nums{ 1,2,3,1,2,3 };
+//	int k = 2;
+//	cout << Solution().containsNearbyDuplicate(nums, k);
+//	return 0;
+//}
+
 #include<iostream>
-#include<vector>
-#include<algorithm>
 using namespace std;
-class Solution {
+
+class Date
+{
 public:
-	int getKthMagicNumber(int k)
+	Date operator++(int)
 	{
-		vector<int>arr(k, 0);
-		arr[0] = 1;
-		int a1 = 0, a2 = 0, a3 = 0;
-		for (int i = 1; i < k; i++)
-		{
-			arr[i] = min(min(arr[a1] * 3, arr[a2] * 5), arr[a3] * 7);
-			if (arr[i] == arr[a1] * 3)
-				a1++;
-			else if (arr[i] == arr[a2] * 5)
-				a2++;
-			else
-				a3++;
-			if (arr[i] == arr[i - 1])
-				i--;
-		}
-		return arr[k - 1];
+		Date tmp(*this);
+		_day++;
+		return tmp;
 	}
+private:
+	int _year;
+	int _month;
+	int _day;
 };
 int main()
 {
-	int k = 10;
-	cout << Solution().getKthMagicNumber(k) << endl;
+	Date d;
+	d++;
 	return 0;
 }
