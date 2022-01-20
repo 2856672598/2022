@@ -385,26 +385,235 @@
 //	return 0;
 //}
 
+//#include<iostream>
+//using namespace std;
+//
+//class Date
+//{
+//public:
+//	Date operator++(int)
+//	{
+//		Date tmp(*this);
+//		_day++;
+//		return tmp;
+//	}
+//private:
+//	int _year;
+//	int _month;
+//	int _day;
+//};
+//int main()
+//{
+//	Date d;
+//	d++;
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<vector>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int search(vector<int>& nums, int target)
+//	{
+//		int left = 0, right = nums.size() - 1;
+//		int mid = 0;
+//		while (left <= right)
+//		{
+//			mid = left + (right - left) / 2;
+//			if (nums[mid] == target)
+//			{
+//				break;
+//			}
+//			else if (nums[mid] < target)
+//			{
+//				left = mid + 1;
+//			}
+//			else
+//				right = mid - 1;
+//		}
+//		//判断下是是否存在
+//		if (left <= right)
+//		{
+//			while (left <= mid)
+//			{
+//				if (target != nums[mid])
+//				{
+//					mid++;
+//					break;
+//				}
+//				mid--;
+//			}
+//			mid = mid < left ? left : mid;
+//		}
+//		else
+//			mid = -1;
+//		return  mid;
+//	}
+//};
+//int main()
+//{
+//	vector<int>nums{ 1,1,2,3,7,7,7,9,9,10 };
+//	int target = 2;
+//	cout << Solution().search(nums, target);
+//	return 0;
+//}
+
+
+//#include<iostream>
+//#include<vector>
+//#include<unordered_set>
+//#include<algorithm>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int maxLength(vector<int>& arr)
+//	{
+//		unordered_set<int>s;
+//		int ret = 0;
+//		int left = 0, right = 0;
+//		while (right < arr.size())
+//		{
+//			while (s.count(arr[right]))
+//			{
+//				s.erase(arr[left++]);
+//			}
+//			s.insert(arr[right++]);
+//			ret = max(ret, right - left);
+//		}
+//		return ret;
+//	}
+//};
+//int main()
+//{
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<vector>
+//#include<algorithm>
+//using namespace std;
+//class Solution {
+//public:
+//	int longestSubarray(vector<int>& nums)
+//	{
+//		int left = 0, right = 0, ret = 0;
+//		int zero = 0;
+//		while (right < nums.size())
+//		{
+//			if (nums[right] == 0)
+//				zero++;
+//			while (zero > 1)
+//			{
+//				if (nums[left] == 0)
+//				{
+//					zero--;
+//					left++;
+//					break;
+//				}
+//				left++;
+//			}
+//			ret = max(ret, right - left);
+//			right++;
+//		}
+//		return ret;
+//	}
+//};
+//int main()
+//{
+//	vector<int>nums{ 0,1,1,1,0,1,1,0,1 };
+//	cout << Solution().longestSubarray(nums);
+//	return 0;
+//}
+
+//#include<iostream>
+//using namespace std;
+//class Solution
+//{
+//public:
+//	bool IsAutonomicNumber(int n)
+//	{
+//		//计算位数
+//		int flag = 1;
+//		int tmp = n;
+//		while (tmp)
+//		{
+//			tmp /= 10;
+//			flag *= 10;
+//		}
+//		if ((n*n) % flag == n)
+//			return true;
+//		return false;
+//	}
+//};
+//
+//int main()
+//{
+//	int n;
+//	while (cin >> n)
+//	{
+//		int count = 0;
+//		for (int i = 0; i <= n; i++)
+//		{
+//			if (Solution().IsAutonomicNumber(i))
+//				count++;
+//		}
+//		cout << count << endl;
+//	}
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//
+//int main()
+//{
+//	long long input;
+//	cin >> input;
+//	int s = input / 1000;
+//	int m = s / 60;
+//	int h = m / 60;
+//	printf("%02d:%02d:%02d\n", h % 24, m % 60, s % 60);
+//	return 0;
+//}
+
 #include<iostream>
+#include<vector>
+#include<algorithm>
 using namespace std;
 
-class Date
+bool comp(int i, int j)
 {
-public:
-	Date operator++(int)
-	{
-		Date tmp(*this);
-		_day++;
-		return tmp;
-	}
-private:
-	int _year;
-	int _month;
-	int _day;
-};
+	return i > j;
+}
+
 int main()
 {
-	Date d;
-	d++;
+	int n, m;
+	vector<int>v;
+	cin >> n >> m;
+	for (int i = 1; i <= n; i++)
+	{
+		v.push_back(i);
+	}
+	while (m)
+	{
+		int tmp1, tmp2;
+		cin >> tmp1 >> tmp2;
+		if (tmp1 == 0)
+		{
+			sort(v.begin(), v.begin() + tmp2, comp);
+		}
+		else
+		{
+			sort(v.begin() + tmp2 - 1, v.end());
+		}
+		m--;
+	}
+	for (int i = 0; i < n; i++)
+		cout << v[i] << " ";
 	return 0;
 }
