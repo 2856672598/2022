@@ -580,40 +580,211 @@
 //	return 0;
 //}
 
+//#include<iostream>
+//#include<vector>
+//#include<algorithm>
+//using namespace std;
+//
+//bool comp(int i, int j)
+//{
+//	return i > j;
+//}
+//
+//int main()
+//{
+//	int n, m;
+//	vector<int>v;
+//	cin >> n >> m;
+//	for (int i = 1; i <= n; i++)
+//	{
+//		v.push_back(i);
+//	}
+//	while (m)
+//	{
+//		int tmp1, tmp2;
+//		cin >> tmp1 >> tmp2;
+//		if (tmp1 == 0)
+//		{
+//			sort(v.begin(), v.begin() + tmp2, comp);
+//		}
+//		else
+//		{
+//			sort(v.begin() + tmp2 - 1, v.end());
+//		}
+//		m--;
+//	}
+//	for (int i = 0; i < n; i++)
+//		cout << v[i] << " ";
+//	return 0;
+//}
+
+//#include<iostream>
+//using namespace std;
+//
+//class Date
+//{
+//	friend istream& operator>>(istream& _cin, Date& d1);
+//public:
+//	Date(int year = 1, int month = 1, int day = 1)
+//	{
+//		_year = year;
+//		_month = month;
+//		_day = day;
+//	}
+//	int GetMonthDay(int year, int month)const
+//	{
+//		int arr[13] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+//		int day = arr[month];
+//		if (month == 2 && ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0))
+//			day += 1;
+//		return day;
+//	}
+//
+//	int Days(const Date& init)const
+//	{
+//		int ret = _day;
+//		for (int i = init._year; i < _year; i++)
+//		{
+//			ret += 365;
+//			if ((i % 4 == 0 && i % 100 != 0) || i % 400 == 0)
+//				ret += 1;
+//		}
+//		//计算月
+//		for (int i = 1; i < _month; i++)
+//		{
+//			ret += GetMonthDay(_year, i);
+//		}
+//		return ret;
+//	}
+//
+//	bool operator>(const Date &d)const
+//	{
+//		if (_year > d._year)
+//			return true;
+//		else if (_year == d._year && _month > d._month)
+//			return true;
+//		else if (_year == d._year && _month > d._month && _day > d._day)
+//			return true;
+//		return false;
+//	}
+//
+//	int operator-(const Date& d)
+//	{
+//		Date min = *this > d ? d : *this;
+//		int ret = abs(this->Days(min) - d.Days(min));
+//		if (ret != 0)
+//			ret += 1;
+//		return ret;
+//	}
+//private:
+//	int _year;
+//	int _month;
+//	int _day;
+//};
+//
+//istream& operator>>(istream& _cin, Date& d1)
+//{
+//	int tmp;
+//	cin >> tmp;
+//	d1._day = tmp % 100;
+//	tmp /= 100;
+//	d1._month = tmp % 100;
+//	tmp /= 100;
+//	d1._year = tmp;
+//	return _cin;
+//}
+//
+//int main()
+//{
+//	Date d1, d2;
+//	while (cin >> d1 >> d2)
+//	{
+//		cout << d1 - d2 << endl;
+//	}
+//	return 0;
+//}
+
+
+//#include<iostream>
+//using namespace std;
+//struct ListNode {
+//	int val;
+//	ListNode *next;
+//	ListNode(int x) : val(x), next(NULL) {}
+//};
+// 
+//class Solution {
+//public:
+//	int kthToLast(ListNode* head, int k) {
+//
+//		ListNode* fast = head, *slow = head;
+//		while (fast&&k)
+//		{
+//			fast = fast->next;
+//			k--;
+//		}
+//		while (fast != nullptr)
+//		{
+//			fast = fast->next;
+//			slow = slow->next;
+//		}
+//		return slow->val;
+//	}
+//};
+
+////539. 最小时间差
+//#include<iostream>
+//#include<algorithm>
+//#include<vector>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int GetMinute(const string& s)
+//	{
+//		int hour = (s[0] - '0') * 10 + s[1] - '0';
+//		int minute = (s[3] - '0') * 10 + s[4] - '0';
+//		minute += hour * 60;
+//		return minute;
+//	}
+//	int findMinDifference(vector<string>& timePoints) {
+//		sort(timePoints.begin(), timePoints.end());
+//		int ret = INT_MAX;
+//		for (int i = 1; i < timePoints.size(); i++)
+//		{
+//			ret = min(abs(GetMinute(timePoints[i]) - GetMinute(timePoints[i - 1])), ret);
+//		}
+//		ret = min(abs(GetMinute(timePoints[0]) + 1440 - GetMinute(timePoints[timePoints.size() - 1])), ret);
+//		return ret;
+//	}
+//};
+//int main()
+//{
+//	vector<string>timePoints{ "23:59","00:00" };
+//	cout << Solution().findMinDifference(timePoints) << endl;
+//	return 0;
+//}
+
 #include<iostream>
 #include<vector>
 #include<algorithm>
 using namespace std;
 
-bool comp(int i, int j)
-{
-	return i > j;
-}
+class Solution {
+public:
+	int largestAltitude(vector<int>& gain)
+	{
+		int ret = 0, cur = 0;
+		for (int i = 0; i < gain.size(); i++)
+		{
+			ret = max(ret, cur + gain[i]);
+			cur = cur + gain[i];
+		}
+		return ret;
+	}
+};
 
 int main()
 {
-	int n, m;
-	vector<int>v;
-	cin >> n >> m;
-	for (int i = 1; i <= n; i++)
-	{
-		v.push_back(i);
-	}
-	while (m)
-	{
-		int tmp1, tmp2;
-		cin >> tmp1 >> tmp2;
-		if (tmp1 == 0)
-		{
-			sort(v.begin(), v.begin() + tmp2, comp);
-		}
-		else
-		{
-			sort(v.begin() + tmp2 - 1, v.end());
-		}
-		m--;
-	}
-	for (int i = 0; i < n; i++)
-		cout << v[i] << " ";
 	return 0;
 }
