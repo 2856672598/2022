@@ -66,11 +66,12 @@
 
 
 // #include<stdio.h>
+// #include<stdlib.h>
 // struct TreeNode
 // {
 //     int val;
 //     struct TreeNode* left;
-//     struct TreeNode* right
+//     struct TreeNode* right;
 // };
 
 // void postorderTraversal(struct TreeNode *root)
@@ -82,6 +83,35 @@
 //     printf("%d ",root->val);
 // }
 
+// int main()
+// {
+//     TreeNode *p1 = (TreeNode *)malloc(sizeof(TreeNode));
+//     TreeNode *p2 = (TreeNode *)malloc(sizeof(TreeNode));
+//     TreeNode *p3 = (TreeNode *)malloc(sizeof(TreeNode));
+//     TreeNode *p4 = (TreeNode *)malloc(sizeof(TreeNode));
+//     TreeNode *p5 = (TreeNode *)malloc(sizeof(TreeNode));
+//     TreeNode *p6 = (TreeNode *)malloc(sizeof(TreeNode));
+//     TreeNode *p7 = (TreeNode *)malloc(sizeof(TreeNode));
+//     p1->val = 1;
+//     p2->val = 2;
+//     p3->val = 3;
+//     p4->val = 4;
+//     p5->val = 5;
+//     p6->val = 6;
+//     p7->val = 7;
+//     p1->left = p2;
+//     p1->right = p3;
+//     p2->left = p4;
+//     p2->right = p5;
+//     p3->left = p6;
+//     p3->right = p7;
+//     p4->left = p4->right = NULL;
+//     p5->left = p5->right = NULL;
+//     p6->left = p6->right = NULL;
+//     p7->left = p7->right = NULL;
+//     postorderTraversal(p1);
+//     return 0;
+// }
 
 // #include<stdio.h>
 // #include<stdlib.h>
@@ -114,7 +144,8 @@
 //         tmp[insert++] = nums[begin1++];
 //     }
 //     //拷会原数组
-//     for (size_t i = left; i <= right; i++)
+//     size_t i;
+//     for (i = left; i <= right; i++)
 //     {
 //         nums[i] = tmp[i];
 //     }
@@ -122,7 +153,7 @@
 
 // void mergeSort(int *nums, int size)
 // {
-//     int *tmp = malloc(sizeof(int)*size);
+//     int *tmp = (int*)malloc(sizeof(int)*size);
 //     _mergeSort(nums, 0, size - 1, tmp);
 //     free(tmp);
 // }
@@ -132,7 +163,8 @@
 //     int nums[] = {58, 34, 65, 78, 49, 23, 90, 62, 97, 76};
 //     int size = sizeof(nums) / sizeof(nums[0]);
 //     mergeSort(nums, size);
-//     for (int i = 0; i < size; i++)
+//     int i=0;
+//     for (i = 0; i < size; i++)
 //     {
 //         printf("%d ", nums[i]);
 //     }
@@ -239,41 +271,136 @@
 //     }
 // };
 
-//148. 排序链表
-#include<iostream>
-#include<vector>
-#include<algorithm>
-using namespace std;
-struct ListNode
-{
-    int val;
-    ListNode *next;
-    ListNode() : val(0), next(nullptr) {}
-    ListNode(int x) : val(x), next(nullptr) {}
-    ListNode(int x, ListNode *next) : val(x), next(next) {}
-};
-class Solution
-{
-public:
-    ListNode *sortList(ListNode *head)
-    {
-        if (head == nullptr)
-            return head;
-        vector<int> nums;
-        ListNode *cur = head;
-        while (cur)
-        {
-            nums.push_back(cur->val);
-            cur = cur->next;
-        }
-        sort(nums.begin(), nums.end());
-        cur = head;
-        int i = 0;
-        while (cur)
-        {
-            cur->val = nums[i++];
-            cur = cur->next;
-        }
-        return head;
-    }
-};
+// //148. 排序链表
+// #include<iostream>
+// #include<vector>
+// #include<algorithm>
+// using namespace std;
+// struct ListNode
+// {
+//     int val;
+//     ListNode *next;
+//     ListNode() : val(0), next(nullptr) {}
+//     ListNode(int x) : val(x), next(nullptr) {}
+//     ListNode(int x, ListNode *next) : val(x), next(next) {}
+// };
+// class Solution
+// {
+// public:
+//     ListNode *sortList(ListNode *head)
+//     {
+//         if (head == nullptr)
+//             return head;
+//         vector<int> nums;
+//         ListNode *cur = head;
+//         while (cur)
+//         {
+//             nums.push_back(cur->val);
+//             cur = cur->next;
+//         }
+//         sort(nums.begin(), nums.end());
+//         cur = head;
+//         int i = 0;
+//         while (cur)
+//         {
+//             cur->val = nums[i++];
+//             cur = cur->next;
+//         }
+//         return head;
+//     }
+// };
+
+// #include<iostream>
+// #include<vector>
+// #include<algorithm>
+// using namespace std;
+
+// class Solution
+// {
+// public:
+//     int countElements(vector<int> &nums)
+//     {
+//         sort(nums.begin(), nums.end());
+//         int ret = 0;
+//         for (int i = 1; i < nums.size() - 1; i++)
+//         {
+//             if (nums[i] > nums[0] && nums[i] < nums[nums.size() - 1])
+//                 ret++;
+//         }
+//         return ret;
+//     }
+// };
+// int main()
+// {
+//     return 0;
+// }
+
+// #include<iostream>
+// #include<vector>
+// using namespace std;
+
+// class Solution
+// {
+// public:
+//     vector<int> rearrangeArray(vector<int> &nums)
+//     {
+//         vector<int> nums1, nums2;
+//         for (int i = 0; i < nums.size(); i++)
+//         {
+//             if (nums[i] >= 0)
+//                 nums1.push_back(nums[i]);
+//             else
+//                 nums2.push_back(nums[i]);
+//         }
+//         vector<int> ret;
+//         int begin1 = 0, begin2 = 0;
+//         while (begin1 < nums1.size() && begin2 < nums2.size())
+//         {
+//             ret.push_back(nums1[begin1++]);
+//             ret.push_back(nums2[begin2++]);
+//         }
+//         return ret;
+//     }
+// };
+
+// int main()
+// {
+//     vector<int> nums{3, 1, -2, -5, 2, -4};
+//     vector<int> ret = Solution().rearrangeArray(nums);
+//     for (auto e : ret)
+//         cout << e << " ";
+//     return 0;
+// }
+
+// #include<iostream>
+// #include<vector>
+// #include<unordered_map>
+// using namespace std;
+
+// class Solution
+// {
+// public:
+//     vector<int> findLonely(vector<int> &nums)
+//     {
+//         unordered_map<int, int> m;
+//         for (auto e : nums)
+//         {
+//             m[e]++;
+//         }
+//         vector<int> ret;
+//         for (auto e : m)
+//         {
+//             if (e.second == 1)
+//             {
+//                 auto it = m.find(e.first + 1);
+//                 if (it == m.find(e.first - 1) && it == m.end())
+//                     ret.push_back(e.first);
+//             }
+//         }
+//         return ret;
+//     }
+// };
+// int main()
+// {
+//     return 0;
+// }
