@@ -404,3 +404,220 @@
 // {
 //     return 0;
 // }
+
+// #include<iostream>
+// #include<vector>
+// #include<algorithm>
+// using namespace std;
+
+// class Solution
+// {
+// public:
+//     int minimumCost(vector<int> &cost)
+//     {
+//         sort(cost.begin(), cost.end());
+//         int ret = 0;
+//         int right = cost.size() - 1, left = right - 1;
+//         while (left >= 0)
+//         {
+//             ret += cost[left];
+//             ret += cost[right];
+//             right -= 3;
+//             left = right - 1;
+//         }
+//         if (right == 0)
+//             ret += cost[right];
+//         return ret;
+//     }
+// };
+
+// int main()
+// {
+//     vector<int>nums{1,2,3};
+//     cout<<Solution().minimumCost(nums);
+//     return 0;
+// }
+
+// #include <iostream>
+// #include <vector>
+// using namespace std;
+// int main()
+// {
+// 	int n, m;
+// 	cin >> n >> m;
+// 	vector<int> nums;
+// 	for (int i = 0; i < n; i++)
+// 	{
+// 		int tmp;
+// 		cin >> tmp;
+// 		nums.push_back(tmp);
+// 	}
+// 	//求出差分数组
+// 	vector<int> diff(n);
+// 	diff[0] = nums[0];
+// 	for (int i = 1; i < nums.size(); i++)
+// 	{
+// 		diff[i] = nums[i] - nums[i - 1];
+// 	}
+// 	while (m--)
+// 	{
+// 		int left, right, c;
+// 		cin >> left >> right >> c;
+// 		if (left >= 0)
+// 			diff[left - 1] += c;
+// 		if (right < n)
+// 			diff[right] -= c;
+// 	}
+// 	int sum = 0;
+// 	for (int i = 0; i < diff.size(); i++)
+// 	{
+// 		sum += diff[i];
+// 		cout << sum << " ";
+// 	}
+// 	return 0;
+// }
+
+// #include<iostream>
+// #include<vector>
+// #include<algorithm>
+// using namespace std;
+
+// class Solution
+// {
+// public:
+// 	int numberOfArrays(vector<int> &differences, int lower, int upper)
+// 	{
+// 		vector<long long> nums(differences.size() + 1);
+// 		nums[0] = differences[0];
+// 		for (int i = 0; i < differences.size(); i++)
+// 		{
+// 			nums[i + 1] = nums[i] + differences[i];
+// 		}
+// 		long long minnum = INT_MAX, maxnum = INT_MIN;
+// 		for (int i = 0; i < nums.size(); i++)
+// 		{
+// 			minnum = min(nums[i], minnum);
+// 			maxnum = max(nums[i], maxnum);
+// 		}
+// 		int interval1 = upper - lower;
+// 		int interval2 = maxnum - minnum;
+// 		if (interval2 > interval1)
+// 			return 0;
+// 		return interval1 - interval2 + 1;
+// 	}
+// };
+// int main()
+// {
+// 	vector<int>diff{ 3,-4,5,1,-2 };
+// 	int lower = -4, upper = 5;
+// 	cout << Solution().numberOfArrays(diff, lower, upper);
+// 	return 0;
+// }
+
+
+// #include<iostream>
+// using namespace std;
+
+// class Solution
+// {
+// public:
+//     int numberOfMatches(int n)
+//     {
+//         int ret = 0;
+//         while (n > 1)
+//         {
+//             if (n % 2 == 1)
+//             {
+//                 ret += n / 2;
+//                 n++;
+//             }
+//             else
+//                 ret += n / 2;
+//             n /= 2;
+//         }
+//         return ret;
+//     }
+// };
+
+// int main()
+// {
+//     int n=7;
+//     cout<<Solution().numberOfMatches(n);
+//     return 0;
+// }
+
+// #include<iostream>
+// #include<map>
+// using namespace std;
+
+// class StreamRank
+// {
+// public:
+//     map<int, int> m;
+//     StreamRank()
+//     {
+//     }
+
+//     void track(int x)
+//     {
+//         m[x]++;
+//     }
+
+//     int getRankOfNumber(int x)
+//     {
+//         int ret = 0;
+//         for (auto e : m)
+//         {
+//             if (e.first > x)
+//                 break;
+//             ret += e.second;
+//         }
+//         return ret;
+//     }
+// };
+
+// #include<iostream>
+// #include<vector>
+// #include<string>
+// #include<algorithm>
+// using namespace std;
+
+// class Solution {
+// public:
+//     bool Check(string s1,string s2)
+//     {
+//         char arr[26];
+//         for(int i=0;i<s1.size();i++)
+//         {
+//             arr[s1[i]-'a']++;
+//         }
+//         for(int i=0;i<s2.size();i++)
+//         {
+//             if(arr[s2[i]-'a']!=0)
+//                 return false;
+//         }
+//         return true;
+//     }
+//     int maxProduct(vector<string>& words) {
+//         int ret =0;
+//         for(int i=0;i<words.size();i++)
+//         {
+//             for(int j=i+1;j<words.size();j++)
+//             {
+//                 if(Check(words[i],words[j]))
+//                 {
+//                     ret = max(ret,(int)(words[i].size()*words[j].size()));
+//                 }
+//             }
+//         }
+//         return ret;
+//     }
+// };
+
+// int main()
+// {
+//     vector<string> words{"a","ab","abc","d","cd","bcd","abcd"};
+//     cout<<Solution().maxProduct(words)<<endl;
+//     return 0;
+// }
+
