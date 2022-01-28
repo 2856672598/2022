@@ -6,7 +6,7 @@
 #include<sys/socket.h>
 #include<arpa/inet.h>
 #include<netinet/in.h>
-
+#include<cstdlib>
 class Client
 {
   public:
@@ -20,6 +20,7 @@ class Client
     {
       //创建一个套接字
       sockfd = socket(AF_INET,SOCK_DGRAM,0);
+      std::cout<<_ip<<std::endl;
     }
 
     void Start()

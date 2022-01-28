@@ -10,9 +10,8 @@
 class Server
 {
   public:
-    Server(std::string ip = "127.0.0.1",int port = 8080)
-      :_ip(ip)
-       ,_port(port)
+    Server(int port = 8081)
+      :_port(port)
     {}
 
 
@@ -23,7 +22,7 @@ class Server
       struct sockaddr_in tmp;
 
       tmp.sin_family = AF_INET;
-      tmp.sin_addr.s_addr =inet_addr(_ip.c_str());
+      tmp.sin_addr.s_addr =INADDR_ANY;
       tmp.sin_port =htons( _port);
 
       if(bind(sockfd,(sockaddr*)&tmp,sizeof(tmp))== -1)
@@ -46,6 +45,7 @@ class Server
         if(size>0)
         {
           arr[size]='\0';
+          std::cout<< inet_ntoa(tmp.sin_addr)<<":"<<ntohs(tmp.sin_port)<<"#";
           std::cout<<arr<<std::endl;
         }
       }
