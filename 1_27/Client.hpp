@@ -36,6 +36,14 @@ class Client
         remote.sin_port =htons(_port);
         remote.sin_addr.s_addr =inet_addr(_ip.c_str());
         sendto(sockfd,arr.c_str(),arr.size(),0,(struct sockaddr*)&remote,sizeof(remote));
+        socklen_t len = sizeof(remote);
+        char buff[128];
+        ssize_t s = recvfrom(sockfd,buff,sizeof(buff)-1,0,(struct sockaddr*)&remote,&len);
+        if(s>0)
+        {
+          buff[s]='\0';
+          std::cout<<buff<<std::endl;
+        }
       }
     }
 
