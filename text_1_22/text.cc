@@ -621,3 +621,160 @@
 //     return 0;
 // }
 
+// #include<iostream>
+// #include<vector>
+// using namespace std;
+// // class Solution {
+// // public:
+// //     int findFinalValue(vector<int>& nums, int original) {
+// //         while(find(nums.begin(),nums.end(),original)!=nums.end())
+// //         {
+// //             original*=2;
+// //         }
+// //         return original;
+// //     }
+// // };
+
+// class Solution {
+// public:
+//     vector<int> maxScoreIndices(vector<int>& nums) {
+//         vector<int>ret;
+//         vector<int>leftnums(nums.size()+1,0);
+//         vector<int>rightnums(nums.size()+1,0);
+//         for (int i = 1; i < leftnums.size(); i++)
+//         {
+
+//             leftnums[i] = leftnums[i - 1];
+//             if (nums[i-1] == 0)
+//                 leftnums[i] += 1;
+//         }
+
+//         for (int i = rightnums.size() - 2; i >= 0; i--)
+//         {
+//             rightnums[i] = rightnums[i + 1];
+//             if (nums[i] == 1)
+//                 rightnums[i] += 1;
+//         }
+//         vector<int>sum(rightnums.size());
+//         sum[0] =rightnums[0];
+//         sum[rightnums.size()-1]=leftnums[rightnums.size()-1];
+//         for(int i=1;i<sum.size()-1;i++)
+//         {
+//             sum[i]=leftnums[i]+rightnums[i];
+//         }
+//         int max = 0;
+//         for (int i = 0; i < sum.size(); i++)
+//         {
+//             if (sum[i] > max)
+//             {
+//                 ret.resize(0);
+//                 ret.push_back(i);
+//                 max = sum[i];
+//             }
+//             else if (sum[i] == max)
+//                 ret.push_back(i);
+//         }
+//         return ret;
+//     }
+// };
+// int main()
+// {
+//     vector<int>nums{0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1};
+//     Solution().maxScoreIndices(nums);
+//     return 0;
+// }
+
+// #include<iostream>
+// #include<vector>
+// using namespace std;
+
+// struct TreeNode
+// {
+//     int val;
+//     TreeNode *left;
+//     TreeNode *right;
+//     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+// };
+// class Solution
+// {
+// public:
+//     vector<TreeNode*>nums;
+//     int flag=0;
+//     void Inorder(TreeNode *root)
+//     {
+//         if(root ==nullptr)
+//             return ;
+//         Inorder(root->left);
+//         nums.push_back(root);
+//         Inorder(root->right);
+//     }
+//     TreeNode *inorderSuccessor(TreeNode *root, TreeNode *p)
+//     {
+//         Inorder(root);
+//         auto it =find(nums.begin(),nums.end(),p);
+//         it++;
+//         if(it == nums.end())
+//             return nullptr;
+//         return *it;
+//     }
+// };
+// int main()
+// {
+//     return 0;
+// }
+
+
+#include<iostream>
+#include<vector>
+#include<cstdlib>
+using namespace std;
+
+class Solution
+{
+public:
+    bool oneEditAway(string first, string second)
+    {
+        if (abs(int(first.size() - second.size())) > 1)
+            return false;
+        int flag = 0;
+        int begin1 = 0, begin2 = 0;
+        if (first.size() == second.size())
+        {
+            while (begin1 < first.size() && begin2 < second.size())
+            {
+                if (first[begin1++] != second[begin2++])
+                    flag++;
+            }
+        }
+        else
+        {
+            string lo = first, sh = second;
+            if (lo.size() < sh.size())
+            {
+                lo = second;
+                sh = first;
+            }
+            while (begin1 < lo.size() && begin2 < sh.size())
+            {
+                if (lo[begin1] != sh[begin2])
+                {
+                    begin1++;
+                    flag++;
+                }
+                else
+                {
+                    begin1++;
+                    begin2++;
+                }
+            }
+        }
+        if (flag > 1)
+            return false;
+        return true;
+    }
+};
+
+int main()
+{
+    return 0;
+}
