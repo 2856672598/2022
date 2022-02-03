@@ -5,13 +5,19 @@
 #include<sys/socket.h>
 #include<arpa/inet.h>
 #include<cstdlib>
+#include<unistd.h>
+#include<signal.h>
 #define BACKLOG 10
 class TcpServer
 {
   public:
     TcpServer(int port = 8080)
       :_port(port)
+    {}
+
+    void Init()
     {
+      signal(SIGCHLD,SIG_IGN);
       _sockfd = socket(AF_INET,SOCK_STREAM,0);
       struct sockaddr_in local;
       local.sin_family = AF_INET;
@@ -29,6 +35,31 @@ class TcpServer
         exit(1);
       }
     }
+
+    void service(int sockfd)
+    {
+      char buff[128];
+      while(true)
+      {
+        ssize_t sz = recv(sockfd,buff,sizeof(buff)-1,0);
+        if(sz > 0)
+        {
+          buff[sz] = '\0';
+          std::cout<<buff<<std::endl;
+          send(sockfd,buff,sz,0);
+        }
+        else if(sz == -1)
+        {
+          std::cerr<<"recv errno"<<std::endl;
+          exit(1);
+        }
+        else 
+        {
+          std::cout<<"断开连接"<<std::endl;
+          break;
+        }
+      }
+    }
     
     void start()
     {
@@ -40,15 +71,15 @@ class TcpServer
         int fd = accept(_sockfd,(sockaddr*)&endpoint,&sz);
         if(fd < 0)
           continue;
-
-        char buff[128];
-        ssize_t size = recv(fd,buff,sizeof(buff)-1,0);
-        std::cout<<"链接成功"<<std::endl;
-        if(size > 0)
+        std::cout<<"["<<inet_ntoa(endpoint.sin_addr)<<"]连接成功"<<std::endl;
+        //创建子进程
+        if(fork() == 0)
         {
-          buff[size] = '\0';
-          std::cout<<buff<<std::endl;
+          service(fd);
+          close(_sockfd);
+          exit(0);
         }
+        close(fd);
       }
 
     }

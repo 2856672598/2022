@@ -5,6 +5,7 @@ using namespace std;
 int main()
 {
   TcpServer* tcp = new TcpServer;
+  tcp->Init();
   tcp->start();
 
   delete tcp;
