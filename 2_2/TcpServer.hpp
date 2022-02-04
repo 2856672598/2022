@@ -7,6 +7,7 @@
 #include<cstdlib>
 #include<unistd.h>
 #include<signal.h>
+#include<pthread.h>
 #define BACKLOG 10
 class TcpServer
 {
@@ -36,9 +37,11 @@ class TcpServer
       }
     }
 
-    void service(int sockfd)
+    static void* service(void* fd)
     {
+      pthread_detach(pthread_self());
       char buff[128];
+      int sockfd = *(int*)fd;
       while(true)
       {
         ssize_t sz = recv(sockfd,buff,sizeof(buff)-1,0);
@@ -59,6 +62,8 @@ class TcpServer
           break;
         }
       }
+      close(sockfd);
+      delete  (int*)fd;
     }
     
     void start()
@@ -72,14 +77,21 @@ class TcpServer
         if(fd < 0)
           continue;
         std::cout<<"["<<inet_ntoa(endpoint.sin_addr)<<"]连接成功"<<std::endl;
-        //创建子进程
-        if(fork() == 0)
-        {
-          service(fd);
-          close(_sockfd);
-          exit(0);
-        }
-        close(fd);
+        ////创建子进程
+        //if(fork() == 0)
+        //{
+        //  service(fd);
+        //  close(_sockfd);
+        //  exit(0);
+        //}
+        //close(fd);
+        
+
+        //使用多线程
+        pthread_t pfd;
+        int* tmp = new int(fd);
+        pthread_create(&pfd,NULL,service,tmp);
+
       }
 
     }
