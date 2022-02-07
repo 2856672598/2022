@@ -331,37 +331,132 @@
 //     return 0;
 // }
 
+// #include<iostream>
+// #include<vector>
+// using namespace std;
+
+// class Solution
+// {
+// public:
+//     int subarraySum(vector<int> &nums, int k)
+//     {
+//         int ret = 0, sum = 0;
+//         int left = 0, right = 0;
+//         while (right < nums.size())
+//         {
+//             sum += nums[right];
+//             while (sum > k && left <= right)
+//             {
+//                 sum -= nums[left++];
+//             }
+//             if (sum == k && left <= right)
+//             {
+//                 ret++;
+//             }
+//             right++;
+//         }
+//         return ret;
+//     }
+// };
+// int main()
+// {
+//     vector<int>nums{1};
+//     int k =0;
+//     Solution().subarraySum(nums,k);
+//     return 0;
+// }
+
+
+// #include<iostream>
+// #include<vector>
+// #include<algorithm>
+// #include<unordered_map>
+// using namespace std;
+
+// class Solution
+// {
+// public:
+//     int findMaxLength(vector<int> &nums)
+//     {
+//         int cnt = 0;
+//         int ret = 0;
+//         unordered_map<int, int> m;
+//         m[0] = -1;
+//         for (int i = 0; i < nums.size(); i++)
+//         {
+//             if (nums[i] == 0)
+//                 cnt -= 1;
+//             else
+//                 cnt += 1;
+//             if (m.count(cnt))
+//             {
+//                 ret = max(ret, i - m[cnt]);
+//             }
+//             else
+//                 m[cnt] = i;
+//         }
+//         return ret;
+//     }
+// };
+
+// int main()
+// {
+//     vector<int>nums{0,0,1,0,0,0,1,1};
+//     Solution().findMaxLength(nums);
+//     return 0;
+// }
+
+// #include<iostream>
+// #include<vector>
+// using namespace std;
+
+// class Solution
+// {
+// public:
+//     int sumOfUnique(vector<int> &nums)
+//     {
+//         int arr[101] = {0};
+//         for (auto e : nums)
+//             arr[e]++;
+//         int sum = 0;
+//         for (int i = 1; i <= 100; i++)
+//         {
+//             if (arr[i] == 1)
+//                 sum += i;
+//         }
+//         return sum;
+//     }
+// };
+
+// int main()
+// {
+//     return 0;
+// }
+
 #include<iostream>
 #include<vector>
 using namespace std;
 
-class Solution
-{
+class NumMatrix {
+private:
+    vector<vector<int>>sum;
 public:
-    int subarraySum(vector<int> &nums, int k)
-    {
-        int ret = 0, sum = 0;
-        int left = 0, right = 0;
-        while (right < nums.size())
+    NumMatrix(vector<vector<int>>& matrix) {
+        if(matrix.size()== 0)
+            return;
+        sum.resize(matrix.size()+1,vector<int>(matrix[0].size()+1,0));
+        for (int i = 1; i <= matrix.size(); i++)
         {
-            sum += nums[right];
-            while (sum > k && left <= right)
+            for (int j = 1; j <= matrix[0].size(); j++)
             {
-                sum -= nums[left++];
+                sum[i][j] = sum[i-1][j]+sum[i][j-1]-sum[i-1][j-1]+matrix[i-1][j-1];
             }
-            if (sum == k && left <= right)
-            {
-                ret++;
-            }
-            right++;
         }
-        return ret;
+    }
+    
+    int sumRegion(int row1, int col1, int row2, int col2) {
+        row1++,row2++;
+        col1++,col2++;
+        return sum[row2][col2]-sum[row1-1][col2]-sum[row2][col1-1]+sum[row1-1][col1-1];
     }
 };
-int main()
-{
-    vector<int>nums{1};
-    int k =0;
-    Solution().subarraySum(nums,k);
-    return 0;
-}
