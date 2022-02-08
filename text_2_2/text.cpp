@@ -433,30 +433,280 @@
 //     return 0;
 // }
 
+// #include<iostream>
+// #include<vector>
+// using namespace std;
+
+// class NumMatrix {
+// private:
+//     vector<vector<int>>sum;
+// public:
+//     NumMatrix(vector<vector<int>>& matrix) {
+//         if(matrix.size()== 0)
+//             return;
+//         sum.resize(matrix.size()+1,vector<int>(matrix[0].size()+1,0));
+//         for (int i = 1; i <= matrix.size(); i++)
+//         {
+//             for (int j = 1; j <= matrix[0].size(); j++)
+//             {
+//                 sum[i][j] = sum[i-1][j]+sum[i][j-1]-sum[i-1][j-1]+matrix[i-1][j-1];
+//             }
+//         }
+//     }
+    
+//     int sumRegion(int row1, int col1, int row2, int col2) {
+//         row1++,row2++;
+//         col1++,col2++;
+//         return sum[row2][col2]-sum[row1-1][col2]-sum[row2][col1-1]+sum[row1-1][col1-1];
+//     }
+// };
+
+// #include<iostream>
+// #include<vector>
+// #include<string>
+// #include<cstring>
+// using namespace std;
+// // class Solution {
+// // public:
+// //     vector<string>nums;
+// //     void Backtracking(const string& s,string tmp,vector<int>used)
+// //     {
+// //         if(tmp.size() == s.size())
+// //         {
+// //             nums.push_back(tmp);
+// //             return ;
+// //         }
+// //         for(int i =0;i<s.size();i++)
+// //         {
+// //             if(used[i] != 0)
+// //                 continue;
+// //             used[i] = 1;
+// //             tmp.push_back(s[i]);
+// //             Backtracking(s,tmp,used);
+// //             tmp.pop_back();
+// //             used[i] = 0;
+// //         }
+// //     }
+
+// //     bool checkInclusion(string s1, string s2) {
+// //         vector<int>used(s1.size(),0);
+// //         Backtracking(s1,{},used);
+// //         for(auto e:nums)
+// //         {
+// //             if(strstr(s2.c_str(),e.c_str())!=NULL)
+// //                 return true;
+// //         }
+// //         return false;
+// //     }
+// // };
+
+// class Solution
+// {
+// public:
+//     bool checkInclusion(string s1, string s2)
+//     {
+//         vector<int> nums1(26, 0), nums2(26, 0);
+//         if (s1.size() > s2.size())
+//             return false;
+//         for (int i = 0; i < s1.size(); i++)
+//         {
+//             nums1[s1[i] - 'a']++;
+//             nums2[s2[i] - 'a']++;
+//         }
+//         if (nums1 == nums2)
+//             return true;
+//         int n = s1.size();
+//         for (int i = n; i < s2.size(); i++)
+//         {
+//             nums2[s2[i] - 'a']++;
+//             nums2[s2[i - n] - 'a']--;
+//             if (nums1 == nums2)
+//                 return true;
+//         }
+//         return false;
+//     }
+// };
+
+// int main()
+// {
+//     string s1 ="ab";
+//     string s2 = "abcd";
+//     cout<<Solution().checkInclusion(s1,s2);
+//     return 0;
+// }
+
+
+// #include<iostream>
+// #include<vector>
+// using namespace std;
+
+// class Solution
+// {
+// public:
+//     vector<int> findAnagrams(string s, string p)
+//     {
+//         if (s.size() < p.size())
+//             return {};
+//         int n = p.size();
+//         vector<int> nums1(26, 0), nums2(26, 0);
+//         vector<int> ret;
+//         for (int i = 0; i < n; i++)
+//         {
+//             nums1[s[i] - 'a']++;
+//             nums2[p[i] - 'a']++;
+//         }
+//         if (nums1 == nums2)
+//             ret.push_back(0);
+//         for (int i = n; i < s.size(); i++)
+//         {
+//             nums1[s[i] - 'a']++;
+//             nums1[s[i - n] - 'a']--;
+//             if (nums1 == nums2)
+//                 ret.push_back(i - n + 1);
+//         }
+//         return ret;
+//     }
+// };
+
+// int main()
+// {
+//     return 0;
+// }
+
+
+// #include<iostream>
+// #include<vector>
+// using namespace std;
+// class Solution
+// {
+// public:
+//     int countSubstrings(string s)
+//     {
+//         int count = 0;
+//         for (int i = 0; i < s.size(); i++)
+//         {
+//             for (int j = 0; j < 2; j++)
+//             {
+//                 int left = i, right = i + j;
+//                 while (left >= 0 && right < s.size())
+//                 {
+//                     if (s[left] != s[right])
+//                         break;
+//                     count++;
+//                     left--;
+//                     right++;
+//                 }
+//             }
+//         }
+//         return count;
+//     }
+// };
+
+// int main()
+// {
+//     string s{"abc"};
+//     cout<<Solution().countSubstrings(s);
+//     return 0;
+// }
+
 #include<iostream>
 #include<vector>
 using namespace std;
+struct ListNode
+{
+    int val;
+    ListNode *next;
+    ListNode() : val(0), next(nullptr) {}
+    ListNode(int x) : val(x), next(nullptr) {}
+    ListNode(int x, ListNode *next) : val(x), next(next) {}
+};
+// class Solution
+// {
+// public:
+//     ListNode *removeNthFromEnd(ListNode *head, int n)
+//     {
+//         ListNode newhead;
+//         newhead.next = head;
+//         ListNode *fast = &newhead, *slow = &newhead;
+//         while (n && fast)
+//         {
+//             fast = fast->next;
+//             n--;
+//         }
+//         ListNode *prev = nullptr;
+//         while (fast != nullptr)
+//         {
+//             fast = fast->next;
+//             prev = slow;
+//             slow = slow->next;
+//         }
+//         if (prev == nullptr)
+//             return fast;
+//         prev->next = slow->next;
+//         return newhead.next;
+//     }
+// };
 
-class NumMatrix {
-private:
-    vector<vector<int>>sum;
+class Solution
+{
 public:
-    NumMatrix(vector<vector<int>>& matrix) {
-        if(matrix.size()== 0)
-            return;
-        sum.resize(matrix.size()+1,vector<int>(matrix[0].size()+1,0));
-        for (int i = 1; i <= matrix.size(); i++)
+    void Number(ListNode *s, vector<int> &x)
+    {
+        ListNode *cur = s;
+        while (cur)
         {
-            for (int j = 1; j <= matrix[0].size(); j++)
-            {
-                sum[i][j] = sum[i-1][j]+sum[i][j-1]-sum[i-1][j-1]+matrix[i-1][j-1];
-            }
+            x.push_back(cur->val);
+            cur = cur->next;
         }
     }
-    
-    int sumRegion(int row1, int col1, int row2, int col2) {
-        row1++,row2++;
-        col1++,col2++;
-        return sum[row2][col2]-sum[row1-1][col2]-sum[row2][col1-1]+sum[row1-1][col1-1];
+    ListNode *addTwoNumbers(ListNode *l1, ListNode *l2)
+    {
+        if (l1 == nullptr)
+            return l2;
+        if (l2 == nullptr)
+            return l1;
+        vector<int> nums1, nums2;
+        Number(l1, nums1);
+        Number(l2, nums2);
+        reverse(nums1.begin(), nums1.end());
+        reverse(nums2.begin(), nums2.end());
+        int flag = 0;
+        int end = nums1.size() > nums2.size() ? nums1.size() : nums2.size();
+        int begin = 0;
+        int num1, num2;
+        ListNode *prev = nullptr;
+        while (begin < end)
+        {
+            num1 = begin >= nums1.size() ? 0 : nums1[begin];
+            num2 = begin >= nums2.size() ? 0 : nums2[begin];
+            ListNode *newnode = new ListNode;
+            int sum = num1 + num2 + flag;
+            if (sum > 9)
+            {
+                newnode->val = sum % 10;
+                flag = sum / 10;
+            }
+            else
+            {
+                newnode->val = sum;
+                flag = 0;
+            }
+            newnode->next = prev;
+            prev = newnode;
+            begin++;
+        }
+        if (flag != 0)
+        {
+            ListNode *head = new ListNode;
+            head->val = flag;
+            head->next = prev;
+            prev = head;
+        }
+        return prev;
     }
 };
+
+int main()
+{
+    return 0;
+}
