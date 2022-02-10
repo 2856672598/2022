@@ -11,7 +11,7 @@ int main(int argc,char* argv[])
     Manual(argv[0]);
     exit(1);
   }
-  Client* client = new Client("127.0.0.1",8080);
+  Client* client = new Client(argv[1],atoi(argv[2]));
   client->Init();
   client->Start();
   delete client;

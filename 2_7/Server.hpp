@@ -94,9 +94,9 @@ class Server
           {
             if(fork() != 0)
               exit(1);
+            close(sockfd);
             Cal(sk);
 
-            close(sockfd);
           }
           waitpid(-1,NULL,0);
           close(sk);
