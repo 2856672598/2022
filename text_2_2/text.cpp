@@ -609,104 +609,245 @@
 //     return 0;
 // }
 
-#include<iostream>
-#include<vector>
-using namespace std;
-struct ListNode
-{
-    int val;
-    ListNode *next;
-    ListNode() : val(0), next(nullptr) {}
-    ListNode(int x) : val(x), next(nullptr) {}
-    ListNode(int x, ListNode *next) : val(x), next(next) {}
-};
+// #include<iostream>
+// #include<vector>
+// using namespace std;
+// struct ListNode
+// {
+//     int val;
+//     ListNode *next;
+//     ListNode() : val(0), next(nullptr) {}
+//     ListNode(int x) : val(x), next(nullptr) {}
+//     ListNode(int x, ListNode *next) : val(x), next(next) {}
+// };
+// // class Solution
+// // {
+// // public:
+// //     ListNode *removeNthFromEnd(ListNode *head, int n)
+// //     {
+// //         ListNode newhead;
+// //         newhead.next = head;
+// //         ListNode *fast = &newhead, *slow = &newhead;
+// //         while (n && fast)
+// //         {
+// //             fast = fast->next;
+// //             n--;
+// //         }
+// //         ListNode *prev = nullptr;
+// //         while (fast != nullptr)
+// //         {
+// //             fast = fast->next;
+// //             prev = slow;
+// //             slow = slow->next;
+// //         }
+// //         if (prev == nullptr)
+// //             return fast;
+// //         prev->next = slow->next;
+// //         return newhead.next;
+// //     }
+// // };
+
 // class Solution
 // {
 // public:
-//     ListNode *removeNthFromEnd(ListNode *head, int n)
+//     void Number(ListNode *s, vector<int> &x)
 //     {
-//         ListNode newhead;
-//         newhead.next = head;
-//         ListNode *fast = &newhead, *slow = &newhead;
-//         while (n && fast)
+//         ListNode *cur = s;
+//         while (cur)
 //         {
-//             fast = fast->next;
-//             n--;
+//             x.push_back(cur->val);
+//             cur = cur->next;
 //         }
+//     }
+//     ListNode *addTwoNumbers(ListNode *l1, ListNode *l2)
+//     {
+//         if (l1 == nullptr)
+//             return l2;
+//         if (l2 == nullptr)
+//             return l1;
+//         vector<int> nums1, nums2;
+//         Number(l1, nums1);
+//         Number(l2, nums2);
+//         reverse(nums1.begin(), nums1.end());
+//         reverse(nums2.begin(), nums2.end());
+//         int flag = 0;
+//         int end = nums1.size() > nums2.size() ? nums1.size() : nums2.size();
+//         int begin = 0;
+//         int num1, num2;
 //         ListNode *prev = nullptr;
-//         while (fast != nullptr)
+//         while (begin < end)
 //         {
-//             fast = fast->next;
-//             prev = slow;
-//             slow = slow->next;
+//             num1 = begin >= nums1.size() ? 0 : nums1[begin];
+//             num2 = begin >= nums2.size() ? 0 : nums2[begin];
+//             ListNode *newnode = new ListNode;
+//             int sum = num1 + num2 + flag;
+//             if (sum > 9)
+//             {
+//                 newnode->val = sum % 10;
+//                 flag = sum / 10;
+//             }
+//             else
+//             {
+//                 newnode->val = sum;
+//                 flag = 0;
+//             }
+//             newnode->next = prev;
+//             prev = newnode;
+//             begin++;
 //         }
-//         if (prev == nullptr)
-//             return fast;
-//         prev->next = slow->next;
-//         return newhead.next;
+//         if (flag != 0)
+//         {
+//             ListNode *head = new ListNode;
+//             head->val = flag;
+//             head->next = prev;
+//             prev = head;
+//         }
+//         return prev;
 //     }
 // };
+
+// int main()
+// {
+//     return 0;
+// }
+
+
+// #include<iostream>
+// #include<vector>
+// using namespace std;
+
+// struct ListNode
+// {
+//     int val;
+//     ListNode *next;
+//     ListNode() : val(0), next(nullptr) {}
+//     ListNode(int x) : val(x), next(nullptr) {}
+//     ListNode(int x, ListNode *next) : val(x), next(next) {}
+// };
+// class Solution
+// {
+// public:
+//     void reorderList(ListNode *head)
+//     {
+//         vector<ListNode *> nums;
+//         ListNode *cur = head;
+//         while (cur)
+//         {
+//             nums.push_back(cur);
+//             cur = cur->next;
+//         }
+//         int left = 0, right = nums.size() - 1;
+//         ListNode newhead; //哨兵位
+//         ListNode *prev = &newhead;
+//         while (left <= right)
+//         {
+//             prev->next = nums[left];
+//             prev = prev->next;
+//             if (left != right)
+//             {
+//                 prev->next = nums[right];
+//                 prev = prev->next;
+//             }
+//             left++;
+//             right--;
+//         }
+//         prev->next = nullptr;
+//     }
+// };
+
+// int main()
+// {
+//     return 0;
+// }
+
+
+// #include<iostream>
+// using namespace std;
+
+// class Node {
+// public:
+//     int val;
+//     Node* next;
+
+//     Node() {}
+
+//     Node(int _val) {
+//         val = _val;
+//         next = NULL;
+//     }
+
+//     Node(int _val, Node* _next) {
+//         val = _val;
+//         next = _next;
+//     }
+// };
+
+// class Solution
+// {
+// public:
+//     Node *insert(Node *head, int insertVal)
+//     {
+//         if (head == nullptr)
+//         {
+//             head = new Node(insertVal);
+//             head->next = head;
+//             return head;
+//         }
+//         Node *cur = head->next;
+//         Node *prev = head;
+//         int max = 0;
+//         while (cur)
+//         {
+//             if (cur == head || prev->val > cur->val && insertVal > prev->val)
+//             {
+//                 prev->next = new Node(insertVal, cur);
+//                 break;
+//             }
+//             if ((cur->val >= insertVal && prev->val < insertVal) || (cur->val >= insertVal && cur->val < prev->val))
+//             {
+//                 prev->next = new Node(insertVal, cur);
+//                 break;
+//             }
+//             prev = cur;
+//             cur = cur->next;
+//         }
+//         return head;
+//     }
+// };
+// int main()
+// {
+//     return 0;
+// }
+
+#include<iostream>
+#include<vector>
+#include<string>
+#include<algorithm>
+using namespace std;
 
 class Solution
 {
 public:
-    void Number(ListNode *s, vector<int> &x)
+    int findMinDifference(vector<string> &timePoints)
     {
-        ListNode *cur = s;
-        while (cur)
+        vector<int> nums;
+        for (auto e : timePoints)
         {
-            x.push_back(cur->val);
-            cur = cur->next;
+            nums.push_back(atoi(e.substr(0, 2).c_str()) * 60 + atoi(e.substr(3).c_str()));
         }
-    }
-    ListNode *addTwoNumbers(ListNode *l1, ListNode *l2)
-    {
-        if (l1 == nullptr)
-            return l2;
-        if (l2 == nullptr)
-            return l1;
-        vector<int> nums1, nums2;
-        Number(l1, nums1);
-        Number(l2, nums2);
-        reverse(nums1.begin(), nums1.end());
-        reverse(nums2.begin(), nums2.end());
-        int flag = 0;
-        int end = nums1.size() > nums2.size() ? nums1.size() : nums2.size();
-        int begin = 0;
-        int num1, num2;
-        ListNode *prev = nullptr;
-        while (begin < end)
+        sort(nums.begin(), nums.end());
+        nums.push_back(24 * 60 + nums[0]);
+        int ret = 24 * 60;
+        for (int i = 1; i < nums.size(); i++)
         {
-            num1 = begin >= nums1.size() ? 0 : nums1[begin];
-            num2 = begin >= nums2.size() ? 0 : nums2[begin];
-            ListNode *newnode = new ListNode;
-            int sum = num1 + num2 + flag;
-            if (sum > 9)
-            {
-                newnode->val = sum % 10;
-                flag = sum / 10;
-            }
-            else
-            {
-                newnode->val = sum;
-                flag = 0;
-            }
-            newnode->next = prev;
-            prev = newnode;
-            begin++;
+            ret = min(ret, nums[i] - nums[i - 1]);
         }
-        if (flag != 0)
-        {
-            ListNode *head = new ListNode;
-            head->val = flag;
-            head->next = prev;
-            prev = head;
-        }
-        return prev;
+        return ret;
     }
 };
-
 int main()
 {
+    vector<string>time{"23:59","00:00"};
+    cout<<Solution().findMinDifference(time);
     return 0;
 }
