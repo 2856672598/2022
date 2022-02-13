@@ -819,35 +819,310 @@
 //     return 0;
 // }
 
+// #include<iostream>
+// #include<vector>
+// #include<string>
+// #include<algorithm>
+// using namespace std;
+
+// class Solution
+// {
+// public:
+//     int findMinDifference(vector<string> &timePoints)
+//     {
+//         vector<int> nums;
+//         for (auto e : timePoints)
+//         {
+//             nums.push_back(atoi(e.substr(0, 2).c_str()) * 60 + atoi(e.substr(3).c_str()));
+//         }
+//         sort(nums.begin(), nums.end());
+//         nums.push_back(24 * 60 + nums[0]);
+//         int ret = 24 * 60;
+//         for (int i = 1; i < nums.size(); i++)
+//         {
+//             ret = min(ret, nums[i] - nums[i - 1]);
+//         }
+//         return ret;
+//     }
+// };
+// int main()
+// {
+//     vector<string>time{"23:59","00:00"};
+//     cout<<Solution().findMinDifference(time);
+//     return 0;
+// }
+
+
+// #include<iostream>
+// using namespace std;
+
+// class Solution {
+// public:
+//     int countOperations(int num1, int num2) {
+//         int ret = 0;
+//         while(num1&&num2)
+//         {
+//             if(num1 >= num2)
+//                 num1 -= num2;
+//             else
+//                 num2 -= num1;
+//             ret++;
+//         }
+//         return ret;
+//     }
+// };
+
+// int main()
+// {
+//     int num1 = 2,num2 = 3;
+//     cout<<Solution().countOperations(num1,num2);
+//     return 0;
+// }
+
+
+// #include<iostream>
+// #include<unordered_map>
+// #include<vector>
+// #include<algorithm>
+// #include<utility>
+// using namespace std;
+
+// class Solution
+// {
+// public:
+// 	static bool Comp(const pair<int, int> x, const pair<int, int> y)
+// 	{
+// 		return x.second < y.second;
+// 	}
+
+// 	int minimumOperations(vector<int> &nums)
+// 	{
+//         if(nums.size() < 2)
+//             return 0;
+// 		unordered_map<int, int> even, old;
+// 		for (int i = 0; i < nums.size(); i++)
+// 		{
+// 			if (i % 2 == 0)
+// 				even[nums[i]]++;
+// 			else
+// 				old[nums[i]]++;
+// 		}
+// 		auto max1 = max_element(even.begin(), even.end(), Comp);
+// 		auto max2 = max_element(old.begin(), old.end(), Comp);
+// 		int ret = 0;
+// 		if (max1->first == max2->first)
+// 		{
+// 			int tmp1 = max1->second;
+// 			max1->second = 0;
+// 			int tmp2 = max2->second;
+// 			max2->second = 0;
+
+// 			//查找出现次大的出现的次数。
+// 			int nextLargest1 = max_element(even.begin(), even.end(), Comp)->second;
+// 			int nextLargest2 = max_element(old.begin(), old.end(), Comp)->second;
+// 			ret = nums.size() - max(tmp1 + nextLargest2, tmp2 + nextLargest1);
+// 		}
+// 		else
+// 			ret = nums.size() - max1->second - max2->second;
+// 		return ret;
+// 	}
+// };
+
+// int main()
+// {
+// 	vector<int>nums{ 3,1,3,2,4,3 };
+// 	cout << Solution().minimumOperations(nums);
+// 	return 0;
+// }
+
+// #include<iostream>
+// #include<vector>
+// #include<algorithm>
+// using namespace std;
+
+// class Solution
+// {
+// public:
+//     long long minimumRemoval(vector<int> &beans)
+//     {
+//         long long ret = 0;
+//         sort(beans.begin(), beans.end());
+//         long long sum = 0;
+//         for (auto e : beans)
+//             sum += e;
+//         ret = sum;
+//         for (int i = 0; i < beans.size(); i++)
+//         {
+//             ret = min(ret, (long long)(sum - beans[i] * (beans.size() - i)));
+//         }
+//         return ret;
+//     }
+// };
+
+// int main()
+// {
+//     vector<int>beans{4,1,6,5};
+//     cout<<Solution().minimumRemoval(beans);
+//     return 0;
+// }
+
+// #include<iostream>
+// #include<vector>
+// #include<unordered_map>
+// #include<algorithm>
+// using namespace std;
+
+// class Solution
+// {
+// public:
+//     vector<vector<string>> groupAnagrams(vector<string> &strs)
+//     {
+//         unordered_map<string, vector<string>> nums;
+//         for (auto e : strs)
+//         {
+//             string tmp = e;
+//             sort(tmp.begin(), tmp.end());
+//             nums[tmp].push_back(e);
+//         }
+
+//         vector<vector<string>> ret;
+//         for (auto e : nums)
+//         {
+//             vector<string> tmp;
+//             for (int i = 0; i < e.second.size(); i++)
+//             {
+//                 tmp.push_back(e.second[i]);
+//             }
+//             ret.push_back(tmp);
+//         }
+//         return ret;
+//     }
+// };
+
+// int main()
+// {
+//     return 0;
+// }
+
+
+// #include<iostream>
+// #include<stack>
+// #include<vector>
+// #include<string>
+// using namespace std;
+
+// class Solution
+// {
+// public:
+//     bool Digit(const string &s)
+//     {
+//         if (s.size() == 1 && !isdigit(s[0]))
+//             return false;
+//         return true;
+//     }
+
+//     int evalRPN(vector<string> &tokens)
+//     {
+//         if (tokens.size() < 3)
+//             return atoi(tokens[tokens.size() - 1].c_str());
+//         stack<int> s;
+//         for (auto e : tokens)
+//         {
+//             if (Digit(e))
+//             {
+//                 s.push(atoi(e.c_str()));
+//             }
+//             else
+//             {
+//                 int num1 = s.top();
+//                 s.pop();
+//                 int num2 = s.top();
+//                 s.pop();
+//                 int sum = 0;
+//                 if (e == "+")
+//                     sum = num1 + num2;
+//                 else if (e == "-")
+//                     sum = num2 - num1;
+//                 else if (e == "*")
+//                     sum = num2 * num1;
+//                 else
+//                     sum = num2 / num1;
+//                 s.push(sum);
+//             }
+//         }
+//         return s.top();
+//     }
+// };
+
+// int main()
+// {
+// 	vector<string>tokens{ "10","6","9","3","+","-11","*","/","*","17","+","5","+" };
+// 	cout << Solution().evalRPN(tokens);
+// 	return 0;
+// }
+
+
 #include<iostream>
 #include<vector>
-#include<string>
+#include<stack>
 #include<algorithm>
 using namespace std;
 
 class Solution
 {
 public:
-    int findMinDifference(vector<string> &timePoints)
+    vector<int> asteroidCollision(vector<int> &asteroids)
     {
-        vector<int> nums;
-        for (auto e : timePoints)
+        stack<int> s;
+        if (asteroids.size() == 0)
+            return {};
+        s.push(asteroids[0]);
+        for (int i = 1; i < asteroids.size(); i++)
         {
-            nums.push_back(atoi(e.substr(0, 2).c_str()) * 60 + atoi(e.substr(3).c_str()));
+            if (s.empty() ||s.top() >= 0 && asteroids[i] >= 0 || s.top() < 0 && asteroids[i] < 0)
+            {
+                //方向相同
+                s.push(asteroids[i]);
+            }
+            else
+            {
+                int flag =1;
+                while (!s.empty())
+                {
+                    if (s.top() == asteroids[i] || s.top() < 0 && asteroids[i] >= 0
+                    ||s.top() >= 0 && asteroids[i] >= 0 || s.top() < 0 && asteroids[i] < 0)
+                    {
+                        s.push(asteroids[i]);
+                        flag = 0;
+                        break;
+                    }
+                    if (abs(s.top()) >= abs(asteroids[i]))
+                    {
+                        if (s.top() + asteroids[i] == 0)
+                            s.pop();
+                        flag = 0;
+                        break;
+                    }
+                    s.pop();
+                }
+                if(s.empty()&&flag)
+                    s.push(asteroids[i]);
+            }
         }
-        sort(nums.begin(), nums.end());
-        nums.push_back(24 * 60 + nums[0]);
-        int ret = 24 * 60;
-        for (int i = 1; i < nums.size(); i++)
+        vector<int> ret;
+        while (!s.empty())
         {
-            ret = min(ret, nums[i] - nums[i - 1]);
+            ret.push_back(s.top());
+            s.pop();
         }
+        reverse(ret.begin(),ret.end());
         return ret;
     }
 };
+
 int main()
 {
-    vector<string>time{"23:59","00:00"};
-    cout<<Solution().findMinDifference(time);
+    vector<int> nums{1,-2,-2,-2};
+    Solution().asteroidCollision(nums);
     return 0;
 }
