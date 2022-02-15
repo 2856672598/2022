@@ -147,47 +147,123 @@
 //}
 
 
+//#include<iostream>
+//#include<vector>
+//#include<algorithm>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int lenLongestFibSubseq(vector<int>& arr) {
+//
+//		int ret = 0;
+//		for (int i = 0; i < arr.size() - 1; i++)
+//		{
+//			for (int j = i + 1; j < arr.size(); j++)
+//			{
+//				int prev = arr[i], cur = arr[j];
+//				if ((prev + cur) <= arr[arr.size() - 1])
+//				{
+//					int count = 2;
+//					while (true)
+//					{
+//						if (find(arr.begin(), arr.end(), (prev + cur)) != arr.end())
+//						{
+//							int tmp = prev + cur;
+//							prev = cur;
+//							cur = tmp;
+//							count++;
+//						}
+//						else
+//							break;
+//					}
+//					ret = max(ret, count);
+//				}
+//			}
+//		}
+//		return ret == 2 ? 0 : ret;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<int>nums{ 2,4,7,8,9,10,14,15,18,23,32 };
+//	cout << Solution().lenLongestFibSubseq(nums);
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<vector>
+//#include<string>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	//ÖÐÐÄÍØÕ¹
+//	int countSubstrings(string s)
+//	{
+//		int count = 0;
+//		for (int i = 0; i < s.size(); i++)
+//		{
+//			for (int j = 0; j < 2; j++)
+//			{
+//				int left = i, right = i + j;
+//				while (left >= 0 && right < s.size())
+//				{
+//					if (s[left--] != s[right++])
+//						break;
+//					count++;
+//				}
+//			}
+//		}
+//		return count;
+//	}
+//};
+//
+//int main()
+//{
+//	string s{ "aaaaa" };
+//	cout << Solution().countSubstrings(s);
+//	return 0;
+//}
+
 #include<iostream>
-#include<vector>
+#include<string>
 #include<algorithm>
 using namespace std;
-
 class Solution {
 public:
-	int lenLongestFibSubseq(vector<int>& arr) {
-
-		int ret = 0;
-		for (int i = 0; i < arr.size() - 1; i++)
+	string longestPalindrome(string s) {
+		string ret;
+		for (int i = 0; i < s.size(); i++)
 		{
-			for (int j = i + 1; j < arr.size(); j++)
+			for (int j = 0; j < 2; j++)
 			{
-				int prev = arr[i], cur = arr[j];
-				if ((prev + cur) <= arr[arr.size() - 1])
+				int left = i, right = i + j;
+				int count = 0;
+				while (left >= 0 && right < s.size())
 				{
-					int count = 2;
-					while (true)
-					{
-						if (find(arr.begin(), arr.end(), (prev + cur)) != arr.end())
-						{
-							int tmp = prev + cur;
-							prev = cur;
-							cur = tmp;
-							count++;
-						}
-						else
-							break;
-					}
-					ret = max(ret, count);
+					if (s[left] != s[right])
+						break;
+					count = right - left + 1;
+					left--;
+					right++;
 				}
+				if (left + 1 < s.size() && count > ret.size())
+				{
+					ret.resize(0);
+					ret = s.substr(left + 1, count);
+				}
+				count = 1;
 			}
 		}
-		return ret == 2 ? 0 : ret;
+		return ret;
 	}
 };
 
 int main()
 {
-	vector<int>nums{ 2,4,7,8,9,10,14,15,18,23,32 };
-	cout << Solution().lenLongestFibSubseq(nums);
+	string s{ "babad" };
+	cout << Solution().longestPalindrome(s) << endl;
 	return 0;
 }
