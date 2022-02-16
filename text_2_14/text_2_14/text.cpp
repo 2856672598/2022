@@ -227,43 +227,110 @@
 //	return 0;
 //}
 
-#include<iostream>
-#include<string>
-#include<algorithm>
-using namespace std;
-class Solution {
-public:
-	string longestPalindrome(string s) {
-		string ret;
-		for (int i = 0; i < s.size(); i++)
-		{
-			for (int j = 0; j < 2; j++)
-			{
-				int left = i, right = i + j;
-				int count = 0;
-				while (left >= 0 && right < s.size())
-				{
-					if (s[left] != s[right])
-						break;
-					count = right - left + 1;
-					left--;
-					right++;
-				}
-				if (left + 1 < s.size() && count > ret.size())
-				{
-					ret.resize(0);
-					ret = s.substr(left + 1, count);
-				}
-				count = 1;
-			}
-		}
-		return ret;
-	}
-};
+//#include<iostream>
+//#include<string>
+//#include<algorithm>
+//using namespace std;
+//class Solution {
+//public:
+//	string longestPalindrome(string s) {
+//		string ret;
+//		for (int i = 0; i < s.size(); i++)
+//		{
+//			for (int j = 0; j < 2; j++)
+//			{
+//				int left = i, right = i + j;
+//				int count = 0;
+//				while (left >= 0 && right < s.size())
+//				{
+//					if (s[left] != s[right])
+//						break;
+//					count = right - left + 1;
+//					left--;
+//					right++;
+//				}
+//				if (left + 1 < s.size() && count > ret.size())
+//				{
+//					ret.resize(0);
+//					ret = s.substr(left + 1, count);
+//				}
+//				count = 1;
+//			}
+//		}
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	string s{ "babad" };
+//	cout << Solution().longestPalindrome(s) << endl;
+//	return 0;
+//}
 
-int main()
-{
-	string s{ "babad" };
-	cout << Solution().longestPalindrome(s) << endl;
-	return 0;
-}
+//#include<iostream>
+//#include<vector>
+//#include<unordered_map>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int subarraySum(vector<int>& nums, int k) {
+//		unordered_map<int, int> m;
+//		int sum = 0;
+//		int count = 0;
+//		m[0] = 1;
+//		for (int i = 0; i < nums.size(); i++)
+//		{
+//			sum += nums[i];
+//			if (m.find(sum - k) != m.end())
+//			{
+//				count += m[sum - k];
+//			}
+//			m[sum]++;
+//		}
+//		return count;
+//	}
+//};
+//int main()
+//{
+//	vector<int>nums{ 0,0,0,0 };
+//	int k = 0;
+//	cout << Solution().subarraySum(nums, k);
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<vector>
+//#include<unordered_map>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	bool checkSubarraySum(vector<int>& nums, int k) {
+//		unordered_map<int,int>m;
+//		m[0] = -1;
+//		int sum = 0;
+//		for (int i = 0; i < nums.size(); i++)
+//		{
+//			sum = (sum + nums[i]) % k;
+//			if (m.find(sum) != m.end())
+//			{
+//				if (i - m[sum] >= 2)
+//					return true;
+//			}
+//			else
+//				m[sum] = i;
+//		}
+//		return false;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<int>nums{ 1,0,0 };
+//	int k = 6;
+//	cout << Solution().checkSubarraySum(nums, k);
+//	return 0;
+//}
+
