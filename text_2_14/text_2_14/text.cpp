@@ -334,3 +334,220 @@
 //	return 0;
 //}
 
+//#include<iostream>
+//#include<vector>
+//#include<unordered_map>
+//#include<algorithm>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int findMaxLength(vector<int>& nums) {
+//		unordered_map<int, int>m;
+//		int sum = 0;
+//		int count = 0;
+//		m[0] = -1;
+//		for (int i = 0; i < nums.size(); i++)
+//		{
+//			if (nums[i] == 0)
+//				sum -= 1;
+//			else
+//				sum += 1;
+//			if (m.find(sum) != m.end())
+//			{
+//				count = max(count, i - m[sum]);
+//			}
+//			else
+//				m[sum] = i;
+//		}
+//		return count;
+//	}
+//};
+//
+//int main()
+//{
+//	return 0;
+//}
+
+
+//#include<iostream>
+//#include<string>
+//#include<vector>
+//using namespace std;
+//bool Check(int x)
+//{
+//	int day = x % 100;
+//	x /= 100;
+//	int month = x % 100;
+//	x /= 100;
+//	int year = x;
+//	if (day <= 0 || day > 31 || month == 0 || month > 12)
+//		return false;
+//	int m[13] = { 0,31,28,31,30,31,30,31,31,30,31,30,31 };
+//	if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0)
+//		m[2] = 29;
+//	if (day > m[month])
+//		return false;
+//	return true;
+//}
+//int main()
+//{
+//	int n = 0;
+//	cin >> n;
+//	int flag = 1;
+//	for (int i = n+1; i <= 89991231; i++)
+//	{
+//		if (!Check(i))
+//			continue;
+//		//先判断是不是回文;
+//		int j = i;
+//		vector<int>tmp;
+//		while (j)
+//		{
+//			tmp.push_back(j % 10);
+//			j /= 10;
+//		}
+//		int left = 0, right = 7;
+//		while (left <= right)
+//		{
+//			if (tmp[left] != tmp[right])
+//				break;
+//			left++;
+//			right--;
+//		}
+//		if (left > right)
+//		{
+//			if (flag == 1)
+//			{
+//				cout << i << endl;
+//				flag = 0;
+//			}
+//			if (tmp[0] == tmp[2] && tmp[1] == tmp[3])
+//			{
+//				cout << i << endl;
+//				break;
+//			}
+//		}
+//	}
+//	return 0;
+//}
+
+
+//#include<iostream>
+//#include<cstdio>
+//using namespace std;
+//
+//int main()
+//{
+//	int n;
+//	cin >> n;
+//	int max = 0, min = 100, tmp = 0, sum = 0;
+//	for (int i = 0; i < n; i++)
+//	{
+//		cin >> tmp;
+//		if (tmp > max)
+//			max = tmp;
+//		else if (tmp < min)
+//			min = tmp;
+//		sum += tmp;
+//	}
+//	cout << max << endl << min << endl;
+//	printf("%.2lf", sum*1.0 / n);
+//}
+
+//#include<iostream>
+//#include<unordered_set>
+//#include<string>
+//using namespace std;
+//
+//int main()
+//{
+//	string s;
+//	cin >> s;
+//	int sum = 0;
+//	for (int i = 0; i < s.size(); i++)
+//	{
+//		unordered_set<char>nums;
+//		for (int j = i; j < s.size(); j++)
+//		{
+//			nums.insert(s[j]);
+//			sum += nums.size();
+//		}
+//	}
+//	cout << sum << endl;
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<string>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int _translateNum(string& s, int i)
+//	{
+//		if (i == s.size())
+//			return 1;
+//		if (s[i] == '1')
+//		{
+//			int count = _translateNum(s, i + 1);
+//			if (i + 1 < s.size())
+//				count += _translateNum(s, i + 2);
+//			return count;
+//		}
+//		if (s[i] == '2')
+//		{
+//			int count = _translateNum(s, i + 1);
+//			if (i + 1 < s.size() && s[i + 1] <= '5')
+//				count += _translateNum(s, i + 2);
+//			return count;
+//		}
+//		return _translateNum(s, i + 1);
+//	}
+//
+//	int translateNum(int num) {
+//		string nums = to_string(num);
+//		return  _translateNum(nums, 0);
+//	}
+//};
+//int main()
+//{
+//	int num = 25;
+//	cout << Solution().translateNum(num);
+//	return 0;
+//}
+
+
+//#include<iostream>
+//#include<string>
+//#include<vector>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	bool dfs(const vector<int>& nums, int target, int index)
+//	{
+//		if (target < 0 || index >= nums.size())
+//			return false;
+//		if (target == 0)
+//			return true;
+//		return dfs(nums, target - nums[index], index + 1)
+//			|| dfs(nums, target, index + 1);
+//	}
+//
+//	bool canPartition(vector<int>& nums) {
+//		int sum = 0;
+//		for (auto e : nums)
+//			sum += e;
+//		if (sum % 2)
+//			return false;
+//		return dfs(nums, sum / 2, 0);
+//	}
+//};
+//
+//int main()
+//{
+//	return 0;
+//}
+
+
