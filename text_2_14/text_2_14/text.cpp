@@ -551,3 +551,197 @@
 //}
 
 
+//#include<iostream>
+//#include<vector>
+//using namespace std;
+//
+//class Date
+//{
+//public:
+//	Date(int  year = 1, int month = 1, int day = 1)
+//		:_year(year)
+//		, _month(month)
+//		, _day(day)
+//	{}
+//private:
+//	int _year;
+//	int _month;
+//	int _day;
+//};
+//int main()
+//{
+//	Date* d = new Date;
+//	return 0;
+//}
+
+//#include<iostream>
+//using namespace std;
+//
+//template<typename T >
+//T Add(const T& x, const T& y)
+//{
+//	return x + y;
+//}
+//
+//int main()
+//{
+//	int x = 1, y = 2;
+//	double x1 = 1.5, y1 = 1.5;
+//	cout << Add(x, y) << endl;
+//	cout << Add<double>(x1, y1) << endl;
+//	return 0;
+//}
+
+
+//#include<iostream>
+//#include<vector>
+//using namespace std;
+//
+//int main()
+//{
+//	int n;
+//	vector<int>nums;
+//	cin >> n;
+//	for (int i = 0; i < n; i++)
+//	{
+//		int tmp;
+//		cin >> tmp;
+//		nums.push_back(tmp);
+//	}
+//	int sum1 = 0, sum2 = 0;
+//	for (int i = 0; i < nums.size(); i++)
+//	{
+//		if (nums[i] < 0)
+//			sum2 += nums[i];
+//		else
+//			sum1 += nums[i];
+//	}
+//	cout << sum1 - sum2 << endl;
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<unordered_map>
+//#include<string>
+//using namespace std;
+//
+//int main()
+//{
+//	unordered_map<string, string>m;
+//	int n;
+//	cin >> n;
+//	for (int i = 0; i < n; i++)
+//	{
+//		pair<string, string>p;
+//		cin >> p.first >> p.second;
+//		m.insert(p);
+//	}
+//	int count = 0;
+//	for (auto& e : m)
+//	{
+//		while (true)
+//		{
+//			auto it = m.find(e.second);
+//			if (it == m.end())
+//				break;
+//			e.second = it->second;
+//			m.erase(it);
+//		}
+//	}
+//	cout << m.size() << endl;
+//	for (auto e : m)
+//		cout << e.first << " " << e.second << endl;
+//	return 0;
+//}
+
+
+//#include<iostream>
+//#include<string>
+//#include<vector>
+//#include<algorithm>
+//#include<unordered_map>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	vector<vector<string>> groupAnagrams(vector<string>& strs)
+//	{
+//		unordered_map<string, vector<string>>m;
+//		for (auto e : strs)
+//		{
+//			string tmp = e;
+//			sort(tmp.begin(), tmp.end());
+//			if (m.find(tmp) == m.end())
+//			{
+//				m[tmp];
+//			}
+//			m[tmp].push_back(e);
+//		}
+//		vector<vector<string>>ret;
+//		for (auto e : m)
+//		{
+//			vector<string>tmp;
+//			for (auto it : e.second)
+//			{
+//				tmp.push_back(it);
+//			}
+//			ret.push_back(tmp);
+//		}
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<string>strs{ "eat","tea","tan","ate","nat","bat" };
+//	Solution().groupAnagrams(strs);
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<vector>
+//using namespace std;
+//
+//struct TreeNode
+//{
+//	int val;
+//	TreeNode *left;
+//	TreeNode *right;
+//	TreeNode() : val(0), left(nullptr), right(nullptr) {}
+//	TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+//	TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+//};
+//
+//class Solution {
+//public:
+//	void Preorder(TreeNode* root, vector<TreeNode*>&li)
+//	{
+//		if (root == nullptr)
+//			return;
+//		li.push_back(root);
+//		Preorder(root->left, li);
+//		Preorder(root->right, li);
+//	}
+//
+//	void flatten(TreeNode* root)
+//	{
+//		if (root = nullptr)
+//			return;
+//		vector<TreeNode*>li;
+//		Preorder(root, li);
+//		TreeNode* prev = li[0];
+//		prev->left = nullptr;
+//		for (int i = 1; i < li.size(); i++)
+//		{
+//			prev->right = li[i];
+//			li[i]->left = nullptr;
+//			prev = li[i];
+//		}
+//	}
+//};
+//
+//int main()
+//{
+//	return 0;
+//}
+
