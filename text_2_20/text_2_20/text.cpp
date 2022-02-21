@@ -377,39 +377,182 @@
 //	return 0;
 //}
 
+//#include<iostream>
+//#include<vector>
+//using namespace std;
+//
+//struct ListNode {
+//	int val;
+//	ListNode *next;
+//	ListNode(int x) : val(x), next(NULL) {}
+//};
+// 
+//class Solution {
+//public:
+//	ListNode* partition(ListNode* head, int x)
+//	{
+//		vector<int>nums;
+//		ListNode newhead(0);
+//		ListNode* prev = &newhead, *cur = head;
+//		while (cur)
+//		{
+//			if (cur->val < x)
+//			{
+//				prev->next = new ListNode(cur->val);
+//				prev = prev->next;
+//			}
+//			else
+//				nums.push_back(cur->val);
+//			cur = cur->next;
+//		}
+//		for (int i = 0; i < nums.size(); i++)
+//		{
+//			prev->next = new ListNode(nums[i]);
+//			prev = prev->next;
+//		}
+//		return newhead.next;
+//	}
+//};
+
+//#include<iostream>
+//#include<vector>
+//#include<algorithm>
+//using namespace std;
+//
+//class Solution
+//{
+//public:
+//	int BackTracking(const vector<int>&v, const vector<int>&w, int volnme, int index)
+//	{
+//		if (index == v.size() || volnme < 0)
+//			return 0;
+//		int p1 = BackTracking(v, w, volnme, index+1);
+//		int p2 = 0;
+//		if (volnme - v[index] >= 0)
+//			p2 = BackTracking(v, w, volnme - v[index], index + 1) + w[index];
+//		return max(p1, p2);
+//	}
+//};
+//int main()
+//{
+//	int n, m;
+//	cin >> n >> m;
+//	vector<int>v(n, 0), w(n, 0);
+//	for (int i = 0; i < n; i++)
+//	{
+//		cin >> v[i] >> w[i];
+//	}
+//	cout << Solution().BackTracking(v, w, m, 0);
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<vector>
+//#include<algorithm>
+//using namespace std;
+//
+//int main()
+//{
+//	int n, m;
+//	cin >> n >> m;
+//	vector<int>v(n, 0), w(n, 0);
+//	for (int i = 0; i < n; i++)
+//	{
+//		cin >> v[i] >> w[i];
+//	}
+//	vector<vector<int>>dp(n + 1, vector<int>(m + 1, 0));
+//
+//	for (int i = 1; i < dp.size(); i++)
+//	{
+//		for (int j = 1; j < dp[i].size(); j++)
+//		{
+//			if (v[i - 1] > j)
+//				dp[i][j] = dp[i - 1][j];
+//			else
+//				dp[i][j] = max(dp[i-1][j], dp[i - 1][j - v[i-1]] + w[i-1]);
+//		}
+//	}
+//	cout << dp[n][m] << endl;
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<vector>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int fib(int n) {
+//		vector<int>f(31, 0);
+//		f[1] = 1;
+//		for (int i = 2; i <= n; i++)
+//		{
+//			f[i] = f[i - 1] + f[i - 2];
+//		}
+//		return f[n];
+//	}
+//};
+//
+//int main()
+//{
+//	int n = 4;
+//	cout << Solution().fib(n);
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<vector>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int tribonacci(int n)
+//	{
+//		vector<int>f(38, 0);
+//		f[1] = f[2] = 1;
+//		for (int i = 3; i <= n; i++)
+//		{
+//			f[i] = f[i - 1] + f[i - 2] + f[i - 3];
+//		}
+//		return f[n];
+//	}
+//};
+//
+//int main()
+//{
+//	int n = 0;
+//	cout << Solution().tribonacci(n);
+//	return 0;
+//}
+
 #include<iostream>
-#include<vector>
 using namespace std;
 
-struct ListNode {
-	int val;
-	ListNode *next;
-	ListNode(int x) : val(x), next(NULL) {}
-};
- 
 class Solution {
 public:
-	ListNode* partition(ListNode* head, int x)
+	int count = 0;
+	void Backtracking(int n)
 	{
-		vector<int>nums;
-		ListNode newhead(0);
-		ListNode* prev = &newhead, *cur = head;
-		while (cur)
+		if (n <= 0)
 		{
-			if (cur->val < x)
-			{
-				prev->next = new ListNode(cur->val);
-				prev = prev->next;
-			}
-			else
-				nums.push_back(cur->val);
-			cur = cur->next;
+			if (n == 0)
+				count++;
+			return;
 		}
-		for (int i = 0; i < nums.size(); i++)
-		{
-			prev->next = new ListNode(nums[i]);
-			prev = prev->next;
-		}
-		return newhead.next;
+		Backtracking(n - 1);
+		Backtracking(n - 2);
+	}
+
+	int climbStairs(int n)
+	{
+		Backtracking(n);
+		return count;
 	}
 };
+
+int main()
+{
+	int n = 3;
+	cout << Solution().climbStairs(n);
+	return 0;
+}
