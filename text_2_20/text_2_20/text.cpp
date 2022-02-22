@@ -525,34 +525,248 @@
 //	return 0;
 //}
 
+//#include<iostream>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int count = 0;
+//	void Backtracking(int n)
+//	{
+//		if (n <= 0)
+//		{
+//			if (n == 0)
+//				count++;
+//			return;
+//		}
+//		Backtracking(n - 1);
+//		Backtracking(n - 2);
+//	}
+//
+//	int climbStairs(int n)
+//	{
+//		Backtracking(n);
+//		return count;
+//	}
+//};
+//
+//int main()
+//{
+//	int n = 3;
+//	cout << Solution().climbStairs(n);
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<vector>
+//using namespace std;
+//class Solution {
+//public:
+//	int climbStairs(int n) {
+//		vector<int>dp(n + 1, 0);
+//		dp[0] = 1;
+//		dp[1] = 1;
+//		for (int i = 2; i <= n; i++)
+//		{
+//			dp[i] = dp[i - 1] + dp[i - 2];
+//		}
+//		return dp[n];
+//	}
+//};
+//
+//int main()
+//{
+//	int n = 1;
+//	cout << Solution().climbStairs(n);
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<vector>
+//#include<algorithm>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int minCostClimbingStairs(vector<int>& cost) {
+//		vector<int>dp(cost.size() + 1, 0);
+//		for (int i = 2; i <= cost.size(); i++)
+//		{
+//			dp[i] = min(dp[i - 2] + cost[i - 2], dp[i - 1] + cost[i - 1]);
+//		}
+//		return dp[cost.size()];
+//	}
+//};
+//
+//int main()
+//{
+//	vector<int>nums{ 1,100,1,1,1,100,1,1,100,1 };
+//	cout << Solution().minCostClimbingStairs(nums);
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<vector>
+//#include<algorithm>
+//using namespace std;
+//class Solution {
+//public:
+//	int rob(vector<int>& nums) {
+//		if (nums.size() == 1)
+//			return nums[0];
+//		vector<int>dp(nums.size(), 0);
+//		dp[0] = nums[0];
+//		dp[1] = max(nums[0], nums[1]);
+//		//Íµ»¹ÊÇ²»Íµ
+//		for (int i = 2; i < nums.size(); i++)
+//		{
+//			dp[i] = max(dp[i - 2] + nums[i], dp[i - 1]);
+//		}
+//		return dp[nums.size() - 1];
+//	}
+//};
+//
+//int main()
+//{
+//	vector<int>nums{ 2,7,9,3,1,4,1,7 };
+//	cout << Solution().rob(nums);
+//	return 0;
+//}
+
+
+//#include<iostream>
+//#include<vector>
+//#include<algorithm>
+//using namespace std;
+//class Solution {
+//public:
+//	int _rob(vector<int>&nums, int begin, int end)
+//	{
+//		if (begin == end)
+//			return nums[begin];
+//		if (end - begin == 1)
+//			return max(nums[begin], nums[end]);
+//		vector<int>dp(nums.size() + 1, 0);
+//		dp[begin] = nums[begin];
+//		dp[begin + 1] = max(nums[begin], nums[begin + 1]);
+//		for (int i = begin + 2; i <= end; i++)
+//		{
+//			dp[i] = max(dp[i - 2] + nums[i], dp[i - 1]);
+//		}
+//		return dp[end];
+//	}
+//
+//	int rob(vector<int>& nums) {
+//		if (nums.size() == 0)
+//			return 0;
+//		return max(_rob(nums, 0, nums.size() - 2), _rob(nums, 1, nums.size() - 1));
+//	}
+//};
+//
+//int main()
+//{
+//	vector<int>nums{ 1,2,3,1 };
+//	cout << Solution().rob(nums);
+//	return 0;
+//}
+
+
+//#include<iostream>
+//#include<vector>
+//#include<algorithm>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int _deleteAndEarn(const vector<int>& nums)
+//	{
+//		vector<int>dp(nums.size(), 0);
+//		dp[0] = nums[0];
+//		dp[1] = max(nums[1], nums[0]);
+//		if (nums.size() <= 2)
+//			return dp[nums.size() - 1];
+//
+//		for (int i = 2; i < nums.size(); i++)
+//		{
+//			dp[i] = max(dp[i - 2] + nums[i], dp[i - 1]);
+//		}
+//		return dp[nums.size() - 1];
+//	}
+//
+//	int deleteAndEarn(vector<int>& nums) {
+//		int maxnum = 0;
+//		for (auto e : nums)
+//			maxnum = max(maxnum, e);
+//		vector<int>arr(maxnum + 1, 0);
+//		for (int i = 0; i < nums.size(); i++)
+//		{
+//			arr[nums[i]] += nums[i];
+//		}
+//		return _deleteAndEarn(arr);
+//	}
+//};
+//
+//int main()
+//{
+//	vector<int>nums{ 3,2,4 };
+//	cout << Solution().deleteAndEarn(nums);
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<vector>
+//#include<algorithm>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int maxSubArray(vector<int>& nums)
+//	{
+//		vector<int>dp(nums.size(), 0);
+//		dp[0] = nums[0];
+//		for (int i = 1; i < nums.size(); i++)
+//		{
+//			dp[i] = max(dp[i - 1] + nums[i], nums[i]);
+//		}
+//		int ret = dp[0];
+//		for (auto e : dp)
+//			ret = max(e, ret);
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	return 0;
+//}
+
 #include<iostream>
+#include<vector>
+#include<algorithm>
 using namespace std;
 
 class Solution {
 public:
-	int count = 0;
-	void Backtracking(int n)
+	int minCost(vector<vector<int>>& costs)
 	{
-		if (n <= 0)
+		vector<vector<int>>dp(3, vector<int>(costs.size(), 0));
+		dp[0][0] = costs[0][0];
+		dp[1][0] = costs[0][1];
+		dp[2][0] = costs[0][2];
+		for (int i = 1; i < costs.size(); i++)
 		{
-			if (n == 0)
-				count++;
-			return;
+			dp[0][i] = min(dp[1][i - 1], dp[2][i - 1]) + costs[i][0];
+			dp[1][i] = min(dp[0][i - 1], dp[2][i - 1]) + costs[i][1];
+			dp[2][i] = min(dp[0][i - 1], dp[1][i - 1]) + costs[i][2];
 		}
-		Backtracking(n - 1);
-		Backtracking(n - 2);
-	}
-
-	int climbStairs(int n)
-	{
-		Backtracking(n);
-		return count;
+		return min(min(dp[0][costs.size() - 1], dp[1][costs.size() - 1])
+			, dp[2][costs.size() - 1]);
 	}
 };
 
 int main()
 {
-	int n = 3;
-	cout << Solution().climbStairs(n);
+	vector<vector<int>>costs{ {17,2,17},{16,16,5},{14,3,19} };
+	cout << Solution().minCost(costs) << endl;
 	return 0;
 }
