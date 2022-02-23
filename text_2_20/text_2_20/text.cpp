@@ -740,33 +740,143 @@
 //	return 0;
 //}
 
-#include<iostream>
-#include<vector>
-#include<algorithm>
-using namespace std;
+//#include<iostream>
+//#include<vector>
+//#include<algorithm>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int minCost(vector<vector<int>>& costs)
+//	{
+//		vector<vector<int>>dp(3, vector<int>(costs.size(), 0));
+//		dp[0][0] = costs[0][0];
+//		dp[1][0] = costs[0][1];
+//		dp[2][0] = costs[0][2];
+//		for (int i = 1; i < costs.size(); i++)
+//		{
+//			dp[0][i] = min(dp[1][i - 1], dp[2][i - 1]) + costs[i][0];
+//			dp[1][i] = min(dp[0][i - 1], dp[2][i - 1]) + costs[i][1];
+//			dp[2][i] = min(dp[0][i - 1], dp[1][i - 1]) + costs[i][2];
+//		}
+//		return min(min(dp[0][costs.size() - 1], dp[1][costs.size() - 1])
+//			, dp[2][costs.size() - 1]);
+//	}
+//};
+//
+//int main()
+//{
+//	vector<vector<int>>costs{ {17,2,17},{16,16,5},{14,3,19} };
+//	cout << Solution().minCost(costs) << endl;
+//	return 0;
+//}
 
-class Solution {
-public:
-	int minCost(vector<vector<int>>& costs)
-	{
-		vector<vector<int>>dp(3, vector<int>(costs.size(), 0));
-		dp[0][0] = costs[0][0];
-		dp[1][0] = costs[0][1];
-		dp[2][0] = costs[0][2];
-		for (int i = 1; i < costs.size(); i++)
-		{
-			dp[0][i] = min(dp[1][i - 1], dp[2][i - 1]) + costs[i][0];
-			dp[1][i] = min(dp[0][i - 1], dp[2][i - 1]) + costs[i][1];
-			dp[2][i] = min(dp[0][i - 1], dp[1][i - 1]) + costs[i][2];
-		}
-		return min(min(dp[0][costs.size() - 1], dp[1][costs.size() - 1])
-			, dp[2][costs.size() - 1]);
-	}
-};
+//#include<iostream>
+//#include<string>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	string reverseOnlyLetters(string s) {
+//
+//		int left = 0, right = s.size() - 1;
+//		while (left < right)
+//		{
+//			//×ó±ßÕÒ×ÖÄ¸
+//			while (left < right)
+//			{
+//				if (isalpha(s[left]))
+//					break;
+//				left++;
+//			}
+//
+//			//ÓÒÃæÕÒ
+//			while (left < right)
+//			{
+//				if (isalpha(s[right]))
+//					break;
+//				right--;
+//			}
+//			if (left < right)
+//				swap(s[left], s[right]);
+//			left++, right--;
+//		}
+//		return s;
+//	}
+//};
+//
+//int main()
+//{
+//	string s{ "ab-cd" };
+//	cout << Solution().reverseOnlyLetters(s);
+//	return 0;
+//}
 
-int main()
-{
-	vector<vector<int>>costs{ {17,2,17},{16,16,5},{14,3,19} };
-	cout << Solution().minCost(costs) << endl;
-	return 0;
-}
+//#include<iostream>
+//#include<vector>
+//#include<algorithm>
+//using namespace std;
+//class Solution {
+//public:
+//	int minimumTotal(vector<vector<int>>& triangle) {
+//		vector<vector<int>>dp(triangle.size());
+//		dp[0].push_back(triangle[0][0]);
+//		for (int i = 1; i < triangle.size(); i++)
+//		{
+//			for (int j = 0; j < triangle[i].size(); j++)
+//			{
+//				if (j == 0)
+//					dp[i].push_back(dp[i - 1][j] + triangle[i][j]);
+//				else if (j == triangle[i].size() - 1)
+//					dp[i].push_back(dp[i - 1][j - 1] + triangle[i][j]);
+//				else
+//					dp[i].push_back(min(dp[i - 1][j - 1], dp[i - 1][j]) + triangle[i][j]);
+//			}
+//		}
+//		int ret = INT_MAX;
+//		for (int i = 0; i < dp[triangle.size() - 1].size(); i++)
+//		{
+//			ret = min(ret, dp[triangle.size() - 1][i]);
+//		}
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<vector<int>>triangle{ { {-10}} };
+//	cout << Solution().minimumTotal(triangle);
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<vector>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int uniquePaths(int m, int n) {
+//		vector<vector<int>>dp(n, vector<int>(m));
+//		for (int i = 0; i < m; i++)
+//		{
+//			dp[0][i] = 1;
+//		}
+//		for (int i = 0; i < n; i++)
+//			dp[i][0] = 1;
+//
+//		for (int i = 1; i < n; i++)
+//		{
+//			for (int j = 1; j < m; j++)
+//			{
+//				dp[i][j] = dp[i][j - 1] + dp[i - 1][j];
+//			}
+//		}
+//		return dp[n - 1][m - 1];
+//	}
+//};
+//
+//int main()
+//{
+//	return 0;
+//}
+
