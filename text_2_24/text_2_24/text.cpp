@@ -312,25 +312,186 @@
 //	return 0;
 //}
 
-#include<iostream>
-#include<algorithm>
-#include<vector>
-using namespace std;
+//#include<iostream>
+//#include<algorithm>
+//#include<vector>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int maxProduct(vector<int>& nums) {
+//		vector <int> maxS(nums), minS(nums);
+//		for (int i = 1; i < nums.size(); ++i) {
+//			maxS[i] = max(maxS[i - 1] * nums[i], max(nums[i], minS[i - 1] * nums[i]));
+//			minS[i] = min(minS[i - 1] * nums[i], min(nums[i], maxS[i - 1] * nums[i]));
+//		}
+//		return *max_element(maxS.begin(), maxS.end());
+//	}
+//};
+//int main()
+//{
+//	vector<int>nums{ -2,0,-1 };
+//	cout << Solution().maxProduct(nums);
+//	return 0;
+//}
 
-class Solution {
-public:
-	int maxProduct(vector<int>& nums) {
-		vector <int> maxS(nums), minS(nums);
-		for (int i = 1; i < nums.size(); ++i) {
-			maxS[i] = max(maxS[i - 1] * nums[i], max(nums[i], minS[i - 1] * nums[i]));
-			minS[i] = min(minS[i - 1] * nums[i], min(nums[i], maxS[i - 1] * nums[i]));
-		}
-		return *max_element(maxS.begin(), maxS.end());
-	}
-};
-int main()
-{
-	vector<int>nums{ -2,0,-1 };
-	cout << Solution().maxProduct(nums);
-	return 0;
-}
+
+//#include<iostream>
+//#include<vector>
+//#include<string>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int prefixCount(vector<string>& words, string pref)
+//	{
+//		int ret = 0;
+//		for (int i = 0; i < words.size(); i++)
+//		{
+//			if (words[i].find(pref) == 0)
+//				ret++;
+//		}
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<string>words{ "leetcode","win","loops","success" };
+//	string pref("code");
+//	cout << Solution().prefixCount(words, pref);
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<string>
+//#include<vector>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int minSteps(string s, string t) {
+//		vector<int> flag(26, 0);
+//		for (int i = 0; i < s.size(); i++)
+//		{
+//			flag[s[i] - 'a']++;
+//		}
+//		for (int i = 0; i < t.size(); i++)
+//		{
+//			flag[t[i] - 'a']--;
+//		}
+//		int ret = 0;
+//		for (auto e : flag)
+//			ret += abs(e);
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<vector>
+//#include<algorithm>
+//#include<map>
+//using namespace std;
+//class Solution {
+//public:
+//	long long minimumTime(vector<int>& time, int totalTrips) {
+//		long long left = 0, right = 1e16;
+//		long long mid = 0,count = 0;
+//		while (left <= right)
+//		{
+//			mid = left + (right - left) / 2;
+//			count = 0;
+//			for (int i = 0; i < time.size(); i++)
+//			{
+//				count += mid / time[i];
+//				if (count > totalTrips)
+//					break;
+//			}
+//
+//			if (count >= totalTrips)
+//				right = mid - 1;
+//			else
+//				left = mid + 1;
+//		}
+//		return  count < totalTrips ? mid + 1 : mid;
+//	}
+//};
+//
+//
+//int main()
+//{
+//	vector<int>time{ 5,10,10 };
+//	int totalTrips = 9;
+//	cout << Solution().minimumTime(time, totalTrips);
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<vector>
+//#include<algorithm>
+//using namespace std;
+//
+////class Solution {
+////public:
+////	int maxScoreSightseeingPair(vector<int>& values) {
+////		int ret = 0;
+////		for (int i = 0; i < values.size(); i++)
+////		{
+////			for (int j = 0; j < i; j++)
+////			{
+////				ret = max(values[j] + values[i] + (j - i), ret);
+////			}
+////		}
+////		return ret;
+////	}
+////};
+//
+//class Solution {
+//public:
+//	int maxScoreSightseeingPair(vector<int>& values) {
+//		int prevmax = values[0], ret = 0;
+//		for (int i = 1; i < values.size(); i++)
+//		{
+//			ret = max(prevmax + values[i] - i, ret);
+//			prevmax = max(prevmax, values[i] + i);
+//		}
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<int>values{ 8,1,5,2,6 };
+//	cout << Solution().maxScoreSightseeingPair(values);
+//	return 0;
+//}
+
+
+//#include<iostream>
+//#include<vector>
+//#include<algorithm>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int maxProfit(vector<int>& prices) {
+//		int prevmin = prices[0], ret = 0;
+//		for (int i = 1; i < prices.size(); i++)
+//		{
+//			ret = max(ret, prices[i] - prevmin);
+//			prevmin = min(prevmin, prices[i]);
+//		}
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	return 0;
+//}
+
