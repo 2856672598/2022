@@ -1,3 +1,5 @@
 ﻿  text.cpp
-d:\githup\2022\text_2_24\text_2_24\text.cpp(509): warning C4018: “<”: 有符号/无符号不匹配
+d:\githup\2022\text_2_24\text_2_24\text.cpp(627): warning C4018: “<”: 有符号/无符号不匹配
+d:\githup\2022\text_2_24\text_2_24\text.cpp(629): warning C4018: “>=”: 有符号/无符号不匹配
+d:\githup\2022\text_2_24\text_2_24\text.cpp(630): warning C4018: “>=”: 有符号/无符号不匹配
   text_2_24.vcxproj -> D:\Githup\2022\text_2_24\Debug\text_2_24.exe

@@ -495,3 +495,187 @@
 //	return 0;
 //}
 
+//#include<iostream>
+//#include<string>
+//using namespace std;
+//
+//int main()
+//{
+//	string s;
+//	getline(cin, s);
+//	size_t pos = s.rfind(' ');
+//	if (pos == string::npos)
+//		cout << s.size() << endl;
+//	else
+//		cout << s.size() - pos - 1 << endl;
+//	return 0;
+//}
+
+//#include <iostream>
+//#include<string>
+//#include<vector>
+//using namespace std;
+//class Solution {
+//public:
+//	int firstUniqChar(string s) {
+//		vector<int>flag(26, 0);
+//		for (auto e : s)
+//			flag[e - 'a']++;
+//		for (int i = 0; i < s.size(); i++)
+//		{
+//			if (flag[s[i] - 'a'] == 1)
+//				return i;
+//		}
+//		return -1;
+//	}
+//};
+//
+//int main()
+//{
+//	string s("hello world");
+//	cout << Solution().firstUniqChar(s);
+//	return 0;
+//}
+
+
+//#include<iostream>
+//#include<string>
+//using namespace std;
+//class Solution {
+//public:
+//	string addStrings(string num1, string num2) {
+//		string ret;
+//		int begin1 = num1.size() - 1, begin2 = num2.size() - 1;
+//		int tmp1, tmp2, flag = 0;
+//		while (begin1 >= 0 || begin2 >= 0)
+//		{
+//			tmp1 = begin1 < 0 ? '0' : num1[begin1--];
+//			tmp2 = begin2 < 0 ? '0' : num2[begin2--];
+//
+//			int sum = tmp1 + tmp2 + flag - 2 * '0';
+//			if (sum > 9)
+//			{
+//				flag = sum / 10;
+//				sum %= 10;
+//			}
+//			else
+//				flag = 0;
+//			ret += sum + '0';
+//		}
+//		if (flag > 0)
+//			ret += 1 + '0';
+//		reverse(ret.begin(), ret.end());
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	string num1("11");
+//	string num2("123");
+//	cout << Solution().addStrings(num1, num2);
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<string>
+//using namespace std;
+//class Solution {
+//public:
+//	int StrToInt(string str) {
+//		int ret = 0;
+//		int i = 0;
+//		if (str[0] == '-' || str[0] == '+')
+//			i++;
+//		for (i; i < str.size(); i++)
+//		{
+//			if (!isdigit(str[i]) || ret > INT_MAX)
+//			{
+//				ret = 0;
+//				break;
+//			}
+//			ret = ret * 10 + str[i] - '0';
+//		}
+//		if (str[0] == '-')
+//		{
+//			if (ret > INT_MAX - 1)
+//				return 0;
+//			ret *= -1;
+//		}
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	string str("+2147483647");
+//	cout << Solution().StrToInt(str);
+//	return 0;
+//}
+
+#include<iostream>
+#include<string>
+using namespace std;
+
+class Solution {
+public:
+	string addStrings(string num1, string num2) {
+
+		string ret;
+		int begin1 = 0, begin2 = 0;
+		int tmp1, tmp2, flag = 0;
+		while (begin1 < num1.size() || begin2 < num2.size())
+		{
+			tmp1 = begin1 >= num1.size() ? '0' : num1[begin1++];
+			tmp2 = begin2 >= num2.size() ? '0' : num2[begin2++];
+
+			int sum = tmp1 - '0' + tmp2 - '0' + flag;
+			if (sum > 9)
+			{
+				flag = sum / 10;
+				sum %= 10;
+			}
+			else
+				flag = 0;
+			ret += sum + '0';
+		}
+		if (flag > 0)
+			ret += 1 + '0';
+		return ret;
+	}
+
+	string multiply(string num1, string num2) {
+		if (num1 == "0" || num2 == "0")
+			return "0";
+		string ret;
+		for (int i = num2.size() - 1; i >= 0; i--)
+		{
+			string tmp(num2.size() - i - 1, '0');
+			int flag = 0;
+			for (int j = num1.size() - 1; j >= 0; j--)
+			{
+				int sum = (num1[j] - '0') * (num2[i] - '0') + flag;
+				if (sum > 9)
+				{
+					flag = sum / 10;
+					sum %= 10;
+				}
+				else
+					flag = 0;
+				tmp += sum + '0';
+			}
+			if (flag > 0)
+				tmp += flag + '0';
+			ret = addStrings(ret, tmp);
+		}
+		reverse(ret.begin(), ret.end());
+		return ret;
+	}
+};
+
+int main()
+{
+	string num1 = "123", num2 = "456";
+	cout << Solution().multiply(num1, num2);
+	return 0;
+}
