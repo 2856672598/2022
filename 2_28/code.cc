@@ -2,7 +2,7 @@
 using namespace wkn;
 using std::cout;
 using std::endl;
-
+using std::cin;
 void text1()
 {
     string s1("hello");
@@ -57,16 +57,16 @@ void text3()
 
 void text4()
 {
-    string s1("abcd");
-    string s2("b");
-    cout<< (s1<s2)<<endl;
-    cout<<(s1 > s2)<<endl;
-    cout << ( s1 <= s2 ) << endl;
-    cout<<(s1>=s2)<<endl;
-    string s3(s1);
-    cout<< (s3 == s1)<<endl;
-    cout<<(s3 <= s1)<<endl;
-    cout<<(s1 != s2)<<endl;
+    string s1("hello");
+    string s2("hello");
+    string s3("zzz");
+    cout << (s1 < s3) << endl;
+    cout << (s1 > s3) << endl;
+    cout << (s1 >= s3) << endl;
+    
+    cout << (s1 <= s3) << endl;
+    cout << (s1 == s3) << endl;
+    cout << (s1 != s3) << endl;
 }
 void text5()
 {
@@ -76,6 +76,10 @@ void text5()
     s1.erase(3,2);
     cout << s1 <<endl;
     cout<<s1.size()<<endl;
+
+    string s2;
+    cin >> s2;
+    cout << s2 <<endl;
 }
 int main()
 {
@@ -84,5 +88,9 @@ int main()
     //text3();
     //text4();
     text5();
+    string s1("hello");
+    s1 += '\0';
+    s1 +=  "world";
+    cout << s1<<endl;
     return 0;
 }

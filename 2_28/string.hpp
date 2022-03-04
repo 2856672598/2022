@@ -7,6 +7,7 @@
 #include <utility>
 #include <cstring>
 using std::ostream;
+using std::istream;
 namespace wkn
 {
 
@@ -14,7 +15,7 @@ namespace wkn
     {
         typedef char* iterator;
         typedef const char* const_iterator;
-        friend ostream& operator<< (ostream& out,const string& s);
+        friend istream& operator>>(istream& _in,string& s);
         public:
             static size_t npos;
             string(const char* s = "")
@@ -292,10 +293,21 @@ namespace wkn
     size_t string::npos = -1;
     ostream& operator<<(ostream& out,const string& s)
     {
-        for(size_t i = 0;i < s._size;i++)
+        for(size_t i = 0;i < s.size();i++)
         {
             out<< s[i];
         }
         return out;
+    }
+    istream& operator>>(istream& _in,string& s)
+    {
+        s.resize(0);
+        char ch = _in.get();
+        while(ch != ' '&& ch != '\n')
+        {
+            s += ch;
+            ch = _in.get();
+        }
+        return _in;
     }
 }
