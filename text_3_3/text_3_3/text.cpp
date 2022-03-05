@@ -173,67 +173,135 @@
 //{
 //	return 0;
 //}
-#define _CRT_SECURE_NO_WARNINGS 
-#include<iostream>
-#include<cstring>
-#include<algorithm>
-using std::swap;
 
-class string
-{
-public:
-	string(const char* str = "")
-		:_str(nullptr)
-		, _capacity(strlen(str))
-		, _size(0)
-	{
-		_str = new char[_capacity + 1];
-		_str[_capacity] = '\0';
-		strcpy(_str, str);
-		_size = _capacity;
-	}
 
-	//string(const string& s)
-	//	:_str(nullptr)
-	//{
-	//	char* tmp = new char[s._size + 1];
-	//	strcpy(tmp, s._str);
-	//	_size = s._size;
-	//	_capacity = s._capacity;
-	//}
-	string(const string& s)
-		:_str(nullptr)
-	{
-		string tmp(s._str);
-		swap(tmp._str, _str);
-		_size = s._size;
-		_capacity = s._capacity;
-	}
-	
-	string& operator= (const string& s)
-	{
-		string tmp(s);
-		swap(tmp._str, _str);
-		_size = s._size;
-		_capacity = s._capacity;
-		return *this;
-	}
+//#define _CRT_SECURE_NO_WARNINGS 
+//#include<iostream>
+//#include<cstring>
+//#include<algorithm>
+//using std::swap;
+//
+//class string
+//{
+//public:
+//	string(const char* str = "")
+//		:_str(nullptr)
+//		, _capacity(strlen(str))
+//		, _size(0)
+//	{
+//		_str = new char[_capacity + 1];
+//		_str[_capacity] = '\0';
+//		strcpy(_str, str);
+//		_size = _capacity;
+//	}
+//
+//	//string(const string& s)
+//	//	:_str(nullptr)
+//	//{
+//	//	char* tmp = new char[s._size + 1];
+//	//	strcpy(tmp, s._str);
+//	//	_size = s._size;
+//	//	_capacity = s._capacity;
+//	//}
+//	string(const string& s)
+//		:_str(nullptr)
+//	{
+//		string tmp(s._str);
+//		swap(tmp._str, _str);
+//		_size = s._size;
+//		_capacity = s._capacity;
+//	}
+//	
+//	string& operator= (const string& s)
+//	{
+//		string tmp(s);
+//		swap(tmp._str, _str);
+//		_size = s._size;
+//		_capacity = s._capacity;
+//		return *this;
+//	}
+//
+//	~string()
+//	{
+//		delete[] _str;
+//		_size = _capacity = 0;
+//	}
+//private:
+//	char* _str;
+//	size_t _capacity;
+//	size_t _size;
+//};
+//
+//int main()
+//{
+//	string s1("hello");
+//	string s2(s1);
+//
+//	return 0;
+//}
 
-	~string()
-	{
-		delete[] _str;
-		_size = _capacity = 0;
-	}
-private:
-	char* _str;
-	size_t _capacity;
-	size_t _size;
-};
+//#include<iostream>
+//#include<vector>
+//using namespace std;
+//
+//struct TreeNode {
+//	int val;
+//	TreeNode *left;
+//	TreeNode *right;
+//	TreeNode() : val(0), left(nullptr), right(nullptr) {}
+//	TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+//	TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+//};
+// 
+////class Solution
+////{
+////	int sum = 0;
+////public:
+////	//¸ù×óÓÒ
+////	void Preorder(TreeNode* root, int tmp)
+////	{
+////		if (root->left == root->right&&root->left == nullptr)
+////		{
+////			sum += tmp * 10 + root->val;
+////			return;
+////		}
+////		if (root->left != nullptr)
+////			Preorder(root->left, tmp * 10 + root->val);
+////		if (root->right != nullptr)
+////			Preorder(root->right, tmp * 10 + root->val);
+////	}
+////
+////	int sumNumbers(TreeNode* root)
+////	{
+////		if (root == nullptr)
+////			return 0;
+////		Preorder(root, 0);
+////		return sum;
+////	}
+////};
+//
+//
+//class Solution {
+//public:
+//	void Preorder(TreeNode* root, int& sum)
+//	{
+//		if (root == nullptr)
+//			return;
+//		if (root->left && root->left->left == nullptr&&root->left->right == nullptr)
+//		{
+//			sum += root->left->val;
+//		}
+//		if (root->left)
+//			Preorder(root->left, sum);
+//		if (root->right)
+//			Preorder(root->right, sum);
+//	}
+//
+//	int sumOfLeftLeaves(TreeNode* root)
+//	{
+//		int sum = 0;
+//		Preorder(root, sum);
+//		return sum;
+//	}
+//};
 
-int main()
-{
-	string s1("hello");
-	string s2(s1);
-
-	return 0;
-}
