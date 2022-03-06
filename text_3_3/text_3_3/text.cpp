@@ -305,3 +305,289 @@
 //	}
 //};
 
+//#include<iostream>
+//#include<vector>
+//#include<unordered_map>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int mostFrequent(vector<int>& nums, int key) {
+//		unordered_map<int, int>flag;
+//		for (int i = 0; i < (int)nums.size(); i++)
+//		{
+//			if (nums[i] == key && i + 1 < nums.size())
+//				flag[nums[i + 1]]++;
+//		}
+//		int ret = flag.begin()->first;
+//		for (auto e : flag)
+//		{
+//			if (e.second > flag[ret])
+//				ret = e.first;
+//		}
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<int>nums{ 1,100,200,1,100 };
+//	int key = 1;
+//	cout << Solution().mostFrequent(nums, key);
+//	return 0;
+//}
+
+
+//#include<iostream>
+//#include<vector>
+//#include<map>
+//#include<algorithm>
+//#include<string>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	vector<int> sortJumbled(vector<int>& mapping, vector<int>& nums)
+//	{
+//		map<int, vector<int>>flag;
+//		for (int i = 0; i < (int)nums.size(); i++)
+//		{
+//			string tmp = to_string(nums[i]);
+//			int newnum = 0;
+//			for (int j = 0; j < tmp.size(); j++)
+//			{
+//				newnum = newnum * 10 + mapping[tmp[j] - '0'];
+//			}
+//			flag[newnum].push_back(nums[i]);
+//		}
+//		vector<int>ret;
+//		for (auto e : flag)
+//		{
+//			for (auto y : e.second)
+//			{
+//				ret.push_back(y);
+//			}
+//		}
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<int>mapping{ 8, 9, 4, 0, 2, 1, 3, 5, 7, 6 };
+//	vector<int> nums{ 991,338,38 };
+//	Solution().sortJumbled(mapping, nums);
+//	return 0;
+//}
+
+
+//#include<iostream>
+//#include<vector>
+//#include<string>
+//using namespace std;
+//
+//class Solution
+//{
+//public:
+//	vector<string>ret;
+//	void BackTracking(string& digits, string* arr, int index, string& tmp)
+//	{
+//		if (index == digits.size())
+//		{
+//			ret.push_back(tmp);
+//			return;
+//		}
+//
+//		for (int i = 0; i < arr[digits[index] - '0'].size(); i++)
+//		{
+//			tmp.push_back(arr[digits[index] - '0'][i]);
+//			BackTracking(digits, arr, index + 1, tmp);
+//			tmp.pop_back();
+//		}
+//	}
+//
+//	vector<string> letterCombinations(string digits)
+//	{
+//		if (digits.size() == 0)
+//			return{};
+//		string arr[10] = { " "," ","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz" };
+//		string tmp;
+//		BackTracking(digits, arr, 0, tmp);
+//		return ret;
+//	}
+//};
+
+
+//#include<iostream>
+//#include<vector>
+//using namespace std;
+//
+//class Solution
+//{
+//public:
+//	int Check(const vector<int>&nums)
+//	{
+//		int result = 0;
+//		for (auto& e : nums)
+//		{
+//			result ^= e;
+//		}
+//		return result;
+//	}
+//	vector<int> singleNumber(vector<int>& nums)
+//	{
+//		int tmp = Check(nums);
+//		//找到二进制中第一个1的位置
+//		unsigned flag = 1;
+//		while ((tmp&flag) == 0)
+//			flag = flag << 1;
+//		vector<int>nums1, nums2;
+//		for (int i = 0; i < (int)nums.size(); i++)
+//		{
+//			if (nums[i] & flag)
+//				nums1.push_back(nums[i]);
+//			else
+//				nums2.push_back(nums[i]);
+//		}
+//		return { Check(nums1),Check(nums2) };
+//	}
+//};
+//
+//int main()
+//{
+//	vector<int>nums{ 1,2,1,3,2,5 };
+//	Solution().singleNumber(nums);
+//	return 0;
+//}
+
+//
+//#include<iostream>
+//#include<vector>
+//#include<string>
+//#include<algorithm>
+//using namespace std;
+
+//class Solution {
+//public:
+//	vector<string> cellsInRange(string s)
+//	{
+//		int row = s[1] - '0';
+//		vector<string>ret;
+//		for (int i = s[0] - 'a'; i <= s[3] - 'a'; i++)
+//		{
+//			for (int j = row; j <= s[4] - '0'; j++)
+//			{
+//				string tmp;
+//				tmp.push_back(i+'a');
+//				tmp.push_back(j + '0');
+//				ret.push_back(tmp);
+//			}
+//		}
+//		return ret;
+//	}
+//};
+
+//#include<unordered_set>
+//class Solution {
+//public:
+//	long long minimalKSum(vector<int>& nums, int k) {
+//		unordered_set<int>flag;
+//		for (auto e : nums)
+//		{
+//			flag.insert(e);
+//		}
+//		long long sum = 0;
+//		for (int i = 1; i <= 1e10; i++)
+//		{
+//			if (k == 0)
+//				break;
+//			if (flag.find(i) == flag.end())
+//			{
+//				k--;
+//				sum += i;
+//			}
+//		}
+//		return sum;
+//	}
+//};
+
+
+//class Solution {
+//public:
+//	int gcd(int a, int b) {
+//		if (a%b == 0) {
+//			return b;
+//		}
+//		return gcd(b, a%b);
+//	}
+//
+//	//vector<int> replaceNonCoprimes(vector<int>& nums)
+//	//{
+//	//	int begin = 1;
+//	//	vector<int>ret;
+//	//	while (begin < nums.size())
+//	//	{
+//	//		int tmp = gcd(nums[begin], nums[begin - 1]);
+//	//		if (tmp > 1)
+//	//		{
+//	//			nums[begin] = nums[begin-1] / tmp * nums[begin];
+//	//			begin++;
+//	//		}
+//	//		else
+//	//		{
+//	//			ret.push_back(nums[begin - 1]);
+//	//			begin++;
+//	//		}
+//	//	}
+//	//	ret.push_back(nums[nums.size() - 1]);
+//	//	vector<int>target;
+//	//	if (ret.size() != nums.size())
+//	//	{
+//	//		target = replaceNonCoprimes(ret);
+//	//	}
+//	//	return ret.size() == nums.size() ? ret : target;
+//	//}
+//
+//	vector<int> replaceNonCoprimes(vector<int>& nums)
+//	{
+//		vector<int> ret(nums[0]);
+//		for (int i = 1; i < nums.size(); i++)
+//		{
+//			while (ret.size() > 0 && gcd(nums[i], ret.back()) > 1)
+//			{
+//				nums[i] = nums[i - 1] / gcd(nums[i], nums[i - 1])*nums[i];
+//				ret.pop_back();
+//			}
+//			ret.push_back(nums[i]);
+//		}
+//		return ret;
+//	}
+//};
+
+//class Solution
+//{
+//public:
+//	int gcd(int a, int b)
+//	{
+//		if (a%b == 0) {
+//			return b;
+//		}
+//		return gcd(b, a%b);
+//	}
+//
+//	vector<int> replaceNonCoprimes(vector<int>& nums)
+//	{
+//		vector<int> ret;
+//		for (int i = 0; i < nums.size(); i++)
+//		{
+//			while (ret.size() > 0 && gcd(nums[i], ret.back()) > 1)
+//			{
+//				nums[i] = nums[i] / gcd(nums[i], ret.back())*ret.back();
+//				ret.pop_back();
+//			}
+//			ret.push_back(nums[i]);
+//		}
+//		return ret;
+//	}
+//};
+//
