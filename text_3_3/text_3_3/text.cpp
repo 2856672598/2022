@@ -591,3 +591,119 @@
 //	}
 //};
 //
+
+
+//#include<iostream>
+//#include<string>
+//#include<algorithm>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	string convertToBase7(int num) {
+//		if (num == 0)
+//			return{ '0' };
+//		string ret;
+//		int flag = 1;
+//		if (num < 0)
+//		{
+//			num *= -1;
+//			flag = -1;
+//		}
+//		while (num)
+//		{
+//			ret += num % 7 + '0';
+//			num /= 7;
+//		}
+//		if (flag == -1)
+//			ret += '-';
+//		reverse(ret.begin(), ret.end());
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	int n = 7;
+//	cout << Solution().convertToBase7(n);
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<algorithm>
+//#include<vector>
+//#include<algorithm>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	long long minimalKSum(vector<int>& nums, int k) {
+//		sort(nums.begin(), nums.end());
+//		long long sum = 0, cur = 1, prev = 0;
+//		size_t i = 1;
+//		for (i = 0; i <nums.size(); i++)
+//		{
+//			if (k == 0)
+//				break;
+//			cur = nums[i];
+//			if (cur - prev > 1)
+//			{
+//				long long n = cur - prev - 1;
+//				long long del = min(n, (long long)k);
+//				sum += (prev + 1 + prev + del)*del / 2;
+//				k -= del;
+//			}
+//			prev = cur;
+//		}
+//		if (k != 0)
+//		{
+//			sum += (prev + 1 + prev + k)*k / 2;
+//		}
+//		return sum;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<int>nums{ 5,6 };
+//	int k = 6;
+//	cout << Solution().minimalKSum(nums, 6);
+//	return 0;
+//}
+
+#include<iostream>
+#include<vector>
+using namespace std;
+
+class Solution {
+public:
+	int singleNumber(vector<int>& nums) {
+		int arr[32]{ 0 };
+		for (int i = 0; i < (int)nums.size(); i++)
+		{
+			unsigned int tmp = nums[i];
+			int index = 0;
+			while (tmp)
+			{
+				if (tmp & 1)
+					arr[index]++;
+				tmp >>= 1;
+				index++;
+			}
+		}
+		int ret = 0;
+		for (int i = 0; i < 32; i++)
+		{
+			ret = ret + arr[i] % 3 * (1 << i);
+		}
+		return ret;
+	}
+};
+
+int main()
+{
+	vector<int>nums{ 0,1,0,1,0,1,99 };
+	cout << Solution().singleNumber(nums);
+	return 0;
+}
+
