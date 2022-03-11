@@ -213,46 +213,111 @@
 //	return 0;
 //}
 
+//#include<iostream>
+//#include <unordered_map>
+//#include<vector>
+//#include <ctime>
+//using namespace std;
+//
+//class RandomizedSet {
+//private:
+//	unordered_map<int,int> s;
+//	vector<int>arr;
+//public:
+//	/** Initialize your data structure here. */
+//	RandomizedSet() {
+//		srand((unsigned)time(nullptr));
+//	}
+//
+//	/** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
+//	bool insert(int val) {
+//		if (s.find(val) != s.end())
+//			return false;
+//		arr.push_back(val);
+//		s.insert(make_pair(val, arr.size() - 1));
+//		return true;
+//	}
+//
+//	/** Removes a value from the set. Returns true if the set contained the specified element. */
+//	bool remove(int val) {
+//		if (s.find(val) == s.end())
+//			return false;
+//		int tmp = arr[arr.size() - 1];
+//		swap(arr[s[val]], arr[arr.size() - 1]);
+//		s[tmp] = s[val];
+//		s.erase(val);
+//		arr.pop_back();
+//		return true;
+//	}
+//
+//	/** Get a random element from the set. */
+//	int getRandom() {
+//		int pos = rand() % arr.size();
+//		return arr[pos];
+//	}
+//};
+
+
+//#include<iostream>
+//#include<vector>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int searchInsert(vector<int>& nums, int target) {
+//		int left = 0, right = nums.size() - 1, mid = 0;
+//		while (left <= right)
+//		{
+//			mid = left + (right - left) / 2;
+//			if (nums[mid] == target)
+//				return mid;
+//			else if (nums[mid] > target)
+//				right = mid - 1;
+//			else
+//				left = mid + 1;
+//		}
+//		return nums[mid] > target ? mid : mid + 1;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<int>nums{ 1,3,5,6 };
+//	int target = 2;
+//	cout << Solution().searchInsert(nums, target);
+//	return 0;
+//}
+
+//剑指 Offer II 119. 最长连续序列
 #include<iostream>
-#include <unordered_map>
 #include<vector>
-#include <ctime>
+#include<unordered_set>
+#include<algorithm>
 using namespace std;
 
-class RandomizedSet {
-private:
-	unordered_map<int,int> s;
-	vector<int>arr;
+class Solution {
 public:
-	/** Initialize your data structure here. */
-	RandomizedSet() {
-		srand((unsigned)time(nullptr));
-	}
-
-	/** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
-	bool insert(int val) {
-		if (s.find(val) != s.end())
-			return false;
-		arr.push_back(val);
-		s.insert(make_pair(val, arr.size() - 1));
-		return true;
-	}
-
-	/** Removes a value from the set. Returns true if the set contained the specified element. */
-	bool remove(int val) {
-		if (s.find(val) == s.end())
-			return false;
-		int tmp = arr[arr.size() - 1];
-		swap(arr[s[val]], arr[arr.size() - 1]);
-		s[tmp] = s[val];
-		s.erase(val);
-		arr.pop_back();
-		return true;
-	}
-
-	/** Get a random element from the set. */
-	int getRandom() {
-		int pos = rand() % arr.size();
-		return arr[pos];
+	int longestConsecutive(vector<int>& nums) {
+		unordered_set<int>setnums;
+		for (auto e : nums)
+			setnums.insert(e);
+		int ret = 0;
+		for (auto e : setnums)
+		{
+			if (!setnums.count(e - 1))
+			{
+				int i = e + 1;
+				while (setnums.find(i) != setnums.end())
+				{
+					i++;
+				}
+				ret = max(ret, i - e);
+			}
+		}
+		return ret;
 	}
 };
+int main()
+{
+	return 0;
+}
