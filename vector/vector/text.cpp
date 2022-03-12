@@ -16,7 +16,7 @@ void text_vector1()
 	{
 		cout << nums1[i] << endl;
 	}
-	for (auto e : nums)
+	for (auto& e : nums)
 	{
 		cout << e << endl;
 	}
@@ -63,9 +63,37 @@ void text_vector3()
 		cout << e << " ";
 	cout << endl;
 }
+
+void text_vector4()
+{
+	vector<int>nums;
+	nums.push_back(2);
+	//nums.push_back(2);
+	//nums.push_back(4);
+	//nums.push_back(5);
+	vector<int>::iterator it = nums.begin();
+	while (it != nums.end())
+	{
+		if (*it % 2 == 0)
+			it = nums.erase(it);
+		else
+			it++;
+	}
+	for (auto e : nums)
+		cout << e << " ";
+	vector<string>s;
+	s.push_back("hello");
+	vector<string>s2;
+	s2 = s;
+	for (auto e : s2)
+		cout << e;
+}
+
 int main()
 {
-	text_vector3();
+	text_vector4();
+	//text_vector3();
 	//text_vector2();
+	//text_vector1();
 	return 0;
 }

@@ -181,7 +181,7 @@ namespace wkn
 			return _finish;
 		}
 
-		void clear()
+		void clear()const
 		{
 			_finish = _start;
 		}
