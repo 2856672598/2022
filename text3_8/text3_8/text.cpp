@@ -288,36 +288,129 @@
 //	return 0;
 //}
 
-//剑指 Offer II 119. 最长连续序列
-#include<iostream>
-#include<vector>
-#include<unordered_set>
-#include<algorithm>
-using namespace std;
+////剑指 Offer II 119. 最长连续序列
+//#include<iostream>
+//#include<vector>
+//#include<unordered_set>
+//#include<algorithm>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int longestConsecutive(vector<int>& nums) {
+//		unordered_set<int>setnums;
+//		for (auto e : nums)
+//			setnums.insert(e);
+//		int ret = 0;
+//		for (auto e : setnums)
+//		{
+//			if (!setnums.count(e - 1))
+//			{
+//				int i = e + 1;
+//				while (setnums.find(i) != setnums.end())
+//				{
+//					i++;
+//				}
+//				ret = max(ret, i - e);
+//			}
+//		}
+//		return ret;
+//	}
+//};
+//int main()
+//{
+//	return 0;
+//}
 
-class Solution {
-public:
-	int longestConsecutive(vector<int>& nums) {
-		unordered_set<int>setnums;
-		for (auto e : nums)
-			setnums.insert(e);
-		int ret = 0;
-		for (auto e : setnums)
-		{
-			if (!setnums.count(e - 1))
-			{
-				int i = e + 1;
-				while (setnums.find(i) != setnums.end())
-				{
-					i++;
-				}
-				ret = max(ret, i - e);
-			}
-		}
-		return ret;
-	}
-};
-int main()
-{
-	return 0;
-}
+
+//#include<iostream>
+//#include<vector>
+//#include<algorithm>
+//using namespace std;
+//
+////class Solution {
+////public:
+////	int MoreThanHalfNum_Solution(vector<int> numbers)
+////	{
+////		sort(numbers.begin(), numbers.end());
+////		int end = numbers.size() / 2, i = 0;
+////		while (end < numbers.size())
+////		{
+////			if (numbers[i] == numbers[end])
+////				break;
+////			i++;
+////			end++;
+////		}
+////		return numbers[i];
+////	}
+////};
+//
+//class Solution {
+//public:
+//	int FindGreatestSumOfSubArray(vector<int> array) {
+//		vector<int>dp(array.size(), 0);
+//		dp[0] = array[0];
+//		for (int i = 1; i < array.size(); i++)
+//		{
+//			dp[i] = max(array[i], dp[i - 1] + array[i]);
+//		}
+//		return *max_element(dp.begin(), dp.end());
+//	}
+//};
+
+
+//#include<iostream>
+//#include<vector>
+//#include<stack>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	vector<int> dailyTemperatures(vector<int>& temperatures) {
+//		vector<int>nums(temperatures.size(), 0);
+//		int end = temperatures.size() - 2;
+//		while (end >= 0)
+//		{
+//			for (int i = end + 1; i < nums.size(); i++)
+//			{
+//				if (temperatures[i] > temperatures[end])
+//				{
+//					nums[end] = i - end;
+//					break;
+//				}
+//			}
+//			end--;
+//		}
+//		return nums;
+//	}
+//};
+//
+//class Solution {
+//public:
+//	vector<int> dailyTemperatures(vector<int>& temperatures) {
+//		vector<int>nums(temperatures.size(), 0);
+//		stack<pair<int, int>>s;
+//		for (int i = 0; i < temperatures.size(); i++)
+//		{
+//			if (s.empty())
+//			{
+//				s.push(make_pair(temperatures[i], i));
+//				continue;
+//			}
+//			while (!s.empty() && temperatures[i] > s.top().first)
+//			{
+//				nums[s.top().second] = i - s.top().second;
+//				s.pop();
+//			}
+//			s.push(make_pair(temperatures[i], i));
+//		}
+//		return nums;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<int>temperatures{ 73, 74, 75, 71, 69, 72, 76, 73 };
+//	Solution().dailyTemperatures(temperatures);
+//	return 0;
+//}
