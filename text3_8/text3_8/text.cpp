@@ -414,3 +414,264 @@
 //	Solution().dailyTemperatures(temperatures);
 //	return 0;
 //}
+//
+//#include<iostream>
+//#include<vector>
+//#include<algorithm>
+//#include<unordered_set>
+//using namespace std;
+
+//class Solution {
+//public:
+//	vector<int> findKDistantIndices(vector<int>& nums, int key, int k) {
+//		unordered_set<int>s;
+//		for (int i = 0; i < nums.size(); i++)
+//		{
+//			if (nums[i] == key)
+//			{
+//				int left = (i - k) < 0 ? 0 : i - k;
+//				int right = (i + k) >= nums.size() ? nums.size() - 1 : i + k;
+//				for (int j = left; j <= right; j++)
+//				{
+//					if (abs(j - i) <= k)
+//						s.insert(j);
+//				}
+//			}
+//		}
+//		vector<int>ret(s.begin(), s.end());
+//		sort(ret.begin(), ret.end());
+//		return  ret;
+//	}
+//};
+
+//#include<iostream>
+//#include<vector>
+//#include<set>
+//using namespace std;
+//////暴力
+////class Solution {
+////public:
+////	int digArtifacts(int n, vector<vector<int>>& artifacts, vector<vector<int>>& dig) {
+////		vector<vector<int>>nums(n, vector<int>(n, 0));
+////		for (int i = 0; i < dig.size(); i++)
+////		{
+////			nums[dig[i][0]][dig[i][1]] = 1;
+////		}
+////		int ret = 0;
+////		for (int i = 0; i < artifacts.size(); i++)
+////		{
+////			int flag = 1;
+////			for (int col = artifacts[i][1]; col <= artifacts[i][3]; col++)
+////			{
+////				for (int row = artifacts[i][0]; row <= artifacts[i][2]; row++)
+////				{
+////					if (nums[row][col] == 0)
+////					{
+////						flag = 0;
+////						break;
+////					}
+////				}
+////				if (flag == 0)
+////					break;
+////			}
+////			if (flag == 1)
+////				ret++;
+////		}
+////		return ret;
+////	}
+////};
+//
+//class Solution {
+//public:
+//	bool Check(const set<pair<int, int>>&s, vector<int>&nums)
+//	{
+//		int row = nums[0];
+//		for (row; row <= nums[2]; row++)
+//		{
+//			int col = nums[1];
+//			for (col; col <= nums[3]; col++)
+//			{
+//				if (s.find(make_pair(row, col)) == s.end())
+//					return false;
+//			}
+//		}
+//		return true;
+//	}
+//
+//	int digArtifacts(int n, vector<vector<int>>& artifacts, vector<vector<int>>& dig) {
+//		set<pair<int, int>>s;
+//		for (auto& e : dig)
+//		{
+//			s.insert(make_pair(e[0], e[1]));
+//		}
+//		int ret = 0;
+//		for (int i = 0; i < (int)artifacts.size(); i++)
+//		{
+//			if (Check(s, artifacts[i]))
+//				ret++;
+//		}
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<vector<int>> artifacts{ {0,0,0,0},{0,1,1,1} };
+//	vector<vector<int>> dig{ {0,0},{0,1} };
+//	int n = 2;
+//	Solution().digArtifacts(n, artifacts, dig);
+//	return 0;
+//}
+
+//#include<iostream>
+//#include<vector>
+//#include<queue>
+//#include <algorithm>
+//using namespace std;
+//struct TreeNode {
+//	int val;
+//	TreeNode *left;
+//	TreeNode *right;
+//	TreeNode() : val(0), left(nullptr), right(nullptr) {}
+//	TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+//	TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+//};
+// 
+//class Solution {
+//public:
+//	vector<int> largestValues(TreeNode* root)
+//	{
+//		if (root == nullptr)
+//			return{};
+//		queue<TreeNode*>q;
+//		q.push(root);
+//		vector<int>result;
+//		while (!q.empty())
+//		{
+//			int sz = q.size();
+//			int flag = INT_MIN;
+//			TreeNode* cur = nullptr;
+//			for (int i = 0; i < sz; i++)
+//			{
+//				cur = q.front();
+//				q.pop();
+//				flag = max(flag, cur->val);
+//				if (cur->left)
+//					q.push(cur->left);
+//				if (cur->right)
+//					q.push(cur->right);
+//			}
+//			result.push_back(flag);
+//		}
+//		return result;
+//	}
+//};
+
+//#include <iostream>
+//#include <vector>
+//#include <algorithm>
+//using namespace std;
+//
+//int main()
+//{
+//	vector<int>nums{ 2,5,5,2,4,1,6,5 };
+//	sort(nums.begin(), nums.end());
+//	//auto it = unique(nums.begin(), nums.end());
+//
+//	vector<int>result(10);//使用unique_copy，需要提前开好空间，去重的数组一定要有序。
+//	auto it = unique_copy(nums.begin(), nums.end(), result.begin());
+//
+//	//auto start = nums.begin();
+//	auto start = result.begin();
+//	while (start != it)
+//	{
+//		cout << *start << " ";
+//		start++;
+//	}
+//	return 0;
+//}
+//
+//#include <iostream>
+//#include <vector>
+//#include <algorithm>
+//using namespace std;
+//
+//int main()
+//{
+//	vector<int>nums{ 6,1,9,2,6,4 };
+//	make_heap(nums.begin(), nums.end());
+//	cout << "max:" << nums.front() << endl;
+//	nums.push_back(99);
+//	push_heap(nums.begin(), nums.end());//调整堆
+//	pop_heap(nums.begin(), nums.end());//将堆顶元素和底部的元素交换，重新建堆（排序的过程）；
+//	cout << "max:" << nums.front() << endl;
+//	return 0;
+//}
+
+#include <iostream>
+#include <vector>
+#include <queue>
+using namespace std;
+struct TreeNode {
+	int val;
+	TreeNode *left;
+	TreeNode *right;
+	TreeNode() : val(0), left(nullptr), right(nullptr) {}
+	TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+	TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+};
+//
+//class Solution {
+//public:
+//	int findBottomLeftValue(TreeNode* root) {
+//		if (root == nullptr)
+//			return 0;
+//		queue<TreeNode*>q;
+//		q.push(root);
+//		int ret = root->val;
+//
+//		while (!q.empty())
+//		{
+//			int sz = q.size();
+//			for (int i = 0; i < sz; i++)
+//			{
+//				TreeNode* tmp = q.front();
+//				if (i == 0)
+//					ret = tmp->val;
+//				q.pop();
+//				if (tmp->left)
+//					q.push(tmp->left);
+//				if (tmp->right)
+//					q.push(tmp->right);
+//			}
+//		}
+//		return ret;
+//	}
+//};
+
+class Solution {
+public:
+	vector<int> rightSideView(TreeNode* root) {
+		if (root == nullptr)
+			return {};
+		queue<TreeNode*>q;
+		vector<int>ret;
+		q.push(root);
+		while (!q.empty())
+		{
+			int sz = q.size();
+			for (int i = 0; i < sz; i++)
+			{
+				TreeNode* cur = q.front();
+				if (i == sz - 1)
+					ret.push_back(cur->val);
+				q.pop();
+				if (cur->left)
+					q.push(cur->left);
+				if (cur->right)
+					q.push(cur->right);
+			}
+		}
+		return ret;
+	}
+};
