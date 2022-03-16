@@ -1,3 +1,2 @@
 ﻿  text.cpp
-MSVCRTD.lib(exe_main.obj) : error LNK2019: 无法解析的外部符号 _main，该符号在函数 "int __cdecl invoke_main(void)" (?invoke_main@@YAHXZ) 中被引用
-D:\Githup\2022\text_3_15\Debug\text_3_15.exe : fatal error LNK1120: 1 个无法解析的外部命令
+  text_3_15.vcxproj -> D:\Githup\2022\text_3_15\Debug\text_3_15.exe
