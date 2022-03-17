@@ -386,20 +386,293 @@
 //	return 0;
 //}
 
-#include<iostream>
+//#include<iostream>
+//using namespace std;
+//
+//namespace wkn
+//{
+//	template<class T>
+//	class vector
+//	{
+//	public:
+//		void push_back(T&&);//这里并不是一个万能引用
+//	};
+//}
+//
+//int main()
+//{
+//	return 0;
+//}
+
+//#include <iostream>
+//using namespace std;
+//
+////template<class ... Args>
+////void Fun(Args... args)
+////{
+////	//计算参数包中的参数个数
+////	cout << sizeof...(args) << endl;
+////}
+//
+////如何输出参数包中的参数呢
+////终止函数
+////void Print()
+////{
+////	cout << endl;
+////}
+////
+////template<class T,class ...Args>
+////void Print(T t, Args... args)
+////{
+////	cout << t << " ";
+////	Print(args...);
+////}
+//
+//
+////逗号表达式方式
+//template<class T>
+//void Print(T t)
+//{
+//	cout << t << " ";
+//}
+//
+//template<class ...Args>
+//void Print(Args... args)
+//{
+//	int arr[] = { (Print(args),0)... };
+//	cout << endl;
+//}
+//
+//int main()
+//{
+//	Print(1, 2, 3, 4);
+//	Print(1, "abc", 'B');
+//	return 0;
+//}
+
+
+//lambda
+//#include <iostream>
+//using namespace std;
+//
+//int main()
+//{
+//	int x = 10, y = 20;
+//	//捕捉列表 参数列表 返回值类型 函数体
+//	auto tmp = [](int x, int y)->int { return x + y; };
+//	cout << tmp(10, 10) << endl;
+//
+//	//也可以用捕捉列表
+//	auto tmp1 = [x, y]()->int { return x + y; };
+//	cout << tmp1() << endl;
+//	return 0;
+//}
+
+//#include <iostream>
+//using namespace std;
+//int main()
+//{
+//	int x = 10, y = 20;
+//	//auto swap = [](int& x, int& y) {int tmp = x; x = y; y = tmp; };
+//	auto swap = [&x, &y]
+//	{
+//		int tmp = x;
+//		x = y;
+//		y = tmp;
+//	};
+//	//swap(x, y);
+//	swap();
+//	cout << "x:" << x << " y:" << y;
+//	return 0;
+//}
+
+//#include <iostream>
+//using namespace std;
+//struct ListNode {
+//	int val;
+//	ListNode *next;
+//	ListNode() : val(0), next(nullptr) {}
+//	ListNode(int x) : val(x), next(nullptr) {}
+//	ListNode(int x, ListNode *next) : val(x), next(next) {}
+//};
+// 
+//class Solution {
+//private:
+//	ListNode* begin;
+//public:
+//	bool Check(ListNode* cur)
+//	{
+//		if (cur < begin)
+//			return true;
+//		if (cur != nullptr)
+//		{
+//			if (!Check(cur->next))
+//				return false;
+//			if (cur->val != begin->val)
+//				return false;
+//			begin = begin->next;
+//		}
+//		return true;
+//	}
+//
+//	bool isPalindrome(ListNode* head)
+//	{
+//		begin = head;
+//		return Check(head);
+//	}
+//};
+
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int numTeams(vector<int>& rating) {
+//		vector<vector<int>>flag = { rating.size(),vector<int>(4,0) };
+//		for (int i = 1; i < (int)rating.size(); i++)
+//		{
+//			for (int j = 0; j < i; j++)
+//			{
+//				//判断当前位置的左面有多少位置小于当前值。
+//				if (rating[i] > rating[j])
+//					flag[i][0]++;
+//				if (rating[i] < rating[j])
+//					flag[i][1]++;
+//			}
+//		}
+//
+//		for (int i = 1; i < (int)rating.size(); i++)
+//		{
+//			for (int j = i + 1; j < (int)rating.size(); j++)
+//			{
+//				//判断当前位置的右面面有多少位置小于当前值。
+//				if (rating[i] > rating[j])
+//					flag[i][2]++;
+//				if (rating[i] < rating[j])
+//					flag[i][3]++;
+//			}
+//		}
+//		int ret = 0;
+//		for (int i = 1; i < (int)rating.size() - 1; i++)
+//		{
+//			ret += flag[i][1] * flag[i][2] + flag[i][0] * flag[i][3];
+//		}
+//		return ret;
+//	}
+//};
+//
+//
+//int main()
+//{
+//	vector<int>nums{ 2,5,3,4,1 };
+//	cout << Solution().numTeams(nums);
+//	return 0;
+//}
+
+//#include <iostream>
+//#include<vector>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int countKDifference(vector<int>& nums, int k) {
+//		int ret = 0;
+//		for (int i = 0; i < (int)nums.size(); i++)
+//		{
+//			int target = 0;
+//			target = abs(nums[i]) + k;
+//			if (nums[i] < 0)
+//				target *= -1;
+//			ret += count(nums.begin() + i, nums.end(), target);
+//			ret += count(nums.begin() + i, nums.end(), nums[i] - k);
+//		}
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <vector>
+//#include <unordered_map>
+//using namespace std;
+//class Solution {
+//public:
+//	int numIdenticalPairs(vector<int>& nums) {
+//		unordered_map<int, int>m;
+//		for (const auto& e : nums)
+//		{
+//			m[e]++;
+//		}
+//		int ret = 0;
+//		for (const auto& e : m)
+//		{
+//			ret += e.second*(e.second - 1) / 2;
+//		}
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<int>nums{ 1,2,3,1,1,3 };
+//	cout << Solution().numIdenticalPairs(nums);
+//	return 0;
+//}
+
+#include <iostream>
+#include <vector>
 using namespace std;
-
-namespace wkn
-{
-	template<class T>
-	class vector
+  struct ListNode {
+      int val;
+      ListNode *next;
+      ListNode() : val(0), next(nullptr) {}
+      ListNode(int x) : val(x), next(nullptr) {}
+      ListNode(int x, ListNode *next) : val(x), next(next) {}
+  };
+ 
+class Solution {
+public:
+	ListNode* Merge(ListNode* l1, ListNode* l2)
 	{
-	public:
-		void push_back(T&&);//这里并不是一个万能引用
-	};
-}
+		if (l1 == nullptr)
+			return l2;
+		if (l2 == nullptr)
+			return l1;
+		ListNode head;
+		ListNode* prev = &head;
+		while (l1&&l2)
+		{
+			if (l1->val < l2->val){
+				prev->next = l1;
+				prev = l1;
+				l1 = l1->next;
+			}
+			else {
+				prev->next = l2;
+				prev = l2;
+				l2 = l2->next;
+			}
+		}
+		if (l1 != nullptr)
+			prev->next = l1;
+		if (l2 != nullptr)
+			prev->next = l2;
+		return head.next;
+	}
 
-int main()
-{
-	return 0;
-}
+	ListNode* mergeKLists(vector<ListNode*>& lists)
+	{
+		if (lists.size() == 0)
+			return nullptr;
+		for (int i = 1; i < (int)lists.size(); i++)
+		{
+			lists[i] = Merge(lists[i], lists[i - 1]);
+		}
+		return lists[lists.size() - 1];
+	}
+};
