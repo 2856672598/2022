@@ -624,55 +624,313 @@
 //	return 0;
 //}
 
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//  struct ListNode {
+//      int val;
+//      ListNode *next;
+//      ListNode() : val(0), next(nullptr) {}
+//      ListNode(int x) : val(x), next(nullptr) {}
+//      ListNode(int x, ListNode *next) : val(x), next(next) {}
+//  };
+// 
+//class Solution {
+//public:
+//	ListNode* Merge(ListNode* l1, ListNode* l2)
+//	{
+//		if (l1 == nullptr)
+//			return l2;
+//		if (l2 == nullptr)
+//			return l1;
+//		ListNode head;
+//		ListNode* prev = &head;
+//		while (l1&&l2)
+//		{
+//			if (l1->val < l2->val){
+//				prev->next = l1;
+//				prev = l1;
+//				l1 = l1->next;
+//			}
+//			else {
+//				prev->next = l2;
+//				prev = l2;
+//				l2 = l2->next;
+//			}
+//		}
+//		if (l1 != nullptr)
+//			prev->next = l1;
+//		if (l2 != nullptr)
+//			prev->next = l2;
+//		return head.next;
+//	}
+//
+//	ListNode* mergeKLists(vector<ListNode*>& lists)
+//	{
+//		if (lists.size() == 0)
+//			return nullptr;
+//		for (int i = 1; i < (int)lists.size(); i++)
+//		{
+//			lists[i] = Merge(lists[i], lists[i - 1]);
+//		}
+//		return lists[lists.size() - 1];
+//	}
+//};
+
+
+////包装器
+//#include <iostream>
+//#include <functional>
+//using namespace std;
+//
+//template<class F, class T>
+//void Fun(F f, T t)
+//{
+//	static int count = 0;
+//	count++;
+//	cout << count << endl;
+//	f(t);//通过包装器包装了函数，这个函数模板只被实例化一份。
+//}
+//
+//void Print(int x)
+//{
+//	cout << x << endl;
+//}
+//
+//class OutPut
+//{
+//public:
+//	void operator()(int x)
+//	{
+//		cout << x << endl;
+//	}
+//};
+//
+//class Solution
+//{
+//public:
+//	void Print(int x)
+//	{
+//		cout << x << endl;
+//	}
+//
+//	static void Print1(int x)
+//	{
+//		cout << x << endl;
+//	}
+//};
+//
+//int main()
+//{
+//	function<void(int)>f1 = Print;
+//	Fun(f1, 10);
+//	//仿函数
+//	function<void(int)>f2 = OutPut();
+//	Fun(f2, 100);
+//	//lamda表达式
+//	function<void(int)>f3 = [](int x)->void {cout << x << endl; };
+//	Fun(f3, 200);
+//	//绑定一个成员函数
+//	function<void(int)> f4 = bind(&Solution::Print, Solution(), placeholders::_1);
+//	Fun(f4, 400);
+//	//绑定一个普通函数
+//	function<void(int)> f5 = bind(Print, placeholders::_1);
+//	f5(123);
+//	function<void(Solution, int)>f6 = &Solution::Print;//非静态成员函数的函数地址要加上&
+//	f6(Solution(), 999);
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	vector<int> getRow(int rowIndex) {
+//		vector<int>prev(1, 1);
+//		vector<int>ret(rowIndex + 1, 1);
+//		for (int i = 0; i <= rowIndex; i++)
+//		{
+//			vector<int>ret(i + 1, 1);
+//			for (int j = 1; j < i; j++)
+//			{
+//				ret[j] = prev[j - 1] + prev[j];
+//			}
+//			prev = ret;
+//		}
+//		return prev;
+//	}
+//};
+//
+//int main()
+//{
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int countConsistentStrings(string allowed, vector<string>& words) {
+//		int arr[26] = { 0 };
+//		for (const auto& e : allowed)
+//			arr[e - 'a']++;
+//		int ret = 0;
+//		for (const auto & e : words)
+//		{
+//			int flag = 1;
+//			for (int i = 0; i < (int)e.size(); i++)
+//			{
+//				if (arr[e[i] - 'a'] == 0) {
+//					flag = 0;
+//					break;
+//				}
+//			}
+//			if (flag == 1)
+//				ret++;
+//		}
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <vector>
+//#include <unordered_map>
+//using namespace std;
+//class Solution {
+//public:
+//	int countBalls(int lowLimit, int highLimit) {
+//		unordered_map<int, int>m;
+//		int sum = 0;
+//		for (int i = lowLimit; i <= highLimit; i++)
+//		{
+//			int tmp = 0;
+//			tmp = i;
+//			sum = 0;
+//			while (tmp)
+//			{
+//				sum += tmp % 10;
+//				tmp /= 10;
+//			}
+//			m[sum]++;
+//		}
+//		int ret = INT_MIN;
+//		for (const auto& e : m)
+//		{
+//			if (e.second > ret)
+//				ret = e.second;
+//		}
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	int left = 1, right = 10;
+//	cout << Solution().countBalls(left, right);
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <vector>
+//#include <unordered_set>
+//using namespace std;
+////class Solution {
+////public:
+////	vector<int> findDuplicates(vector<int>& nums) {
+////		vector<int>ret;
+////		unordered_set<int>m;
+////		for (auto e : nums)
+////		{
+////			if (m.insert(e).second == false)
+////				ret.push_back(e);
+////		}
+////		return ret;
+////	}
+////};
+//
+//class Solution {
+//public:
+//	vector<int> findDuplicates(vector<int>& nums) {
+//		vector<int>flag(nums.size() + 1, 0);
+//		vector<int>ret;
+//		for (auto e : nums)
+//		{
+//			if (flag[e] == 1)
+//				ret.push_back(e);
+//			else
+//				flag[e]++;
+//		}
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<int>nums{ 4,3,2,7,8,2,3,1 };
+//	Solution().findDuplicates(nums);
+//	return 0;
+//}
+
 #include <iostream>
 #include <vector>
+#include <string>
 using namespace std;
-  struct ListNode {
-      int val;
-      ListNode *next;
-      ListNode() : val(0), next(nullptr) {}
-      ListNode(int x) : val(x), next(nullptr) {}
-      ListNode(int x, ListNode *next) : val(x), next(next) {}
-  };
- 
+
 class Solution {
 public:
-	ListNode* Merge(ListNode* l1, ListNode* l2)
+	bool Check(const vector<int>&arr)
 	{
-		if (l1 == nullptr)
-			return l2;
-		if (l2 == nullptr)
-			return l1;
-		ListNode head;
-		ListNode* prev = &head;
-		while (l1&&l2)
+		for (const int& e:arr)
 		{
-			if (l1->val < l2->val){
-				prev->next = l1;
-				prev = l1;
-				l1 = l1->next;
-			}
-			else {
-				prev->next = l2;
-				prev = l2;
-				l2 = l2->next;
-			}
+			//arr中只有字符串t中字符会小于0，小于0说明当前窗口中无法匹配t
+			if (e < 0)
+				return false;
 		}
-		if (l1 != nullptr)
-			prev->next = l1;
-		if (l2 != nullptr)
-			prev->next = l2;
-		return head.next;
+		return true;
 	}
 
-	ListNode* mergeKLists(vector<ListNode*>& lists)
-	{
-		if (lists.size() == 0)
-			return nullptr;
-		for (int i = 1; i < (int)lists.size(); i++)
+	string minWindow(string s, string t) {
+		if (s.size() < t.size())
+			return "";
+		vector<int>flag(60, 0);
+		for (int i = 0; i < t.size(); i++)
 		{
-			lists[i] = Merge(lists[i], lists[i - 1]);
+			flag[s[i] - 'A']++;
+			flag[t[i] - 'A']--;
 		}
-		return lists[lists.size() - 1];
+		if (Check(flag))
+			return s.substr(0, t.size());
+		int left = 0;
+		string ret(s.size() + 1, 'a');
+		for (int i = t.size(); i < s.size(); i++)
+		{
+			flag[s[i] - 'A']++;
+			while (Check(flag))
+			{
+				flag[s[left] - 'A']--;
+				ret = i - left + 1 < ret.size() ? s.substr(left, i - left + 1) : ret;
+				left++;
+			}
+			if (ret.size() == s.size())
+				break;
+		}
+		return ret.size() > s.size() ? "" : ret;
 	}
 };
+
+int main()
+{
+	string s = "ADOBECODEBANC";
+	string t = "ABC";
+	cout << Solution().minWindow(s, t);
+	return 0;
+}
