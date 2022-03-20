@@ -247,3 +247,198 @@
 //	}
 //};
 
+//#include <iostream>
+//#include <vector>
+//#include <stack>
+//using namespace std;
+//
+////class Solution {
+////public:
+////	int countHillValley(vector<int>& nums) {
+////		int ret = 0;
+////		for (int i = 1; i < (int)nums.size() - 1; i++)
+////		{
+////			if (nums[i] == nums[i - 1])
+////				continue;
+////			int left = i - 1, right = i + 1;
+////			//在左边找不相等的第一个
+////			while (left >= 0)
+////			{
+////				if (nums[left] != nums[i])
+////					break;
+////				left--;
+////			}
+////			while (right < nums.size())
+////			{
+////				if (nums[right] != nums[i])
+////					break;
+////				right++;
+////			}
+////			if (left >= 0 && right < nums.size()) {
+////				if ((nums[left] < nums[i] && nums[right] < nums[i]) ||
+////					(nums[left] > nums[i] && nums[right] > nums[i]) ||
+////					(nums[left] == nums[right]))
+////					ret++;
+////			}
+////		}
+////		return ret;
+////	}
+////};
+//
+//
+//class Solution {
+//public:
+//	int countCollisions(string directions) {
+//		int ret = 0;
+//		stack<char>s;
+//		for (int i = 0; i < (int)directions.size(); i++)
+//		{
+//			if (s.empty()) {
+//				s.push(directions[i]);
+//				continue;
+//			}
+//			if (directions[i] == 'L'&&s.top() == 'S') {
+//				ret++;
+//			}
+//			else if (directions[i] == 'L'&&s.top() == 'R') {
+//				s.pop();
+//				ret += 2;
+//				while (!s.empty())
+//				{
+//					if (s.top() != 'R')
+//						break;
+//					s.pop();
+//					ret += 1;
+//				}
+//				s.push('S');
+//			}
+//			else if (directions[i] == 'S') {
+//				while (!s.empty())
+//				{
+//					if (s.top() != 'R')
+//						break;
+//					ret++;
+//					s.pop();
+//				}
+//				s.push('S');
+//			}
+//			else
+//				s.push(directions[i]);
+//		}
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	string nums{ "LLRLRLLSLRLLSLSSSS" };
+//	cout << Solution().countCollisions(nums);
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <vector>
+//#include <unordered_map>
+//
+//using namespace std;
+//
+//class Solution {
+//public:
+//	bool divideArray(vector<int>& nums) {
+//		unordered_map<int, int>m;
+//		for (const auto& e : nums) {
+//			m[e]++;
+//		}
+//		for (const auto e : m) {
+//			if (e.second % 2)
+//				return false;
+//		}
+//		return true;
+//	}
+//};
+
+
+//#include <iostream>
+//using namespace std;
+//
+//struct ListNode {
+//	int val;
+//	ListNode *next;
+//	ListNode() : val(0), next(nullptr) {}
+//	ListNode(int x) : val(x), next(nullptr) {}
+//	ListNode(int x, ListNode *next) : val(x), next(next) {}
+//};
+// 
+//class Solution {
+//public:
+//	ListNode* deleteDuplicates(ListNode* head) {
+//		if (head == nullptr)
+//			return head;
+//		ListNode* prev = head, *cur = head->next;
+//		while (cur)
+//		{
+//			if (cur->val != prev->val) {
+//				prev->next = cur;
+//				prev = cur;
+//			}
+//			cur = cur->next;
+//		}
+//		prev->next = nullptr;
+//		return head;
+//	}
+//};
+
+//#include <iostream>
+//#include <string>
+//#include <algorithm>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	string convertToTitle(int columnNumber) {
+//		string ret;
+//		while (columnNumber)
+//		{
+//			columnNumber--;
+//			ret += (columnNumber % 26) + 'A';
+//			columnNumber /= 26;
+//		}
+//		reverse(ret.begin(), ret.end());
+//		return ret;
+//	}
+//};
+
+#include <iostream>
+#include <queue>
+using namespace std;
+
+class MedianFinder {
+private:
+	priority_queue<int>max_queue;
+	priority_queue<int, vector<int>, greater<int>>min_queue;
+public:
+	/** initialize your data structure here. */
+	MedianFinder() {
+
+	}
+
+	void addNum(int num) {
+		if (max_queue.size() == min_queue.size()){
+			max_queue.push(num);
+			min_queue.push(max_queue.top());
+			max_queue.pop();
+		}
+		else {
+			min_queue.push(num); 
+			max_queue.push(min_queue.top());
+			min_queue.pop();
+		}
+	}
+
+	double findMedian() {
+		int size = min_queue.size() + max_queue.size();
+		if (size % 2 == 0)
+			return (min_queue.top() + max_queue.top()) / 2.0;
+		return min_queue.top();
+	}
+};
