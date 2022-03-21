@@ -408,37 +408,259 @@
 //	}
 //};
 
+//#include <iostream>
+//#include <queue>
+//using namespace std;
+//
+//class MedianFinder {
+//private:
+//	priority_queue<int>max_queue;
+//	priority_queue<int, vector<int>, greater<int>>min_queue;
+//public:
+//	/** initialize your data structure here. */
+//	MedianFinder() {
+//
+//	}
+//
+//	void addNum(int num) {
+//		if (max_queue.size() == min_queue.size()){
+//			max_queue.push(num);
+//			min_queue.push(max_queue.top());
+//			max_queue.pop();
+//		}
+//		else {
+//			min_queue.push(num); 
+//			max_queue.push(min_queue.top());
+//			min_queue.pop();
+//		}
+//	}
+//
+//	double findMedian() {
+//		int size = min_queue.size() + max_queue.size();
+//		if (size % 2 == 0)
+//			return (min_queue.top() + max_queue.top()) / 2.0;
+//		return min_queue.top();
+//	}
+//};
+
+
+//#include <iostream>
+//#include <vector>
+//#include <thread>
+//#include <mutex>
+//#include <atomic>
+//using namespace std;
+//mutex mlock;
+//void fun(int n)
+//{
+//	mlock.lock();
+//	for (int i = 0; i < n; i++)
+//	{
+//		cout << i << endl;
+//	}
+//	mlock.unlock();
+//}
+//
+////void fun(int n)
+////{
+////	static int i = 1;
+////	while (true)
+////	{
+////		mlock.lock();
+////		if (i <= n) {
+////			cout << i << endl;
+////			i++;
+////			mlock.unlock();
+////		}
+////		else {
+////			mlock.unlock();
+////			break;
+////		}
+////	}
+////}
+//
+//
+////通过原子性操作
+//atomic<int> sum(0);
+//void fun(int n)
+//{
+//	for (int i = 0; i < n; i++)
+//	{
+//		sum++;
+//	}
+//}
+
+//int main()
+//{
+//	vector<thread>vthread;
+//	int n = 0;
+//	cin >> n;
+//	vthread.resize(n);
+//	for (int i = 0; i < n; i++)
+//	{
+//		vthread[i] = thread(fun, 100);
+//	}
+//	for (int i = 0; i < n; i++)
+//	{
+//		vthread[i].join();
+//	}
+//	cout << sum;
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <vector>
+//#include <thread>
+//#include <mutex>
+//using namespace std;
+//mutex mlock;
+//void fun(int n)
+//{
+//	lock_guard<mutex>_lock(mlock);
+//	for (int i = 0; i < n; i++)
+//	{
+//		if (i == n / 2)
+//		{
+//			cout << this_thread::get_id << "退出" << endl;
+//			return;
+//		}
+//		cout << i << endl;
+//	}
+//}
+//
+//int main()
+//{
+//	int n;
+//	cin >> n;
+//	vector<thread>vthread;
+//	vthread.resize(n);
+//	for (int i = 0; i < n; i++)
+//	{
+//		vthread[i] = thread(fun, 100);
+//	}
+//	for (int i = 0; i < n; i++)
+//	{
+//		vthread[i].join();
+//	}
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <vector>
+//#include <algorithm>
+//using namespace std;
+//int main()
+//{
+//	int n;
+//	cin >> n;
+//	vector<long long>nums;
+//	nums.resize(n * 3);
+//	for (int i = 0; i < 3 * n; i++)
+//	{
+//		cin >> nums[i];
+//	}
+//	sort(nums.begin(), nums.end());
+//	int left = 0, right = nums.size() - 1;
+//	int mid = right - 1;
+//	long long ret = 0;
+//	while (left < mid)
+//	{
+//		ret += nums[mid];
+//		left++;
+//		right -= 2;
+//		mid = right - 1;
+//	}
+//	cout << ret;
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <string>
+//#include <unordered_set>
+//using namespace std;
+//
+//int main()
+//{
+//	string s1, s2;
+//	unordered_set<char>s;
+//	getline(cin, s1);
+//	getline(cin, s2);
+//
+//	for (auto e : s2)
+//		s.insert(e);
+//	string ret;
+//	for (auto e : s1) {
+//		if (s.find(e) == s.end())
+//			ret += e;
+//	}
+//	cout << ret;
+//	return 0;
+//}
+
 #include <iostream>
-#include <queue>
+#include <vector>
+#include <string>
+#include <unordered_set>
+#include <unordered_map>
+#include <algorithm>
 using namespace std;
 
-class MedianFinder {
-private:
-	priority_queue<int>max_queue;
-	priority_queue<int, vector<int>, greater<int>>min_queue;
+//class Solution {
+//public:
+//	bool checkIfPangram(string sentence) {
+//		vector<int>flag(26, 0);
+//		for (auto e : sentence)
+//		{
+//			flag[e - 'a']++;
+//		}
+//		return count(flag.begin(), flag.end(), 0) == 0 ? true : false;
+//	}
+//};
+
+//class Solution {
+//public:
+//	int numJewelsInStones(string jewels, string stones) {
+//		vector<int>flag(65, 0);
+//		for (auto e : jewels)
+//			flag[e - 'A'] = 1;
+//		int ret = 0;
+//		for (auto e : stones)
+//		{
+//			if (flag[e - 'A'])
+//				ret++;
+//		}
+//		return ret;
+//	}
+//};
+
+
+//class Solution {
+//public:
+//	string destCity(vector<vector<string>>& paths) {
+//		unordered_set<string>s;
+//		for (const auto e : paths)
+//			s.insert(e[0]);
+//		for (const auto e : paths)
+//		{
+//			if (s.find(e[1]) == s.end())
+//				return e[1];
+//		}
+//	}
+//};
+
+class Solution {
 public:
-	/** initialize your data structure here. */
-	MedianFinder() {
-
-	}
-
-	void addNum(int num) {
-		if (max_queue.size() == min_queue.size()){
-			max_queue.push(num);
-			min_queue.push(max_queue.top());
-			max_queue.pop();
+	vector<int> findingUsersActiveMinutes(vector<vector<int>>& logs, int k) {
+		unordered_map<int, unordered_set<int>>flag;
+		for (const auto& e : logs)
+		{
+			flag[e[0]].insert(e[1]);
 		}
-		else {
-			min_queue.push(num); 
-			max_queue.push(min_queue.top());
-			min_queue.pop();
+		vector<int>ret(k, 0);
+		for (auto& e : flag)
+		{
+			ret[e.second.size() - 1]++;
 		}
-	}
-
-	double findMedian() {
-		int size = min_queue.size() + max_queue.size();
-		if (size % 2 == 0)
-			return (min_queue.top() + max_queue.top()) / 2.0;
-		return min_queue.top();
+		return ret;
 	}
 };
