@@ -597,36 +597,134 @@
 //	return 0;
 //}
 
-#include <iostream>
-#include <vector>
-#include <string>
-#include <unordered_set>
-#include <unordered_map>
-#include <algorithm>
-using namespace std;
-
+//#include <iostream>
+//#include <vector>
+//#include <string>
+//#include <unordered_set>
+//#include <unordered_map>
+//#include <algorithm>
+//using namespace std;
+//
+////class Solution {
+////public:
+////	bool checkIfPangram(string sentence) {
+////		vector<int>flag(26, 0);
+////		for (auto e : sentence)
+////		{
+////			flag[e - 'a']++;
+////		}
+////		return count(flag.begin(), flag.end(), 0) == 0 ? true : false;
+////	}
+////};
+//
+////class Solution {
+////public:
+////	int numJewelsInStones(string jewels, string stones) {
+////		vector<int>flag(65, 0);
+////		for (auto e : jewels)
+////			flag[e - 'A'] = 1;
+////		int ret = 0;
+////		for (auto e : stones)
+////		{
+////			if (flag[e - 'A'])
+////				ret++;
+////		}
+////		return ret;
+////	}
+////};
+//
+//
+////class Solution {
+////public:
+////	string destCity(vector<vector<string>>& paths) {
+////		unordered_set<string>s;
+////		for (const auto e : paths)
+////			s.insert(e[0]);
+////		for (const auto e : paths)
+////		{
+////			if (s.find(e[1]) == s.end())
+////				return e[1];
+////		}
+////	}
+////};
+//
 //class Solution {
 //public:
-//	bool checkIfPangram(string sentence) {
-//		vector<int>flag(26, 0);
-//		for (auto e : sentence)
+//	vector<int> findingUsersActiveMinutes(vector<vector<int>>& logs, int k) {
+//		unordered_map<int, unordered_set<int>>flag;
+//		for (const auto& e : logs)
 //		{
-//			flag[e - 'a']++;
+//			flag[e[0]].insert(e[1]);
 //		}
-//		return count(flag.begin(), flag.end(), 0) == 0 ? true : false;
+//		vector<int>ret(k, 0);
+//		for (auto& e : flag)
+//		{
+//			ret[e.second.size() - 1]++;
+//		}
+//		return ret;
 //	}
 //};
 
+//#include <iostream>
+//#include <mutex>
+//#include <thread>
+//#include <condition_variable>
+//using namespace std;
+//
+//int main()
+//{
+//	//两个线程交替打印奇数偶数
+//	mutex mtx;
+//	condition_variable v;
+//	bool flag = false;
+//	thread p1([&]() {
+//		int i = 1;
+//		unique_lock<mutex> lock(mtx);
+//		while (i < 100)
+//		{
+//			v.wait(lock, [&]()->bool {return !flag; });
+//			cout << this_thread::get_id() << " : " << i << endl;
+//			i += 2;
+//			flag = true;
+//			v.notify_one();
+//		}
+//	});
+//
+//	thread p2([&]() {
+//		int j = 2;
+//		unique_lock<mutex>  lock(mtx);
+//		while (j < 100)
+//		{
+//			v.wait(lock, [&]()->bool {return flag; });
+//			cout << this_thread::get_id() << " : " << j << endl;
+//			j += 2;
+//			flag = false;
+//			v.notify_one();
+//		}
+//	});
+//	p1.join();
+//	p2.join();
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <string>
+//#include <unordered_set>
+//#include <unordered_map>
+//using namespace std;
+//
 //class Solution {
 //public:
-//	int numJewelsInStones(string jewels, string stones) {
-//		vector<int>flag(65, 0);
-//		for (auto e : jewels)
-//			flag[e - 'A'] = 1;
+//	int countPoints(string rings) {
+//		unordered_map<int, unordered_set<char>>m;
 //		int ret = 0;
-//		for (auto e : stones)
+//		for (int i = 1; i < (int)rings.size(); i += 2)
 //		{
-//			if (flag[e - 'A'])
+//			m[rings[i]].insert(rings[i - 1]);
+//		}
+//		for (const auto& e : m)
+//		{
+//			if (e.second.size() == 3)
 //				ret++;
 //		}
 //		return ret;
@@ -634,33 +732,106 @@ using namespace std;
 //};
 
 
+//#include <iostream>
+//#include <unordered_set>
+//using namespace std;
+//
+//struct TreeNode {
+//	int val;
+//	TreeNode *left;
+//	TreeNode *right;
+//	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+//};
+//
 //class Solution {
+//private:
+//	unordered_set<int>s;
 //public:
-//	string destCity(vector<vector<string>>& paths) {
-//		unordered_set<string>s;
-//		for (const auto e : paths)
-//			s.insert(e[0]);
-//		for (const auto e : paths)
-//		{
-//			if (s.find(e[1]) == s.end())
-//				return e[1];
-//		}
+//	void prevorder(TreeNode* head)
+//	{
+//		if (head == nullptr)
+//			return;
+//		s.insert(head->val);
+//		prevorder(head->left);
+//		prevorder(head->right);
+//	}
+//
+//	int numColor(TreeNode* root) {
+//		prevorder(root);
+//		return s.size();
 //	}
 //};
 
+//#include <iostream>
+//#include <string>
+//#include <vector>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	string sortString(string s) {
+//		vector<int>flag(26, 0);
+//		for (auto e : s)
+//			flag[e - 'a']++;
+//		string ret;
+//		int size = s.size();
+//		int cur = 0;
+//		while (size > 0)
+//		{
+//			for (int i = 0; i < 26; i++)
+//			{
+//				if (flag[i]){
+//					ret += i + 'a';
+//					flag[i]--;
+//					size--;
+//				}
+//			}
+//			for (int i = 25; i>=0; i--)
+//			{
+//				if (flag[i]) {
+//					ret += i + 'a';
+//					flag[i]--;
+//					size--;
+//				}
+//			}
+//		}
+//		return ret;
+//	}
+//};
+
+#include <iostream>
+#include <string>
+#include <unordered_map>
+#include <algorithm>
+using namespace std;
+
 class Solution {
 public:
-	vector<int> findingUsersActiveMinutes(vector<vector<int>>& logs, int k) {
-		unordered_map<int, unordered_set<int>>flag;
-		for (const auto& e : logs)
+	string frequencySort(string s) {
+		unordered_map<char, int>m;
+		for (const auto & e : s)
 		{
-			flag[e[0]].insert(e[1]);
+			m[e]++;
 		}
-		vector<int>ret(k, 0);
-		for (auto& e : flag)
+		vector<pair<char, int>>flag;
+		for (const auto& e : m)
 		{
-			ret[e.second.size() - 1]++;
+			flag.push_back(e);
 		}
+		sort(flag.begin(), flag.end(), [](const pair<char, int>&x, const pair<char, int>&y)->bool
+		{
+			return x.second > y.second;
+		});
+		string ret;
+		for (const auto& e : flag)
+			ret.insert(ret.end(), e.second, e.first);
 		return ret;
 	}
 };
+
+int main()
+{
+	string s = "tree";
+	cout << Solution().frequencySort(s);
+	return 0;
+}
