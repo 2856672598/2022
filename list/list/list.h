@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <assert.h>
+#include "reverse_iterator.h"
 namespace wkn
 {
 	template<class T>
@@ -27,9 +28,9 @@ namespace wkn
 	public:
 		__List_iterator(node* x)
 			:_node(x)
-		{};
+		{}
 
-		bool operator!=(const self& it)
+		bool operator!=(const self& it)const
 		{
 			return _node != it._node;
 		}
@@ -60,7 +61,7 @@ namespace wkn
 			return tmp;
 		}
 
-		Ref& operator*()
+		Ref operator*()
 		{
 			return _node->val;
 		}
@@ -79,6 +80,10 @@ namespace wkn
 		typedef ListNode<T> node;
 		typedef __List_iterator<T, T&, T*> iterator;
 		typedef __List_iterator<T, const T&, const T*> const_iterator;
+
+		typedef __Reverse_iterator<iterator, T&, T*>reverse_iterator;
+		typedef __Reverse_iterator<const_iterator, const T&, const T*>const_reverse_iterator;
+
 	public:
 		List()
 		{
@@ -86,22 +91,46 @@ namespace wkn
 			_head->next = _head->prev = _head;
 		}
 
-		~List()
+		template<class InputIterator>
+		List(InputIterator first, InputIterator last)
+			:_head(nullptr)
 		{
-			node* cur = _head->next, *next = nullptr;
-			while (cur != _head)
+			_head = new node;
+			_head->next = _head->prev = _head;
+			while (first != last)
 			{
-				next = cur->next;
-				delete cur;
-				cur = next;
+				push_back(*first);
+				++first;
 			}
-			delete cur;
-			_head = nullptr;
 		}
 
-		List(const List& node)
+		List(const List<T>& node)
+			:_head(nullptr)
 		{
-			
+			List tmp(node.begin(), node.end());
+			swap(tmp._head, _head);
+		}
+
+		List<T>& operator=(List<T> node)
+		{
+			swap(node._head, _head);
+			return *this;
+		}
+
+		~List()
+		{
+			if (_head != nullptr)
+			{
+				node* cur = _head->next, *next = nullptr;
+				while (cur != _head)
+				{
+					next = cur->next;
+					delete cur;
+					cur = next;
+				}
+				delete cur;
+				_head = nullptr;
+			}
 		}
 
 		void push_back(const T& val)
@@ -166,6 +195,22 @@ namespace wkn
 			return _head;
 		}
 
+		void clear()
+		{
+			List<T> tmp;
+			//将_head的资源交给tmp，tmp出了作用域调用析构。
+			swap(tmp._head, _head);
+		}
+
+		reverse_iterator rbegin()
+		{
+			return reverse_iterator(end());
+		}
+
+		reverse_iterator rend()
+		{
+			return reverse_iterator(begin());
+		}
 	private:
 		node* _head;
 	};
