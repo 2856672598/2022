@@ -124,18 +124,18 @@
 //	}
 //};
 
-#include <iostream>
-#include <vector>
-using namespace std;
-
-struct ListNode {
-	int val;
-	ListNode *next;
-	ListNode() : val(0), next(nullptr) {}
-	ListNode(int x) : val(x), next(nullptr) {}
-	ListNode(int x, ListNode *next) : val(x), next(next) {}
-};
- 
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//
+//struct ListNode {
+//	int val;
+//	ListNode *next;
+//	ListNode() : val(0), next(nullptr) {}
+//	ListNode(int x) : val(x), next(nullptr) {}
+//	ListNode(int x, ListNode *next) : val(x), next(next) {}
+//};
+// 
 //class Solution {
 //public:
 //	void reorderList(ListNode* head) {
@@ -453,45 +453,305 @@ struct ListNode {
 //	return 0;
 //}
 
-#include <iostream>
-#include <string>
-#include <vector>
-#include <unordered_map>
-#include <unordered_set>
-using namespace std;
-
+//#include <iostream>
+//#include <string>
+//#include <vector>
+//#include <unordered_map>
+//#include <unordered_set>
+//using namespace std;
+//
+////class Solution {
+////public:
+////	bool canBeEqual(vector<int>& target, vector<int>& arr) {
+////		unordered_map<int, int>m;
+////		for (int i = 0; i < (int)target.size(); i++)
+////		{
+////			m[target[i]]++;
+////			m[arr[i]]--;
+////		}
+////		for (auto e : m)
+////		{
+////			if (e.second != 0)
+////				return false;
+////		}
+////		return true;
+////	}
+////};
+//
 //class Solution {
 //public:
-//	bool canBeEqual(vector<int>& target, vector<int>& arr) {
+//	bool uniqueOccurrences(vector<int>& arr) {
 //		unordered_map<int, int>m;
-//		for (int i = 0; i < (int)target.size(); i++)
+//		for (const auto& e : arr)
+//			m[e]++;
+//		unordered_set<int>flag;
+//		for (const auto &e : m)
 //		{
-//			m[target[i]]++;
-//			m[arr[i]]--;
-//		}
-//		for (auto e : m)
-//		{
-//			if (e.second != 0)
+//			if (flag.find(e.second) == flag.end())
+//				flag.insert(e.second);
+//			else
 //				return false;
 //		}
 //		return true;
 //	}
 //};
 
-class Solution {
-public:
-	bool uniqueOccurrences(vector<int>& arr) {
-		unordered_map<int, int>m;
-		for (const auto& e : arr)
-			m[e]++;
-		unordered_set<int>flag;
-		for (const auto &e : m)
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include <memory>
+#include <functional>
+#include <vector>
+using namespace std;
+namespace wkn
+{
+	template<class T>
+	class DeleteArr
+	{
+	public:
+		void operator()( T* t)
 		{
-			if (flag.find(e.second) == flag.end())
-				flag.insert(e.second);
-			else
-				return false;
+			delete t;
 		}
-		return true;
+	};
+
+	template<class T, class D = DeleteArr<T>>
+	class shared_ptr
+	{
+	public:
+		shared_ptr()
+		{}
+
+		shared_ptr(T* ptr)
+			:_ptr(ptr)
+			, _pcount(new int(1))
+			, mx(new mutex)
+		{}
+
+		shared_ptr(T* ptr, D del)
+			:_ptr(ptr)
+			, _pcount(new int(1))
+			, mx(new mutex)
+			, _del(del)
+		{}
+
+
+		shared_ptr(const shared_ptr<T>& p)
+		{
+			_ptr = p._ptr;
+			_pcount = p._pcount;
+			mx = p.mx;
+			_del = p._del;
+			addcount();
+		}
+
+		void addcount()
+		{
+			mx->lock();
+			(*_pcount)++;
+			mx->unlock();
+		}
+
+		void reduce()
+		{
+			mx->lock();
+			bool flag = false;
+			if (--(*_pcount) == 0) {
+				//this指向的之块空间没人在管理
+				_del(_ptr);
+				delete _pcount;
+				flag = true;
+			}
+			mx->unlock();
+			//不能在前面释放掉锁，释放掉会导致野指针的访问。
+			if (true == flag)
+				delete mx;
+		}
+
+		shared_ptr& operator=(const shared_ptr<T>&p)
+		{
+			//自己不要给自己赋值
+			if (_ptr != p._ptr){
+				reduce();
+				_ptr = p._ptr;
+				_pcount = p._pcount;
+				mx = p.mx;
+				addcount();
+			}
+			return *this;
+		}
+
+		~shared_ptr()
+		{
+			reduce();
+			if (*_pcount == 0) {
+				cout << "delete" << _ptr << endl;
+				_del(_ptr);
+				delete mx;
+			}
+		}
+
+		T operator*()
+		{
+			return  *_ptr;
+		}
+
+		T* operator->()
+		{
+			return _ptr;
+		}
+
+		int count()
+		{
+			return *_pcount;
+		}
+
+		T* get()const
+		{
+			return _ptr;
+		}
+	private:
+		T* _ptr;
+		int* _pcount;//记录的是有几个类指向_ptr;
+		mutex* mx;
+		D _del;
+	};
+
+	template<class T>
+	class weak_ptr
+	{
+	public:
+		weak_ptr(T* ptr)
+			:_ptr(ptr)
+		{}
+
+		weak_ptr(const shared_ptr<T>& x)
+		{
+			_ptr = x.get();
+		}
+
+		weak_ptr<T>& operator=(const weak_ptr& x)
+		{
+			_ptr = x._ptr;
+			return *this;
+		}
+
+		T operator*()
+		{
+			return  *_ptr;
+		}
+
+		T* operator->()
+		{
+			return _ptr;
+		}
+	private:
+		T* _ptr;
+	};
+ }
+
+class Date
+{
+public:
+	Date(int year = 1, int month = 1, int day = 1)
+		:_year(year)
+		, _month(month)
+		, _day(day)
+	{}
+public:
+	int _year;
+	int _month;
+	int _day;
+};
+
+void text1()
+{
+	wkn::shared_ptr<int>p1 = new int(10);
+	wkn::shared_ptr<int>p2(p1);
+	wkn::shared_ptr<int>p3(p2);
+	wkn::shared_ptr<int>p4 = new int(20);
+	p4 = p1;
+}
+
+void text2()
+{
+	wkn::shared_ptr<Date> p1 = new Date(2022, 3, 25);
+	cout << p1->_year << "/" << p1->_month << "/" << p1->_day << endl;
+}
+
+void fun(wkn::shared_ptr<int> p, int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		new wkn::shared_ptr<int>(p);
+	}
+}
+
+void fun1(wkn::shared_ptr<int> p, int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		p.reduce();
+	}
+}
+
+void text3()
+{
+	//存在线程安全问题因为++和--不是原子性的
+	wkn::shared_ptr<int>tmp = new int(10);
+	int n = 10000;
+	thread p1 = thread(fun, tmp, n);
+	thread p2 = thread(fun, tmp, n);
+	p1.join();
+	p2.join();
+	cout << tmp.count() << endl;
+	vector<thread>vthread(2);
+	//每个线程执行--操作
+	for (int i = 0; i < (int)vthread.size(); i++)
+	{
+		vthread[i] = thread(fun1, tmp, n);
+	}
+
+	for (int i = 0; i < (int)vthread.size(); i++)
+		vthread[i].join();
+
+	cout << tmp.count() << endl;
+}
+
+struct Node
+{
+	//weak_ptr可以防止循环引用。
+	wkn::weak_ptr<Node> _next = nullptr;
+	wkn::weak_ptr<Node> _prev = nullptr;
+
+	Node()
+	{}
+
+	~Node()
+	{
+		cout << "~Node()" << endl;
 	}
 };
+
+void text4()
+{
+	wkn::shared_ptr<Node> p1 = new Node;
+	wkn::shared_ptr<Node> p2 = new Node;
+	p1->_next = p2;
+	p2->_prev = p1;
+}
+
+int main()
+{
+	//text1();
+	//text2();
+	//text3();
+	//text4();
+	
+	function<void(Node*)> del = [](Node* ptr) {delete[]ptr; };
+	//shared_ptr<Node> p(new Node[10], del);
+
+	//wkn::shared_ptr<Node, function<void(Node*)>> p(new Node[10], del);
+	wkn::shared_ptr<Node>p = new Node;
+	return 0;
+}
