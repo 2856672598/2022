@@ -474,41 +474,262 @@
 //};
 
 
+//#include <iostream>
+//#include <string>
+//#include <unordered_map>
+//#include <sstream>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	vector<string> uncommonFromSentences(string s1, string s2) {
+//		unordered_map<string, int>m;
+//		auto insert = [&](const string& s)
+//		{
+//			stringstream tmp(s);
+//			string word;
+//			while (tmp >> word)
+//			{
+//				++m[word];
+//			}
+//		};
+//		insert(s1);
+//		insert(s2);
+//		vector<string>ret;
+//		for (const auto&e : m)
+//		{
+//			if (e.second == 1)
+//				ret.push_back(e.first);
+//		}
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	string s1 = "this apple is sweet";
+//	string s2 = "this apple is sour";
+//	Solution().uncommonFromSentences(s1, s2);
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <algorithm>
+//using namespace std;
+//
+//int main()
+//{
+//	int n;
+//	cin >> n;
+//	long long arr[2] = { 0,1 };
+//	long long cur = 0;
+//	while (cur < n)
+//	{
+//		cur = arr[0] + arr[1];
+//		arr[0] = arr[1];
+//		arr[1] = cur;
+//	}
+//	cout << min(n - arr[0], cur - n) << endl;
+//	return 0;
+//}
+
+//#include <stack>
+//#include <string>
+//#include <iostream>
+//using namespace std;
+//
+//class Parenthesis
+//{
+//public:
+//	bool chkParenthesis(string A, int n)
+//	{
+//		if (n % 2)
+//			return false;
+//		stack<char>s;
+//		int i = 0;
+//		while (i < n)
+//		{
+//			if (!(A[i] == '(' || A[i] == ')'))
+//				return false;
+//			if (s.empty()) {
+//				if (A[i] != '(')
+//					return false;
+//				s.push(A[i]);
+//			}
+//			else {
+//				if (s.top() == A[i])
+//					s.push(A[i]);
+//				else
+//					s.pop();
+//			}
+//			i++;
+//		}
+//		return s.empty();
+//	}
+//};
+//
+//int main()
+//{
+//	string str = "(()())";
+//	int n = 6;
+//	cout << Parenthesis().chkParenthesis(str, n);
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <vector>
+//#include <string>
+//#include <stack>
+//#include <unordered_map>
+//#include <functional>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int evalRPN(vector<string>& tokens) {
+//		stack<int>s;
+//		int i = 0;
+//		unordered_map<string, function<void()>>flag{
+//			{"+",[&]() {int num = s.top(); s.pop(); s.top() += num; }},
+//			{"-",[&]() {int num = s.top(); s.pop(); s.top() -= num; }},
+//			{"*",[&]() {int num = s.top(); s.pop(); s.top() *= num; }},
+//			{"/",[&]() {int num = s.top(); s.pop(); s.top() /= num; }}
+//
+//		};
+//		while (i < (int)tokens.size())
+//		{
+//			if (flag.find(tokens[i]) != flag.end()) {
+//				flag[tokens[i]]();
+//			}
+//			else
+//				s.push(stoi(tokens[i]));
+//			i++;
+//		}
+//		return s.top();
+//	}
+//};
+//
+//int main()
+//{
+//	vector<string>tokens{ "2","1","+","3","*" };
+//	cout << Solution().evalRPN(tokens);
+//	return 0;
+//}
+
+
+//#include <iostream>
+//#include <stack>
+//#include <vector>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	bool IsPopOrder(vector<int> pushV, vector<int> popV) {
+//		stack<int>s;
+//		int i = 0, j = 0;
+//		while (i < pushV.size())
+//		{
+//			s.push(pushV[i]);
+//			while (!s.empty() && s.top() == popV[j])
+//			{
+//				s.pop();
+//				j++;
+//			}
+//			i++;
+//		}
+//		return !s.empty() || j < popV.size() ? false : true;
+//	}
+//};
+
+//#include <iostream>
+//#include <stack>
+//#include <algorithm>
+//using namespace std;
+//
+//class MinStack {
+//private:
+//	stack<pair<int, int>>s;
+//public:
+//	MinStack() {
+//
+//	}
+//
+//	void push(int val) {
+//		int tmp = 0;
+//		if (s.empty())
+//			tmp = val;
+//		else
+//			tmp = s.top().second;
+//		tmp = min(tmp, val);
+//		s.push({ val,tmp });
+//	}
+//
+//	void pop() {
+//		s.pop();
+//	}
+//
+//	int top() {
+//		return s.top().first;
+//	}
+//
+//	int getMin() {
+//		return s.top().second;
+//	}
+//};
+
+
+//#include <iostream>
+//#include <memory>
+//#include <string>
+//#include <functional>
+//using namespace std;
+//class Date
+//{
+//public:
+//	Date(int year = 1, int month = 1, int day = 1)
+//		:_year(year)
+//		, _month(month)
+//		, _day(day)
+//	{}
+//
+//	~Date()
+//	{
+//		cout << "~Date" << endl;
+//	}
+//private:
+//	int _year;
+//	int _month;
+//	int _day;
+//};
+//
+//int main()
+//{
+//	//shared_ptr<Date> p(new Date[10]);
+//	function<void(Date*)> del = [](Date* ptr) {delete[] ptr; };
+//	//传入自己的删除器。
+//	shared_ptr<Date> p(new Date[10], del);
+//	return 0;
+//}
+
 #include <iostream>
-#include <string>
-#include <unordered_map>
-#include <sstream>
+#include <vector>
 using namespace std;
 
 class Solution {
 public:
-	vector<string> uncommonFromSentences(string s1, string s2) {
-		unordered_map<string, int>m;
-		auto insert = [&](const string& s)
+	bool hasAlternatingBits(int n) {
+		unsigned int tmp = n;
+		vector<int>nums;
+		while (n)
 		{
-			stringstream tmp(s);
-			string word;
-			while (tmp >> word)
-			{
-				++m[word];
-			}
-		};
-		insert(s1);
-		insert(s2);
-		vector<string>ret;
-		for (const auto&e : m)
-		{
-			if (e.second == 1)
-				ret.push_back(e.first);
+			nums.push_back(n & 1);
+			n >>= 1;
 		}
-		return ret;
+		for (int i = 1; i < nums.size(); i++)
+		{
+			if (nums[i] == nums[i - 1])
+				return false;
+		}
+		return true;
 	}
-};
-
-int main()
-{
-	string s1 = "this apple is sweet";
-	string s2 = "this apple is sour";
-	Solution().uncommonFromSentences(s1, s2);
-	return 0;
-}
+}; 
