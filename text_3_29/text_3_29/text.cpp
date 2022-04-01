@@ -191,3 +191,199 @@
 //	}
 //	return 0;
 //}
+
+
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//
+//int main()
+//{
+//	int n, m;
+//	cin >> n >> m;
+//	vector<vector<int>> nums(n + 1, vector<int>(m + 1, 1));
+//	nums[0][0] = 0;
+//	for (int i = 1; i <= n; i++)
+//	{
+//		for (int j = 1; j <= m; j++)
+//		{
+//			nums[i][j] = nums[i - 1][j] + nums[i][j - 1];
+//		}
+//	}
+//	cout << nums[n][m];
+//	return 0;
+//}
+
+//#include <iostream>
+//using namespace std;
+//
+//class UnusualAdd {
+//public:
+//	int addAB(int A, int B) {
+//		/*
+//		1^1 = 0,1^0 = 1 ,0^0 =0
+//		对应的就是加法但是没有进位
+//		1&1 = 1,1&0 = 0,0&0 = 0
+//		对应的就是进位
+//		*/
+//		while (B)
+//		{
+//			int tmp = 0;
+//			tmp = A ^ B;
+//			B = (A & B) << 1;
+//			A = tmp;
+//		}
+//		return A;
+//	}
+//};
+//
+//int main()
+//{
+//	cout << UnusualAdd().addAB(4, 5);
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <string>
+//#include <vector>
+//#include <algorithm>
+//
+//using namespace std;
+//
+//int main()
+//{
+//	int n = 0;
+//	cin >> n;
+//	vector<string>str(n);
+//	for (int i = 0; i < n; i++)
+//		cin >> str[i];
+//	vector<string>tmp(str);
+//	sort(tmp.begin(), tmp.end());
+//	int flag = 0;
+//	if (tmp == str)
+//		flag = 1;
+//	sort(tmp.begin(), tmp.end(), [](const string& x, const string& y)->bool {
+//		return x.size() < y.size();
+//	});
+//	if (tmp == str) {
+//		if (flag == 1)
+//			cout << "both" << endl;
+//		else
+//			cout << "lengths" << endl;
+//	}
+//	else if (flag == 1)
+//		cout << "lexicographically" << endl;
+//	else
+//		cout << "none" << endl;
+//	return 0;
+//}
+
+//#include <iostream>
+//using namespace std;
+//
+//int main()
+//{
+//	int A, B;
+//	cin >> A >> B;
+//
+//	int x = A, y = B;
+//	while (x%y)
+//	{
+//		int tmp = y;
+//		y = x % y;
+//		x = tmp;
+//	}
+//	cout << A * B / y << endl;
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	vector<int> selfDividingNumbers(int left, int right)
+//	{
+//		vector<int>ret;
+//		for (int i = left; i <= right; i++)
+//		{
+//			int tmp = i, flag = 1;
+//			while (tmp)
+//			{
+//				if (tmp % 10 == 0 || i % (tmp % 10) != 0) {
+//					flag = 0;
+//					break;
+//				}
+//				tmp /= 10;
+//			}
+//			if (flag)
+//				ret.push_back(i);
+//		}
+//		return ret;
+//	}
+//};
+
+//#include <iostream>
+//#include <string>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	bool judgeCircle(string moves) {
+//		int x = 0, y = 0;
+//		for (int i = 0; i < (int)moves.size(); i++)
+//		{
+//			if (moves[i] == 'L')
+//				x--;
+//			else if (moves[i] == 'R')
+//				x++;
+//			else if (moves[i] == 'U')
+//				y++;
+//			else y--;
+//		}
+//		return x == 0 && y == 0;
+//	}
+//};
+
+#include <iostream>
+#include <unordered_map>
+#include <string>
+#include <map>
+using namespace std;
+
+class Solution {
+public:
+	vector<string> findRestaurant(vector<string>& list1, vector<string>& list2) {
+		unordered_map<string, int>m1, m2;
+		for (int i = 0; i < (int)list1.size(); i++)
+			m1[list1[i]] = i;
+		for (int i = 0; i < (int)list2.size(); i++)
+			m2[list2[i]] = i;
+		multimap<int, string>flag;
+		for (const auto& e : m1)
+		{
+			auto it = m2.find(e.first);
+			if (it != m2.end())
+				flag.insert(make_pair(e.second + it->second, e.first));
+		}
+		vector<string>ret;
+		int min = flag.begin()->first;
+		for ( auto& e : flag)
+		{
+			if (e.first != min)
+				break;
+			ret.push_back(e.second);
+		}
+		return ret;
+	}
+};
+
+int main()
+{
+	vector<string> list1 = { "Shogun", "Tapioca Express", "Burger King", "KFC" };
+	vector<string> list2 = { "Piatti", "The Grill at Torrey Pines", "Hungry Hunter Steakhouse", "Shogun" };
+
+	Solution().findRestaurant(list1, list2);
+	return 0;
+}
