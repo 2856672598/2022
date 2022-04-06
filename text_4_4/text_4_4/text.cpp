@@ -376,3 +376,256 @@
 //	return 0;
 //}
 
+//#include <iostream>
+//#include <vector>
+//#include <string>
+//using namespace std;
+//
+//struct Node
+//{
+//	vector<Node*>next = { 26, nullptr };
+//	bool end = false;
+//};
+//
+//class Solution {
+//public:
+//
+//	string FindPrefix(Node* root, const string& str)
+//	{
+//		if (root->next[str[0] - 'a'] == nullptr)
+//			return str;
+//		string ret;
+//		for (int i = 0; i < (int)str.size(); i++)
+//		{
+//			ret.push_back(str[i]);
+//			if (root->next[str[i] - 'a'] == nullptr)
+//				return str;
+//
+//			if (root->next[str[i] - 'a']->end)
+//				return ret;
+//			root = root->next[str[i] - 'a'];
+//		}
+//		return ret;
+//	}
+//
+//	string replaceWords(vector<string>& dictionary, string sentence)
+//	{
+//		Node head;
+//		for (const auto& e : dictionary)
+//		{
+//			Node* cur = &head;
+//			for (auto& i : e)
+//			{
+//				if (cur->next[i - 'a'] == nullptr)
+//					cur->next[i - 'a'] = new Node;
+//				cur = cur->next[i - 'a'];
+//			}
+//			cur->end = true;
+//		}
+//		string ret, tmp;
+//		for (int i = 0; i < (int)sentence.size(); i++)
+//		{
+//			if (sentence[i] == ' ')
+//			{
+//				ret += FindPrefix(&head, tmp);
+//				ret += " ";
+//				tmp.clear();
+//				continue;
+//			}
+//			tmp += sentence[i];
+//		}
+//		ret += FindPrefix(&head, tmp);
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<string>dictionary = { "a", "aa", "aaa", "aaaa" };
+//	string sentence = "a aa a aaaa aaa aaa aaa aaaaaa bbb baba ababa";
+//	cout << Solution().replaceWords(dictionary, sentence);
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <string>
+//#include <vector>
+//using namespace std;
+//
+//int ret = 0;
+//void Bracktracking(int left, int right, int n)
+//{
+//	if (left <right || left > n)
+//		return;
+//	if (left == right && left == n)
+//		ret++;
+//
+//	Bracktracking(left + 1, right, n);
+//	Bracktracking(left, right + 1, n);
+//}
+
+//int main()
+//{
+//	long mold = 1E9 + 7;
+//	string str;
+//	cin >> str;
+//	//计算括号对数
+//	int left = 0, right = 0;
+//	for (auto e : str)
+//	{
+//		if (e == '(')
+//			left++;
+//		else
+//			right++;
+//	}
+//	if (left == right)
+//	{
+//		cout << 0;
+//		return 0;
+//	}
+//	int n = left < right ? right : left;
+//
+//	Bracktracking(0, 0, n);
+//	cout << ret % mold << endl;
+//	return 0;
+//}
+
+
+//#include <iostream>
+//#include <vector>
+//#include <algorithm>
+//using namespace std;
+//
+//int main()
+//{
+//	int n, v;
+//	cin >> n >> v;
+//	vector<vector<int>>nums(n + 1, vector<int>(2, 0));
+//	for (int i = 1; i <= n; i++)
+//	{
+//		cin >> nums[i][0] >> nums[i][1];
+//	}
+//	vector<vector<int>>dp(n + 1, vector<int>(v + 1));
+//	for (int i = 1; i <= n; i++)
+//	{
+//		for (int j = 0; j <= v; j++)
+//		{
+//			dp[i][j] = dp[i - 1][j];
+//			if (j >= nums[i][0])
+//				dp[i][j] = max(dp[i][j], dp[i][j - nums[i][0]] + nums[i][1]);
+//		}
+//	}
+//	cout << dp[n][v] << endl;
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <vector>
+//#include <unordered_set>
+//using namespace std;
+//
+//int GetRoot(vector<int>&nums, int x)
+//{
+//	if (nums[x] == -1)
+//		return x;
+//	return nums[x] = GetRoot(nums, nums[x]);
+//}
+//
+//void Merge(vector<int>&nums, int x, int y)
+//{
+//	int xRoot = GetRoot(nums, x);
+//	int yRoot = GetRoot(nums, y);
+//	//在同一个集合里面
+//	if (xRoot == yRoot)
+//		return;
+//	nums[xRoot] = yRoot;
+//}
+//
+//int main()
+//{
+//	int m, n;
+//	cin >> m >> n;
+//	int k;
+//	cin >> k;
+//	vector<int>nums(m*n + 1, -1);
+//	for (int i = 0; i < k; i++)
+//	{
+//		int a, b;
+//		cin >> a >> b;
+//		Merge(nums, a, b);
+//	}
+//	unordered_set<int>flag;
+//	for (int i = 1; i <= m * n; i++)
+//	{
+//		flag.insert(GetRoot(nums, i));
+//	}
+//	cout << flag.size() << endl;
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <math.h>
+//using namespace std;
+//
+//long  long MyPowa(int x, int index)
+//{
+//	long long sum = x;
+//	int mod = 123456789;
+//	int flag = 1;
+//	while (index != 1)
+//	{
+//		if (index % 2)
+//			flag = sum;
+//		sum = (sum*sum) % mod;
+//		sum = (sum*flag) % mod;
+//		flag = 1;
+//		index /= 2;
+//	}
+//	return sum;
+//}
+//
+//int main()
+//{
+//	int n;
+//	cin >> n;
+//	long long sum = 0;
+//	int mod = 123456789;
+//	for (int i = 1; i <= n; i++)
+//	{
+//		sum = (sum + (long long)MyPowa(i, 8)) % mod;
+//	}
+//	cout << sum;
+//	return 0;
+//}
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+class Solution {
+public:
+	int findTheDistanceValue(vector<int>& arr1, vector<int>& arr2, int d) {
+		int count = 0;
+		for (int i = 0; i < (int)arr1.size(); i++)
+		{
+			int flag = 1;
+			for (int j = 0; j < (int)arr2.size(); j++)
+			{
+				if (abs(arr1[i] - arr2[j]) <= d)
+					flag = 0;
+			}
+			if (flag)
+				count++;
+		}
+		return count;
+	}
+};
+
+int main()
+{
+	vector<int>arr1{ 4,5,8 }, arr2{ 10,9,1,8 };
+	int d = 2;
+	cout << Solution().findTheDistanceValue(arr1, arr2, d);
+	return 0;
+}
