@@ -598,34 +598,364 @@
 //	return 0;
 //}
 
-#include <iostream>
-#include <vector>
-#include <algorithm>
-using namespace std;
+//#include <iostream>
+//#include <vector>
+//#include <algorithm>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int findTheDistanceValue(vector<int>& arr1, vector<int>& arr2, int d) {
+//		int count = 0;
+//		for (int i = 0; i < (int)arr1.size(); i++)
+//		{
+//			int flag = 1;
+//			for (int j = 0; j < (int)arr2.size(); j++)
+//			{
+//				if (abs(arr1[i] - arr2[j]) <= d)
+//					flag = 0;
+//			}
+//			if (flag)
+//				count++;
+//		}
+//		return count;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<int>arr1{ 4,5,8 }, arr2{ 10,9,1,8 };
+//	int d = 2;
+//	cout << Solution().findTheDistanceValue(arr1, arr2, d);
+//	return 0;
+//}
 
-class Solution {
-public:
-	int findTheDistanceValue(vector<int>& arr1, vector<int>& arr2, int d) {
-		int count = 0;
-		for (int i = 0; i < (int)arr1.size(); i++)
-		{
-			int flag = 1;
-			for (int j = 0; j < (int)arr2.size(); j++)
-			{
-				if (abs(arr1[i] - arr2[j]) <= d)
-					flag = 0;
-			}
-			if (flag)
-				count++;
-		}
-		return count;
-	}
-};
+//#include <iostream>
+//#include <string>
+//using namespace std;
+//
+////class Solution {
+////public:
+////	bool rotateString(string s, string goal)
+////	{
+////		if (s.size() != goal.size())
+////			return false;
+////		s += s;
+////		return s.find(goal) != string::npos;
+////	}
+////};
+//
+//class Solution {
+//public:
+//	bool rotateString(string s, string goal)
+//	{
+//		if (s.size() != goal.size())
+//			return false;
+//		s += s;
+//		for (int i = 0; i < (int)s.size() - goal.size(); i++)
+//		{
+//			int j = 0;
+//			int ii = i;
+//			while (j < goal.size() && goal[j] == s[ii])
+//			{
+//				ii++;
+//				j++;
+//			}
+//			if (j == goal.size())
+//				return true;
+//		}
+//		return false;
+//	}
+//};
 
-int main()
-{
-	vector<int>arr1{ 4,5,8 }, arr2{ 10,9,1,8 };
-	int d = 2;
-	cout << Solution().findTheDistanceValue(arr1, arr2, d);
-	return 0;
-}
+
+//#include <iostream>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	bool isPerfectSquare(int num) {
+//		int right = num / 2 == 0 ? 1 : num / 2;
+//		int left = 0;
+//
+//		while (left <= right)
+//		{
+//			long long mid = left + (right - left) / 2;
+//			if (mid*mid > num)
+//				right = mid - 1;
+//			else if (mid*mid < num)
+//				left = mid + 1;
+//			else
+//				return true;
+//		}
+//		return false;
+//	}
+//};
+
+//#include <iostream>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int mySqrt(int x) {
+//		int left = 1, right = x / 2 == 0 ? 1 : x / 2;
+//		long mid = 0;
+//		while (left <= right)
+//		{
+//			mid = left + (right - left) / 2;
+//			if (mid*mid < x)
+//				left = mid + 1;
+//			else if (mid*mid > x)
+//				right = mid - 1;
+//			else
+//				return mid;
+//		}
+//		return mid * mid > x ? mid - 1 : mid;
+//	}
+//};
+
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	vector<int> searchRange(vector<int>& nums, int target)
+//	{
+//		int left = 0, right = nums.size() - 1, flag = 0;
+//		long mid = 0;
+//		while (left <= right)
+//		{
+//			mid = left + (right - left) / 2;
+//			if (nums[mid] > target)
+//				right = mid - 1;
+//			else if (nums[mid] < target)
+//				left = mid + 1;
+//			else {
+//				flag = 1;
+//				break;
+//			}
+//		}
+//		vector<int>ret(2, -1);
+//		if (flag == 1){
+//			left = mid;
+//			while (left >= 0 && nums[left] == target)
+//				left--;
+//			right = mid;
+//			while (right < nums.size() && nums[right] == target)
+//				right++;
+//			ret[0] = left + 1;
+//			ret[1] = right - 1;
+//		}
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<int>nums{ 5,7,7,8,8,10 };
+//	int target = 8;
+//	Solution().searchRange(nums, target);
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <unordered_set>
+//#include <math.h>
+//using namespace std;
+//
+//int main()
+//{
+//	long long n = 2021041820210418;
+//	unordered_set<long long>nums;
+//	for (int i = 1; i <= (int)sqrt(n); i++)
+//	{
+//		if (n%i == 0) {
+//			nums.insert(i);
+//			nums.insert(n / i);
+//		}
+//	}
+//	int count = 0;
+//	for (auto e : nums)
+//	{
+//		for (auto f : nums)
+//		{
+//			for (auto g : nums)
+//			{
+//				if (e*f*g == n)
+//					count++;
+//			}
+//		}
+//	}
+//	cout << count;
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//
+//int main()
+//{
+//	vector<int>nums(10, 2021);
+//	for (int i = 0;; i++)
+//	{
+//		int tmp = i;
+//		while (tmp)
+//		{
+//			int flag = tmp % 10;
+//			if (nums[flag] == 0) {
+//				cout << i - 1 << endl;
+//				return 0;
+//			}
+//			nums[flag] --;
+//			tmp /= 10;
+//		}
+//	}
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <string>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	bool IsRun(int year)
+//	{
+//		if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0)
+//			return true;
+//		return false;
+//	}
+//
+//	int Days(string date, int flag)
+//	{
+//		int arr[13] = { 0,31,28,31,30,31,30,31,31,30,31,30,31 };
+//		int year, month, day;
+//		sscanf(date.c_str(), "%d-%d-%d", &year, &month, &day);
+//		int count = day;
+//		for (int i = 1; i < month; i++)
+//		{
+//			count += arr[i];
+//			if (i == 2 && IsRun(year))
+//				count++;
+//		}
+//		for (int i = flag; i < year; i++)
+//		{
+//			count += 365;
+//			if (IsRun(i))
+//				count += 1;
+//		}
+//		return count;
+//	}
+//
+//	int daysBetweenDates(string date1, string date2) {
+//		string flag = date1 > date2 ? date2 : date1;
+//		int year = stoi(flag.substr(0, 4));
+//		return abs(Days(date1, year) - Days(date2, year));
+//	}
+//};
+//
+//int main()
+//{
+//	string date1 = "2019-06-29";
+//	string date2 = "2019-06-30";
+//	cout << Solution().daysBetweenDates(date1, date2);
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <sstream>
+//using namespace std;
+//
+//int main()
+//{
+//	string str;
+//	getline(cin, str);
+//	stringstream st(str);
+//	while (!st.eof())
+//	{
+//		string tmp;
+//		st >> tmp;
+//		cout << tmp << endl;
+//	}
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <string>
+//#include <vector>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	bool IsRun(int year)
+//	{
+//		if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0)
+//			return true;
+//		return false;
+//	}
+//	string dayOfTheWeek(int day, int month, int year)
+//	{
+//		int count = day;
+//		int arr[13] = { 0,31,28,31,30,31,30,31,31,30,31,30,31 };
+//		vector<string> flag{ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
+//		for (int i = 1970; i < year; i++)
+//		{
+//			count += 365;
+//			if (IsRun(i))
+//				count += 1;
+//		}
+//		for (int i = 1; i < month; i++)
+//		{
+//			if (i == 2 && IsRun(year))
+//				count += 1;
+//			count += arr[i];
+//		}
+//		count %= 7;
+//		return flag[(3 + count) % 7];
+//	}
+//};
+//
+//int main()
+//{
+//	int month = 1, year = 1970, day = 7;
+//	cout << Solution().dayOfTheWeek(day, month, year);
+//	return 0;
+//}
+
+
+//#include <iostream>
+//#include <vector>
+//#include <unordered_set>
+//#include <stdlib.h>
+//using namespace std;
+//unordered_set<int>s;
+//
+//void BackTracking(const vector<int>&nums, int index, int sum)
+//{
+//	s.insert(abs(sum));
+//	if (index == nums.size())
+//		return;
+//	for (int i = index; i < (int)nums.size(); i++)
+//	{
+//		//²»·ÅíÀÂë
+//		BackTracking(nums, i + 1, sum);
+//		BackTracking(nums, i + 1, sum + nums[i]);
+//		BackTracking(nums, i + 1, sum - nums[i]);
+//	}
+//}
+//
+//int main()
+//{
+//	int n;
+//	cin >> n;
+//	vector<int>nums(n, 0);
+//	for (int i = 0; i < n; i++)
+//		cin >> nums[i];
+//	BackTracking(nums, 0, 0);
+//	s.erase(0);
+//	cout << s.size() << endl;
+//	return 0;
+//}
+
