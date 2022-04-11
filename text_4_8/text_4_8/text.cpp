@@ -275,43 +275,82 @@
 ////};
 
 
-#include <iostream>
-#include <vector>
-using namespace std;
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int Find(const vector<int>&numbers, int left, int right, int target)
+//	{
+//		while (left <= right)
+//		{
+//			int mid = left + ((right - left) >> 1);
+//			if (numbers[mid] > target)
+//				right = mid - 1;
+//			else if (numbers[mid] < target)
+//				left = mid + 1;
+//			else
+//				return mid;
+//		}
+//		return -1;
+//	}
+//	vector<int> twoSum(vector<int>& numbers, int target)
+//	{
+//		for (int i = 0; i < (int)numbers.size(); i++)
+//		{
+//			int num = target - numbers[i];
+//			int pos = Find(numbers, i + 1, numbers.size() - 1, num);
+//			if (pos != -1)
+//				return { i + 1,pos + 1 };
+//		}
+//		return{ -1,-1 };
+//	}
+//};
+//
+//int main()
+//{
+//	vector<int>numbers{ 2,3,4 };
+//	int target = 6;
+//	Solution().twoSum(numbers, target);
+//	return 0;
+//}
 
-class Solution {
-public:
-	int Find(const vector<int>&numbers, int left, int right, int target)
-	{
-		while (left <= right)
-		{
-			int mid = left + ((right - left) >> 1);
-			if (numbers[mid] > target)
-				right = mid - 1;
-			else if (numbers[mid] < target)
-				left = mid + 1;
-			else
-				return mid;
-		}
-		return -1;
-	}
-	vector<int> twoSum(vector<int>& numbers, int target)
-	{
-		for (int i = 0; i < (int)numbers.size(); i++)
-		{
-			int num = target - numbers[i];
-			int pos = Find(numbers, i + 1, numbers.size() - 1, num);
-			if (pos != -1)
-				return { i + 1,pos + 1 };
-		}
-		return{ -1,-1 };
-	}
-};
-
-int main()
-{
-	vector<int>numbers{ 2,3,4 };
-	int target = 6;
-	Solution().twoSum(numbers, target);
-	return 0;
-}
+//#include <iostream>
+//#include <vector>
+//#include <queue>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int maximumProduct(vector<int>& nums, int k) {
+//		int mod = 1E9 + 7;
+//		priority_queue<int, vector<int>, greater<int>>pq;
+//		for (auto e : nums)
+//			pq.push(e);
+//		while (k)
+//		{
+//			int tmp = pq.top();
+//			tmp++;
+//			pq.pop();
+//			pq.push(tmp);
+//			k--;
+//		}
+//		long long ret = 1;
+//		while (!pq.empty())
+//		{
+//			int tmp = pq.top();
+//			pq.pop();
+//			ret = (ret*tmp) % mod;
+//		}
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<int>nums{ 0,4 };
+//	int k = 5;
+//	cout << Solution().maximumProduct(nums, k);
+//	return 0;
+//}
