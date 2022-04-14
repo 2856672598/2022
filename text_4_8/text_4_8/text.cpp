@@ -354,3 +354,487 @@
 //	cout << Solution().maximumProduct(nums, k);
 //	return 0;
 //}
+
+//#include <iostream>
+//#include <vector>
+//#include <unordered_map>
+//#include <time.h>
+//using namespace std;
+//
+//class RandomizedSet {
+//	vector<int>nums;
+//	unordered_map<int, int>m;//存放某个数对应的下标
+//public:
+//	RandomizedSet() {
+//		srand((unsigned)time(NULL));
+//	}
+//
+//	bool insert(int val) {
+//		if (m.count(val))
+//			return false;
+//		int index = nums.size();
+//		nums.push_back(val);
+//		m[val] = index;
+//		return true;
+//	}
+//
+//	bool remove(int val) {
+//		if (nums.size() == 0)
+//			return false;
+//		if (!m.count(val))
+//			return false;
+//		int index = m[val];
+//		m.erase(val);
+//		//将删除的位置和数组中的最后一个位置进行交换
+//		nums[index] = nums.back();
+//		m[nums.back()] = index;
+//		m.erase(val);
+//		nums.pop_back();
+//		return true;
+//	}
+//
+//	int getRandom() {
+//		int pos = rand() % nums.size();
+//		return nums[pos];
+//	}
+//};
+
+
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//class Solution {
+//public:
+//	int findKthPositive(vector<int>& arr, int k) {
+//		int left = 0, right = arr.size() - 1, mid = 0;
+//		while (left < right)
+//		{
+//			mid = left + (right - left) / 2;
+//			if (arr[mid] - mid - 1 < k)
+//				left = mid + 1;
+//			else
+//				right = mid;
+//		}
+//		if (arr[left] - left > k)
+//			return arr[left] - ((arr[left] - left) - k);
+//		else
+//			return arr[left] + k - (arr[left] - left) + 1;
+//	}
+//};
+
+
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//
+//int main()
+//{
+//	int year, month, day;
+//	cin >> year >> month >> day;
+//	int count = day;
+//	vector<int>nums{ 0,31,28,31,30,31,30,31,31,30,31,30,31 };
+//	if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0)
+//		nums[2] += 1;
+//	for (int i = 1; i < month; i++) {
+//		count += nums[i];
+//	}
+//	cout << count << endl;
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <vector>
+//#include <algorithm>
+//using namespace std;
+//int Backtracking(const vector<int>& nums, int index, int product, int sum)
+//{
+//	int ret = 0;
+//	for (int i = index; i < (int)nums.size(); i++)
+//	{
+//		product *= nums[i];
+//		sum += nums[i];
+//		if (sum > product) {
+//			ret++;
+//			ret += Backtracking(nums, index + 1, product, sum);
+//		}
+//		else if (nums[i] == 1) {
+//			ret += Backtracking(nums, index + 1, product, sum);
+//		}
+//		else
+//			break;
+//		product /= nums[i];
+//		sum -= nums[i];
+//		while (i < (int)nums.size() - 1 && nums[i] == nums[i + 1]) {
+//			++i;
+//		}
+//	}
+//	return ret;
+//}
+//
+//int main()
+//{
+//	int n;
+//	cin >> n;
+//	vector<int>nums(n);
+//	for (int i = 0; i < n; i++)
+//		cin >> nums[i];
+//	sort(nums.begin(), nums.end());
+//	cout << Backtracking(nums, 0, 1, 0) << endl;
+//	return 0;
+//}
+
+//#include <iostream>
+//using namespace std;
+//
+//int main()
+//{
+//	long n;
+//	while (cin >> n)
+//	{
+//		int count = 0;
+//		while (n) {
+//			count++;
+//			n = n & n - 1;
+//		}
+//		cout << count << endl;
+//	}
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <vector>
+//#include <algorithm>
+//using namespace std;
+//
+//class Gloves {
+//public:
+//	int findMinimum(int n, vector<int> left, vector<int> right) {
+//		// write code here
+//		int count = 0, leftSum = 0, rightSum = 0;
+//		int leftMin = INT_MAX, rightMin = INT_MAX;
+//		for (int i = 0; i < n; i++)
+//		{
+//			if (left[i] == 0 || right[i] == 0)
+//				count += left[i] + right[i];
+//			else {
+//				leftSum += left[i];
+//				rightSum += right[i];
+//				leftMin = min(leftMin, left[i]);
+//				rightMin = min(rightMin, left[i]);
+//			}
+//		}
+//		return count += min(leftSum - leftMin + 1, rightSum - rightMin + 1) + 1;
+//	}
+//};
+
+//#include <iostream>
+//#include <vector>
+//#include <algorithm>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int maximumWealth(vector<vector<int>>& accounts) {
+//		int ret = 0;
+//		for (int i = 0; i < (int)accounts.size(); i++)
+//		{
+//			int tmp = 0;
+//			for(int j=0;j<(int)accounts[i].size();j++)
+//			{
+//				tmp += accounts[i][j];
+//			}
+//			ret = max(ret, tmp);
+//		}
+//		return ret;
+//	}
+//};
+
+//#include <algorithm>
+//#include <vector>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int findMin(vector<int>& nums) {
+//		int left = 0, right = nums.size() - 1;
+//		if (nums[left] < nums[right])
+//			return nums[left];
+//		while (left < right)
+//		{
+//			int mid = left + (right - left) / 2;
+//			if (nums[mid] < nums[right]) {
+//				//后半部分有序
+//				right = mid;
+//			}
+//			else {
+//				left = mid + 1;
+//			}
+//		}
+//		return nums[left];
+//	}
+//};
+
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int search(vector<int>& nums, int target) {
+//		int left = 0, right = nums.size() - 1;
+//		while (left <= right)
+//		{
+//			int mid = left + (right - left) / 2;
+//			if (nums[mid] == target)
+//				return mid;
+//			if (nums[left] <= nums[mid]) {
+//				//左边是有序的
+//				if (nums[left] <= target && target < nums[mid]) {
+//					//可能在当前区间中
+//					right = mid - 1;
+//				}
+//				else {
+//					left = mid + 1;
+//				}
+//			}
+//			else {
+//				if (target > nums[mid] && target <= nums[right])
+//					left = mid + 1;
+//				else
+//					right = mid - 1;
+//			}
+//		}
+//		return -1;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<int>nums{ 3,1 };
+//	int target = 1;
+//	cout << Solution().search(nums, target);
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <vector>
+//#include <algorithm>
+//using namespace std;
+//
+//class Solution {
+//public:
+//
+//	bool Check(const vector<int>&nums, int target)
+//	{
+//		int left = 0, right = nums.size() - 1;
+//		while (left < right)
+//		{
+//			int mid = left + (right - left) / 2;
+//			if (nums[mid] > target) {
+//				right = mid - 1;
+//			}
+//			else if (nums[mid] < target)
+//				left = mid + 1;
+//			else
+//				right = mid;
+//		}
+//		if (nums[left] < target)
+//			left++;
+//		if (nums.size() - left == target)
+//			return true;
+//		return false;
+//	}
+//
+//	int specialArray(vector<int>& nums) {
+//		sort(nums.begin(), nums.end());
+//		for (int i = nums.size(); i >= 0; i--)
+//		{
+//			if (Check(nums, i))
+//				return i;
+//		}
+//		return -1;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<int>nums{ 0,0 };
+//	cout << Solution().specialArray(nums);
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int countNegatives(vector<vector<int>>& grid) {
+//		int count = 0;
+//		for (int i = 0; i < (int)grid.size(); i++)
+//		{
+//			for (int j = grid[i].size() - 1; j >= 0; j--)
+//			{
+//				if (grid[i][j] < 0)
+//					count++;
+//				else
+//					break;
+//			}
+//		}
+//		return count;
+//	}
+//};
+
+
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	bool searchMatrix(vector<vector<int>>& matrix, int target) {
+//		int row = 0, col = matrix[0].size() - 1;
+//		while (row < (int)matrix.size() && col >= 0)
+//		{
+//			if (matrix[row][col] > target)
+//				col--;
+//			else if (matrix[row][col] < target)
+//				row++;
+//			else
+//				return true;
+//		}
+//		return false;
+//	}
+//};
+
+//#include <iostream>
+//#include <vector>
+//#include <map>
+//using namespace std;
+//class Solution {
+//public:
+//	vector<int> kWeakestRows(vector<vector<int>>& mat, int k) {
+//		multimap<int, int>m;
+//		for (int i =  0; i < (int)mat.size(); i++)
+//		{
+//			int count = 0;
+//			for (int j = 0; j < (int)mat[i].size(); j++)
+//			{
+//				if (!mat[i][j])
+//					break;
+//				count++;
+//			}
+//			m.insert({ count,i });
+//		}
+//		vector<int>ret;
+//		auto it = m.begin();
+//		while (k)
+//		{
+//			ret.push_back(it->second);
+//			it++;
+//			k--;
+//		}
+//		return ret;
+//	}
+//};
+//int main()
+//{
+//	vector<vector<int>>mat = { {1, 0, 0, 0},
+//		{1, 1, 1, 1},
+//		{1, 0, 0, 0},
+//		{1, 0, 0, 0} };
+//	int k = 2;
+//	Solution().kWeakestRows(mat, k);
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <unordered_map>
+//#include <vector>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	bool checkIfExist(vector<int>& arr) {
+//		unordered_map<int, int>nums;
+//		for (int i = 0; i < (int)arr.size(); i++)
+//			nums[arr[i]]++;
+//		for (int i = 0; i < (int)arr.size(); i++)
+//		{
+//			if (2 * arr[i] == arr[i] && nums[arr[i]] == 1)
+//				continue;
+//
+//			if (nums.count(2 * arr[i]))
+//				return true;
+//		}
+//		return false;
+//	}
+//};
+
+//#include <vector>
+//#include <unordered_map>
+//#include <algorithm>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
+//		unordered_map<int, int>n1, n2;
+//		for (auto e : nums1)
+//			n1[e]++;
+//		for (auto e : nums2)
+//			n2[e]++;
+//		vector<int>ret;
+//		for (auto e : n1)
+//		{
+//			auto it = n2.find(e.first);
+//			if (it != n2.end())
+//			{
+//				int count = min(it->second, e.second);
+//				ret.insert(ret.end(), count, e.first);
+//			}
+//		}
+//		return ret;
+//	}
+//};
+
+//#include <iostream>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	bool judgeSquareSum(int c) {
+//		for (long long i = 0; i*i <= c; i++)
+//		{
+//			double tmp = sqrt(c - i * i);
+//			if (tmp == (int)tmp)
+//				return true;
+//		}
+//		return false;
+//	}
+//};
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+	int maxDistance(vector<int>& nums1, vector<int>& nums2) {
+		int i1 = 0, i2 = 0;
+		for (int i = 0; i < (int)nums1.size(); i++)
+		{
+			int j = 0;
+			for (j = i; j < (int)nums2.size(); j++)
+			{
+				if (nums1[i] > nums2[j])
+					break;
+			}
+			if (j - i > i2 - i1) {
+				i2 = j;
+				i1 = i;
+			}
+		}
+		return i2 - i1;
+	}
+};
