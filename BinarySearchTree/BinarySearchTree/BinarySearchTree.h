@@ -86,7 +86,10 @@ public:
 			else {
 				//ур╣╫ак
 				if (cur->_left == nullptr) {
-					if (cur == parent->_left) {
+					if (cur == _root){
+						_root = cur->_right;
+					}
+					else if (cur == parent->_left) {
 						parent->_left = cur->_right;
 					}
 					else if (cur == parent->_right) {
@@ -96,7 +99,10 @@ public:
 					return true;
 				}
 				else if (cur->_right == nullptr) {
-					if (cur == parent->_left)
+					if (cur == _root) {
+						_root = cur->_left;
+					}
+					else if (cur == parent->_left)
 						parent->_left = cur->_left;
 					else
 						parent->_right = cur->_left;
