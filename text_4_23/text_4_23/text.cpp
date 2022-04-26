@@ -304,62 +304,174 @@
 //	}
 //};
 
+//#include <iostream>
+//#include <vector>
+//#include <algorithm>
+//using namespace std;
+//
+////class Bonus {
+////public:
+////	int getMost(vector<vector<int> > board)
+////	{
+////		for (int i = 1; i < (int)board.size(); i++)
+////		{
+////			board[i][0] += board[i - 1][0];
+////			board[0][i] += board[0][i - 1];
+////		}
+////		for (int i = 1; i < (int)board.size(); i++)
+////		{
+////			for (int j = 1; j < (int)board[i].size(); j++)
+////				board[i][j] += max(board[i - 1][j], board[i][j - 1]);
+////		}
+////		return board[board.size() - 1][board[0].size() - 1];
+////	}
+////};
+//
+//vector<vector<int>>ret;
+//bool Dfs( vector<vector<int>>&nums, int row, int col)
+//{
+//	if (row == nums.size() - 1 && col == nums[0].size() - 1) {
+//		ret.push_back({ row,col });
+//		return true;
+//	}
+//	if (row < 0 || col < 0 || row == nums.size() || col == nums[0].size() || nums[row][col] == 1) {
+//		return false;
+//	}
+//	ret.push_back({ row,col });
+//	nums[row][col] = 1;
+//	if (!Dfs(nums, row + 1, col) && !Dfs(nums, row - 1, col) && !Dfs(nums, row, col + 1) && !Dfs(nums, row, col - 1)) {
+//		ret.pop_back();
+//		nums[row][col] = 0;
+//		return false;
+//	}
+//	return true;
+//}
+//
+//int main()
+//{
+//	int n, m;
+//	cin >> n >> m;
+//	vector<vector<int>>nums(n, vector<int>(m, 0));
+//	for (int i = 0; i < n; i++)
+//	{
+//		for (int j = 0; j < m; j++)
+//			cin >> nums[i][j];
+//	}
+//
+//	Dfs(nums, 0, 0);
+//	for (auto e : ret)
+//		cout << "(" << e[0] << "," << e[1] << ")" << endl;
+//	return 0;
+//}
+
+
+//#include <iostream>
+//#include <vector>
+//#include <string>
+//using namespace std;
+//
+//int main()
+//{
+//	string nums;
+//	while (cin >> nums)
+//	{
+//		while (nums.size() > 1) {
+//			long long tmp = 0;
+//			for (auto e : nums) {
+//				tmp += e - '0';
+//			}
+//			nums = to_string(tmp);
+//		}
+//		cout << nums << endl;
+//	}
+//	return 0;
+//}
+
+
+//#include <iostream>
+//#include<vector>
+//using namespace std;
+//
+//int main()
+//{
+//	vector<int>nums(100000, 0);
+//	nums[0] = 1;
+//	nums[1] = 2;
+//	for (int i = 2; i < 100000; i++) {
+//		nums[i] = (nums[i - 1] + nums[i - 2]) % 10000;
+//	}
+//
+//	int n;
+//	while (cin >> n)
+//	{
+//		for (int i = 0; i < n; i++)
+//		{
+//			int tmp = 0;
+//			cin >> tmp;
+//			int ret = nums[tmp - 1];
+//			if (ret < 1000) {
+//				printf("%04d", ret);
+//			}
+//			else {
+//				cout << ret % 10000;
+//			}
+//		}
+//		cout << endl;
+//	}
+//	return 0;
+//}
+
+
 #include <iostream>
 #include <vector>
-#include <algorithm>
 using namespace std;
+class Node {
+public:
+	int val;
+	Node* left;
+	Node* right;
 
-//class Bonus {
-//public:
-//	int getMost(vector<vector<int> > board)
-//	{
-//		for (int i = 1; i < (int)board.size(); i++)
-//		{
-//			board[i][0] += board[i - 1][0];
-//			board[0][i] += board[0][i - 1];
-//		}
-//		for (int i = 1; i < (int)board.size(); i++)
-//		{
-//			for (int j = 1; j < (int)board[i].size(); j++)
-//				board[i][j] += max(board[i - 1][j], board[i][j - 1]);
-//		}
-//		return board[board.size() - 1][board[0].size() - 1];
-//	}
-//};
+	Node() {}
 
-vector<vector<int>>ret;
-bool Dfs( vector<vector<int>>&nums, int row, int col)
-{
-	if (row == nums.size() - 1 && col == nums[0].size() - 1) {
-		ret.push_back({ row,col });
-		return true;
+	Node(int _val) {
+		val = _val;
+		left = NULL;
+		right = NULL;
 	}
-	if (row < 0 || col < 0 || row == nums.size() || col == nums[0].size() || nums[row][col] == 1) {
-		return false;
-	}
-	ret.push_back({ row,col });
-	nums[row][col] = 1;
-	if (!Dfs(nums, row + 1, col) && !Dfs(nums, row - 1, col) && !Dfs(nums, row, col + 1) && !Dfs(nums, row, col - 1)) {
-		ret.pop_back();
-		nums[row][col] = 0;
-		return false;
-	}
-	return true;
-}
 
-int main()
-{
-	int n, m;
-	cin >> n >> m;
-	vector<vector<int>>nums(n, vector<int>(m, 0));
-	for (int i = 0; i < n; i++)
+	Node(int _val, Node* _left, Node* _right) {
+		val = _val;
+		left = _left;
+		right = _right;
+	}
+};
+
+class Solution {
+public:
+
+	void Inorder(Node* root, Node*& prev)
 	{
-		for (int j = 0; j < m; j++)
-			cin >> nums[i][j];
+		if (root == nullptr)
+			return;
+		Inorder(root->left, prev);
+
+		root->left = prev;
+		if (prev)
+			prev->right = root;
+		prev = root;
+		Inorder(root->right, prev);
 	}
 
-	Dfs(nums, 0, 0);
-	for (auto e : ret)
-		cout << "(" << e[0] << "," << e[1] << ")" << endl;
-	return 0;
-}
+	Node* treeToDoublyList(Node* root) {
+		if (root == nullptr)
+			return nullptr;
+		Node* prev = nullptr;
+		Inorder(root, prev);
+		Node* cur = prev;
+		while (cur->left)
+			cur = cur->left;
+		cur->left = prev;
+		prev->right = cur;
+		return cur;
+	}
+};
