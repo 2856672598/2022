@@ -422,56 +422,266 @@
 //}
 
 
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//class Node {
+//public:
+//	int val;
+//	Node* left;
+//	Node* right;
+//
+//	Node() {}
+//
+//	Node(int _val) {
+//		val = _val;
+//		left = NULL;
+//		right = NULL;
+//	}
+//
+//	Node(int _val, Node* _left, Node* _right) {
+//		val = _val;
+//		left = _left;
+//		right = _right;
+//	}
+//};
+//
+//class Solution {
+//public:
+//
+//	void Inorder(Node* root, Node*& prev)
+//	{
+//		if (root == nullptr)
+//			return;
+//		Inorder(root->left, prev);
+//
+//		root->left = prev;
+//		if (prev)
+//			prev->right = root;
+//		prev = root;
+//		Inorder(root->right, prev);
+//	}
+//
+//	Node* treeToDoublyList(Node* root) {
+//		if (root == nullptr)
+//			return nullptr;
+//		Node* prev = nullptr;
+//		Inorder(root, prev);
+//		Node* cur = prev;
+//		while (cur->left)
+//			cur = cur->left;
+//		cur->left = prev;
+//		prev->right = cur;
+//		return cur;
+//	}
+//};
+
+//#include <iostream>
+//#include <vector>
+//#include <stack>
+//#include <queue>
+//using namespace std;
+//
+//struct TreeNode {
+//	int val;
+//	TreeNode *left;
+//	TreeNode *right;
+//	TreeNode() : val(0), left(nullptr), right(nullptr) {}
+//	TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+//	TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+//};
+// 
+////class Solution {
+////public:
+////	vector<int> preorderTraversal(TreeNode* root)
+////	{
+////		stack<TreeNode*>st;
+////		if (root != nullptr)
+////			st.push(root);
+////		vector<int>ret;
+////		while (!st.empty())
+////		{
+////			TreeNode* tmp = st.top();
+////			ret.push_back(tmp->val);
+////			st.pop();
+////			if (tmp->right)
+////				st.push(tmp->right);
+////			if (tmp->left)
+////				st.push(tmp->left);
+////		}
+////		return ret;
+////	}
+////};
+//
+//////中序
+////class Solution {
+////public:
+////	vector<int> inorderTraversal(TreeNode* root)
+////	{
+////		stack<TreeNode*>st;
+////		vector<int>ret;
+////		TreeNode* cur = root;
+////		while (cur || !st.empty())
+////		{
+////			//左子树走到底
+////			while (cur)
+////			{
+////				st.push(cur);
+////				cur = cur->left;
+////			}
+////
+////			cur = st.top();
+////			ret.push_back(cur->val);
+////			st.pop();
+////			//去右子树
+////			cur = cur->right;
+////		}
+////		return ret;
+////	}
+////};
+//
+//////后序
+////class Solution {
+////public:
+////	vector<int> postorderTraversal(TreeNode* root)
+////	{
+////		stack<TreeNode*>st;
+////		vector<int>ret;
+////		TreeNode* cur = root;
+////		TreeNode* prev = nullptr;
+////		while (cur || !st.empty())
+////		{
+////			while (cur)
+////			{
+////				st.push(cur);
+////				cur = cur->left;
+////			}
+////			TreeNode* tmp = st.top();
+////			//判断当前访问的是左子树还是右子树
+////			if (tmp->right == nullptr || tmp->right == prev) {
+////				ret.push_back(tmp->val);
+////				st.pop();
+////				prev = tmp;
+////			}
+////			else {
+////				cur = tmp->right;
+////			}
+////		}
+////		return ret;
+////	}
+////};
+//
+////class Solution {
+////public:
+////	vector<vector<int>> levelOrder(TreeNode* root)
+////	{
+////		queue<TreeNode*>q;
+////		vector<vector<int>>ret;
+////		if (root)
+////			q.push(root);
+////		while (!q.empty())
+////		{
+////			vector<int>tmp;
+////			int sz = q.size();
+////			for (int i = 0; i < sz; i++)
+////			{
+////				TreeNode* cur = q.front();
+////				tmp.push_back(cur->val);
+////				if (cur->left)
+////					q.push(cur->left);
+////				if (cur->right)
+////					q.push(cur->right);
+////				q.pop();
+////			}
+////			ret.push_back(tmp);
+////		}
+////		return ret;
+////	}
+////};
+//
+//class Solution {
+//public:
+//	bool Find(TreeNode* root, TreeNode* x)
+//	{
+//		if (root == nullptr)
+//			return false;
+//		if (root == x)
+//			return true;
+//		return Find(root->left, x) || Find(root->right, x);
+//	}
+//
+//	TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q)
+//	{
+//		if (root == nullptr)
+//			return nullptr;
+//		if (root == p || root == q)
+//			return root;
+//		if (Find(root->left, p) && Find(root->right, q) || Find(root->left, q) && Find(root->right, p))
+//			return root;
+//
+//		TreeNode* p1 = lowestCommonAncestor(root->left, p, q);
+//		TreeNode* p2 = lowestCommonAncestor(root->right, p, q);
+//		return p1 == nullptr ? p2 : p1;
+//	}
+//};
+
+
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//
+//struct TreeNode {
+//	int val;
+//	struct TreeNode *left;
+//	struct TreeNode *right;
+//	TreeNode(int x) :
+//			val(x), left(NULL), right(NULL) {
+//	}
+//};
+//
+//class Solution {
+//public:
+//
+//	TreeNode* _Convert(TreeNode* root, TreeNode*& prev)
+//	{
+//		if (root == nullptr)
+//			return nullptr;
+//
+//		_Convert(root->left, prev);
+//		root->left = prev;
+//		if (prev)
+//			prev->right = root;
+//		prev = root;
+//		_Convert(root->right, prev);
+//		return prev;
+//	}
+//
+//	TreeNode* Convert(TreeNode* pRootOfTree)
+//	{
+//		if (pRootOfTree == nullptr)
+//			return nullptr;
+//		TreeNode* prev;
+//		TreeNode* cur = _Convert(pRootOfTree, prev);
+//		while (cur->left)
+//			cur = cur->left;
+//		return cur;
+//	}
+//
+//};
+
+
 #include <iostream>
-#include <vector>
 using namespace std;
-class Node {
-public:
-	int val;
-	Node* left;
-	Node* right;
-
-	Node() {}
-
-	Node(int _val) {
-		val = _val;
-		left = NULL;
-		right = NULL;
-	}
-
-	Node(int _val, Node* _left, Node* _right) {
-		val = _val;
-		left = _left;
-		right = _right;
-	}
-};
-
-class Solution {
-public:
-
-	void Inorder(Node* root, Node*& prev)
+ 
+int main()
+{
+	double n, r;
+	while (cin >> n >> r)
 	{
-		if (root == nullptr)
-			return;
-		Inorder(root->left, prev);
-
-		root->left = prev;
-		if (prev)
-			prev->right = root;
-		prev = root;
-		Inorder(root->right, prev);
+		if (2 * 3.14*r > n)
+			cout << "Yes" << endl;
+		else
+			cout << "No" << endl;
 	}
-
-	Node* treeToDoublyList(Node* root) {
-		if (root == nullptr)
-			return nullptr;
-		Node* prev = nullptr;
-		Inorder(root, prev);
-		Node* cur = prev;
-		while (cur->left)
-			cur = cur->left;
-		cur->left = prev;
-		prev->right = cur;
-		return cur;
-	}
-};
+	return 0;
+}
