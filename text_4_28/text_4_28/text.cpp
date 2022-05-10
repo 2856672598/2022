@@ -408,39 +408,296 @@ struct TreeNode {
 //	return 0;
 //}
 
-#include <iostream>
-using namespace std;
-struct TreeNode {
-	int val;
-	TreeNode *left;
-	TreeNode *right;
-	TreeNode() : val(0), left(nullptr), right(nullptr) {}
-	TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-	TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-};
- 
-class Solution {
-public:
-	pair<int, int> Prevorder(TreeNode* root, int& count)
-	{
-		if (root == nullptr)
-			return { 0,0 };
-		auto retval = Prevorder(root->left, count);
-		int sum = retval.first;
-		int num = retval.second;
-		retval = Prevorder(root->right, count);
-		sum += retval.first;
-		num += retval.second;
-		sum += root->val;
-		num++;
-		if (sum / num == root->val)
-			count++;
-		return { sum,num };
-	}
-	int averageOfSubtree(TreeNode* root)
-	{
-		int count = 0;
-		Prevorder(root, count);
-		return count;
-	}
-};
+//#include <iostream>
+//using namespace std;
+//struct TreeNode {
+//	int val;
+//	TreeNode *left;
+//	TreeNode *right;
+//	TreeNode() : val(0), left(nullptr), right(nullptr) {}
+//	TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+//	TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+//};
+// 
+//class Solution {
+//public:
+//	pair<int, int> Prevorder(TreeNode* root, int& count)
+//	{
+//		if (root == nullptr)
+//			return { 0,0 };
+//		auto retval = Prevorder(root->left, count);
+//		int sum = retval.first;
+//		int num = retval.second;
+//		retval = Prevorder(root->right, count);
+//		sum += retval.first;
+//		num += retval.second;
+//		sum += root->val;
+//		num++;
+//		if (sum / num == root->val)
+//			count++;
+//		return { sum,num };
+//	}
+//	int averageOfSubtree(TreeNode* root)
+//	{
+//		int count = 0;
+//		Prevorder(root, count);
+//		return count;
+//	}
+//};
+
+
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//
+//bool IsLeapYear(int year)
+//{
+//	if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0)
+//		return true;
+//	return false;
+//}
+//
+//int Day(int year, int month)
+//{
+//	int day = 1;
+//	int arr[13] = { 0,31,28,31,30,31,30,31,31,30,31,30,31 };
+//	for (int i = 1; i < month; i++) {
+//		if (IsLeapYear(year) && i == 2)
+//			day += 1;
+//		day += arr[i];
+//	}
+//	return day;
+//}
+//
+//int Week(int day)
+//{
+//	return (day + 3) % 7;
+//}
+//
+//int Print(int month, int day, int week, int nums)
+//{
+//	int ret = 1;
+//	while (1)
+//	{
+//		if (Week(day) == week)
+//			nums--;
+//		if (nums == 0)
+//			break;
+//		day++;
+//		ret++;
+//	}
+//	return ret;
+//}
+//
+//int main()
+//{
+//	//通过一个日期计算出当前是星期几。
+//	int year;
+//	while (cin >> year)
+//	{
+//		int day = 0;
+//		for (int i = 1970; i < year; i++)
+//		{
+//			day += 365;
+//			if (IsLeapYear(i))
+//				day += 1;
+//		}
+//		int tmp = day;
+//		printf("%d-%02d-%02d\n", year, 1, 1);
+//		tmp = day + Day(year, 1);
+//		printf("%d-%02d-%02d\n", year, 1, Print(1, tmp, 1, 3));
+//		tmp = day + Day(year, 2);
+//		printf("%d-%02d-%02d\n", year, 2, Print(2, tmp, 1, 3));
+//		//最后一个星期一
+//		tmp = day + Day(year, 6) - 1;
+//		for (int i = 31; i > 0; i--)
+//		{
+//			if (Week(tmp) == 1) {
+//				printf("%d-%02d-%02d\n", year, 5, i);
+//				break;
+//			}
+//			tmp--;
+//		}
+//		printf("%d-%02d-%02d\n", year, 7, 4);
+//		tmp = day + Day(year, 9);
+//		printf("%d-%02d-%02d\n", year, 9, Print(9, tmp, 1, 1));
+//		tmp = day + Day(year, 11);
+//		printf("%d-%02d-%02d\n", year, 11, Print(11, tmp, 4, 4));
+//		printf("%d-%02d-%02d\n", year, 12, 25);
+//		printf("\n");
+//	}
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <vector>
+//#include <string>
+//using namespace std;
+//
+//int main()
+//{
+//	int n;
+//	while (cin >> n)
+//	{
+//		vector<int>nums;
+//		int tmp = n;
+//		for (int i = 2;; i++)
+//		{
+//			while (tmp%i == 0)
+//			{
+//				tmp /= i;
+//				nums.push_back(i);
+//			}
+//			if (tmp == 1)
+//				break;
+//		}
+//		string ret = to_string(n);
+//		ret += " = ";
+//		for (int i = 0; i < (int)nums.size() - 1; i++)
+//		{
+//			ret += to_string(nums[i]);
+//			ret += " * ";
+//		}
+//		ret += to_string(nums[nums.size() - 1]);
+//		cout << ret << endl;
+//	}
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <vector>
+//#include <stack>
+//using namespace std;
+//struct TreeNode {
+//	int val;
+//	TreeNode *left;
+//	TreeNode *right;
+//	TreeNode() : val(0), left(nullptr), right(nullptr) {}
+//	TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+//	TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+//};
+// 
+////class Solution {
+////public:
+////	vector<int> postorderTraversal(TreeNode* root)
+////	{
+////		stack<TreeNode*>s;
+////		vector<int>ret;
+////		TreeNode* cur = root;
+////		TreeNode* prev = nullptr;
+////		while (!s.empty() || cur)
+////		{
+////			while (cur)
+////			{
+////				s.push(cur);
+////				prev = cur;
+////				cur = cur->left;
+////			}
+////			//进入到右子树
+////			TreeNode* tmp = s.top()->right;
+////			if (tmp == nullptr || tmp == prev) {
+////				ret.push_back(s.top()->val);
+////				prev = s.top();
+////				s.pop();
+////			}
+////			else {
+////				cur = tmp;
+////			}
+////		}
+////		return ret;
+////	}
+////};
+//
+////class Solution {
+////public:
+////	vector<int> inorderTraversal(TreeNode* root)
+////	{
+////		stack<TreeNode*>s;
+////		vector<int>ret;
+////		TreeNode* cur = root;
+////		while (cur || !s.empty())
+////		{
+////			//左路走到底
+////			while (cur)
+////			{
+////				s.push(cur);
+////				cur = cur->left;
+////			}
+////			ret.push_back(s.top()->val);
+////			//判断右子树是否存在
+////			TreeNode* tmp = s.top();
+////			s.pop();
+////			if (tmp->right != nullptr)
+////				cur = tmp->right;
+////		}
+////		return ret;
+////	}
+////};
+//
+//
+////class Solution {
+////public:
+////	vector<int> preorderTraversal(TreeNode* root)
+////	{
+////		stack<TreeNode*>s;
+////		vector<int>ret;
+////		TreeNode* cur = root;
+////		while (cur || !s.empty())
+////		{
+////			while (cur)
+////			{
+////				ret.push_back(cur->val);
+////				s.push(cur);
+////				cur = cur->left;
+////			}
+////			TreeNode*tmp = s.top();
+////			s.pop();
+////			if (tmp->right)
+////				cur = tmp->right;
+////		}
+////		return ret;
+////	}
+////};
+//
+////class Solution {
+////public:
+////	TreeNode*_buildTree(vector<int>& inorder, vector<int>& postorder, int& index, int left, int right)
+////	{
+////		if (index < 0)
+////			return nullptr;
+////		TreeNode* node = new TreeNode(postorder[index]);
+////		int pos = 0;
+////		for (int i = left; i <= right; i++) {
+////			if (inorder[i] == postorder[index]) {
+////				pos = i;
+////				break;
+////			}
+////		}
+////		if (pos < right) {
+////			index -= 1;
+////			node->right = _buildTree(inorder, postorder, index, pos + 1, right);
+////		}
+////
+////		if (left < pos) {
+////			//有左区间
+////			index -= 1;
+////			node->left = _buildTree(inorder, postorder, index, left, pos - 1);
+////		}
+////		return node;
+////	}
+////	TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder)
+////	{
+////		int index = postorder.size() - 1;
+////		int left = 0, right = index;
+////		return _buildTree(inorder, postorder, index, left, right);
+////	}
+////};
+//
+//class Solution {
+//public:
+//	TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+//
+//	}
+//};
+
+
