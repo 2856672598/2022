@@ -695,9 +695,154 @@ struct TreeNode {
 //
 //class Solution {
 //public:
+//	TreeNode* _buildTree(vector<int>& preorder, vector<int>& inorder, int& index, int left, int right)
+//	{
+//		if (index == preorder.size())
+//			return nullptr;
+//		TreeNode* node = new TreeNode(preorder[index]);
+//		//判断下当前节点是否有左子树
+//		int pos = 0;
+//		for (int i = left; i <= right; i++)
+//		{
+//			if (inorder[i] == preorder[index]) {
+//				pos = i;
+//				break;
+//			}
+//		}
+//		if (left < pos) {
+//			index++;
+//			node->left = _buildTree(preorder, inorder, index, left, pos - 1);
+//		}
+//		if (pos < right) {
+//			index++;
+//			node->right = _buildTree(preorder, inorder, index, pos + 1, right);
+//		}
+//		return node;
+//	}
 //	TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-//
+//		int left = 0, right = preorder.size() - 1, index = 0;
+//		return _buildTree(preorder, inorder, index, left, right);
 //	}
 //};
 
 
+//#include <iostream>
+//#include <vector>
+//#include <algorithm>
+//using namespace std;
+//
+//bool IsLeapYear(int year)
+//{
+//	if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0)
+//		return true;
+//	return false;
+//}
+//
+//bool IsPrime(int month)
+//{
+//	vector<int>prime{ 2,3,5,7,11 };
+//	return find(prime.begin(), prime.end(), month) != prime.end();
+//}
+//
+//int day(int year, int month)
+//{
+//	vector<int>arr{ 0,31,28,31,30,31,30,31,31,30,31,30,31 };
+//	int ret;
+//	if (IsLeapYear(year) && month == 2)
+//		arr[2] = 29;
+//	ret = arr[month];
+//	//if (!IsPrime(month))
+//	//	ret *= 2;
+//	return ret;
+//}
+//int main()
+//{
+//	int byear, bmonth, bday;
+//	int eyear, emonth, eday;
+//	while (cin >> byear >> bmonth >> bday >> eyear >> emonth >> eday)
+//	{
+//		int sum = 0, count = 0;
+//		for (int i = byear + 1; i < eyear; i++)
+//		{
+//			for (int j = 1; j <= 12; j++)
+//			{
+//				int tmp = day(i, j);
+//				if (!IsPrime(j)) {
+//					tmp *= 2;
+//				}
+//				sum += tmp;
+//			}
+//		}
+//		if (byear == eyear) {
+//			if (bmonth == emonth) {
+//				count = eday - bday + 1;
+//			}
+//			else {
+//				count = day(byear, bmonth) - eday + 1;
+//			}
+//			if (!IsPrime(bmonth))
+//				count *= 2;
+//			if (bmonth != emonth) {
+//				for (int i = bmonth + 1; i < emonth; i++)
+//				{
+//					int tmp = day(eyear, i);
+//					if (!IsPrime(i))
+//						tmp *= 2;
+//					count += tmp;
+//				}
+//				int tmp = eday;
+//				if (!IsPrime(emonth))
+//					tmp *= 2;
+//				count += tmp;
+//			}
+//		}
+//		else {
+//			count = day(byear, bmonth) - bday + 1;
+//			if (!IsPrime(bmonth))
+//				count *= 2;
+//			for (int i = bmonth + 1; i <= 12; i++)
+//			{
+//				int tmp = day(byear, i);
+//				if (!IsPrime(i))
+//					tmp *= 2;
+//				count += tmp;
+//			}
+//			//下一年
+//			for (int i = 1; i < emonth; i++)
+//			{
+//				int tmp = day(eyear, i);
+//				if (!IsPrime(i))
+//					tmp *= 2;
+//				count += tmp;
+//			}
+//			int tmp = eday;
+//			if (!IsPrime(emonth))
+//				tmp *= 2;
+//			count += tmp;
+//		}
+//		cout << sum + count << endl;
+//	}
+//	return 0;
+//}
+
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+	int arr[100001];
+	arr[1] = 1;
+	arr[2] = 2;
+	int prev1 = 2, prev2 = 1;
+	for (int i = 3; i <= 100000; i++)
+	{
+		arr[i] = (arr[i - 1] + arr[i - 2]) % 1000000;
+	}
+	int n;
+	while (cin >> n)
+	{
+		printf((n < 29 ? "%d\n" : "%06d\n"), arr[n]);
+	}
+	return 0;
+}

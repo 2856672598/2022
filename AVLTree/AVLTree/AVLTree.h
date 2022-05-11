@@ -76,7 +76,10 @@ public:
 				//进行旋转
 				if (parent->_bf == 2) {
 					//右边高
-					RotateL(parent);
+					if (cur->_bf == 1)
+						RotateL(parent);
+					else(cur->_bf == -1)
+						RotateRL(parent);
 					break;
 				}
 				else {
@@ -123,5 +126,24 @@ public:
 			_root = right;
 		}
 		right->_bf = cur->_bf = 0;
+	}
+
+	void RotateLR(Node* cur)
+	{
+		Node* left = cur->_left;
+		Node* leftR = left->_right;
+		int _bf = leftR->_bf;
+		RotateL(left);
+		RotateR(cur);
+		if (_bf == -1) {
+			left->_bf = 0;
+			cur->_bf = 1;
+			leftR = 0;
+		}
+		else if (_bf == 1) {
+			left->_bf = -1;
+			cur->_kv = 0;
+			leftR->_kv = 0;
+		}
 	}
 };
