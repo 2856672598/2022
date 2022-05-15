@@ -18,6 +18,9 @@
     <ClInclude Include="AVLTree.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="RBTree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="text.cpp">
