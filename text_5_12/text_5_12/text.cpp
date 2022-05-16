@@ -169,22 +169,129 @@
 //	return 0;
 //}
 
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//
+//int main()
+//{
+//	vector<long long>nums(90, 0);
+//	nums[0] = 1;
+//	nums[1] = 2;
+//	for (int i = 2; i < 90; i++) {
+//		nums[i] = nums[i - 1] + nums[i - 2];
+//	}
+//	int n = 0;
+//	while (cin >> n)
+//	{
+//		cout << nums[n - 1] << endl;
+//	}
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <string>
+//#include <unordered_set>
+//using namespace std;
+//
+//int main()
+//{
+//	string s1, s2;
+//	while (getline(cin, s1))
+//	{
+//		getline(cin, s2);
+//		unordered_set<string>s;
+//		int i = 0;
+//		while (i < (int)s1.size())
+//		{
+//			string tmp;
+//			if (s1[i] == '\"') {
+//				i++;
+//				while (i < (int)s1.size() && s1[i] != '\"') {
+//					tmp += s1[i];
+//					i++;
+//				}
+//				i += 2;
+//			}
+//			else {
+//				while (i < (int)s1.size() && s1[i] != ',')
+//				{
+//					tmp += s1[i];
+//					i++;
+//				}
+//				i++;
+//			}
+//			s.insert(tmp);
+//		}
+//		if (s.find(s2) != s.end())
+//			cout << "Ignore" << endl;
+//		else
+//			cout << "Important!" << endl;
+//	}
+//	return 0;
+//}
+
+
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//
+//int main()
+//{
+//	vector<long long>nums(21, 0);
+//	nums[1] = 0;
+//	nums[2] = 1;
+//	for (int i = 3; i < (int)nums.size(); i++)
+//	{
+//		nums[i] = (i - 1)*(nums[i - 1] + nums[i - 2]);
+//	}
+//	int n;
+//	while (cin >> n)
+//	{
+//		long long sum = 1;
+//		for (int i = 2; i <= n; i++)
+//			sum *= i;
+//		printf("%2.2lf%%\n", nums[n] * 1.0 / sum * 100);
+//	}
+//	return 0;
+//}
+
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
-int main()
-{
-	vector<long long>nums(90, 0);
-	nums[0] = 1;
-	nums[1] = 2;
-	for (int i = 2; i < 90; i++) {
-		nums[i] = nums[i - 1] + nums[i - 2];
-	}
-	int n = 0;
-	while (cin >> n)
+//class Solution {
+//public:
+//	vector<string> removeAnagrams(vector<string>& words)
+//	{
+//		vector<string>ret;
+//		ret.push_back(words[0]);
+//		for (int i = 1; i < (int)words.size(); i++)
+//		{
+//			string prev = ret.back();
+//			string cur = words[i];
+//			sort(prev.begin(), prev.end());
+//			sort(cur.begin(), cur.end());
+//			if (prev != cur)
+//				ret.push_back(words[i]);
+//		}
+//		return ret;
+//	}
+//};
+
+class Solution {
+public:
+	int maxConsecutive(int bottom, int top, vector<int>& special)
 	{
-		cout << nums[n - 1] << endl;
+		special.push_back(bottom-1);
+		special.push_back(top + 1);
+		sort(special.begin(), special.end());
+		int ret = 0;
+		for (int i = 1; i < (int)special.size(); i++)
+		{
+			ret = max(ret, special[i] - special[i - 1] - 1);
+		}
+		return ret;
 	}
-	return 0;
-}
+};
