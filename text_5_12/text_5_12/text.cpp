@@ -256,42 +256,168 @@
 //	return 0;
 //}
 
-#include <iostream>
-#include <vector>
-#include <algorithm>
-using namespace std;
-
+//#include <iostream>
+//#include <vector>
+//#include <algorithm>
+//using namespace std;
+//
+////class Solution {
+////public:
+////	vector<string> removeAnagrams(vector<string>& words)
+////	{
+////		vector<string>ret;
+////		ret.push_back(words[0]);
+////		for (int i = 1; i < (int)words.size(); i++)
+////		{
+////			string prev = ret.back();
+////			string cur = words[i];
+////			sort(prev.begin(), prev.end());
+////			sort(cur.begin(), cur.end());
+////			if (prev != cur)
+////				ret.push_back(words[i]);
+////		}
+////		return ret;
+////	}
+////};
+//
 //class Solution {
 //public:
-//	vector<string> removeAnagrams(vector<string>& words)
+//	int maxConsecutive(int bottom, int top, vector<int>& special)
 //	{
-//		vector<string>ret;
-//		ret.push_back(words[0]);
-//		for (int i = 1; i < (int)words.size(); i++)
+//		special.push_back(bottom-1);
+//		special.push_back(top + 1);
+//		sort(special.begin(), special.end());
+//		int ret = 0;
+//		for (int i = 1; i < (int)special.size(); i++)
 //		{
-//			string prev = ret.back();
-//			string cur = words[i];
-//			sort(prev.begin(), prev.end());
-//			sort(cur.begin(), cur.end());
-//			if (prev != cur)
-//				ret.push_back(words[i]);
+//			ret = max(ret, special[i] - special[i - 1] - 1);
 //		}
 //		return ret;
 //	}
 //};
 
-class Solution {
-public:
-	int maxConsecutive(int bottom, int top, vector<int>& special)
-	{
-		special.push_back(bottom-1);
-		special.push_back(top + 1);
-		sort(special.begin(), special.end());
-		int ret = 0;
-		for (int i = 1; i < (int)special.size(); i++)
-		{
-			ret = max(ret, special[i] - special[i - 1] - 1);
-		}
-		return ret;
-	}
-};
+
+//#include <iostream>
+//#include <string>
+//#include <vector>
+//#include <algorithm>
+//using namespace std;
+//
+////class Solution {
+////public:
+////	bool isAlienSorted(vector<string>& words, string order)
+////	{
+////		int arr[26] = { 0 };
+////		for (int i = 0; i < (int)order.size(); i++) {
+////			arr[order[i] - 'a'] = i;
+////		}
+////		for (int i = 1; i < (int)words.size(); i++)
+////		{
+////			int begin1 = 0, begin2 = 0;
+////			while (begin1 < (int)words[i - 1].size() && begin2 < (int)words[i].size()) {
+////				if (arr[words[i - 1][begin1] - 'a'] > arr[words[i][begin2] - 'a'])
+////					return false;
+////				else if (arr[words[i - 1][begin1] - 'a'] < arr[words[i][begin2] - 'a'])
+////					break;
+////				begin1++;
+////				begin2++;
+////			}
+////			if (begin1 != (int)words[i - 1].size() && begin2 == (int)words[i].size())
+////				return false;
+////		}
+////		return true;
+////	}
+////};
+//
+//class Solution {
+//public:
+//	bool isAlienSorted(vector<string>& words, string order)
+//	{
+//		int arr[26] = { 0 };
+//		for (int i = 0; i < (int)order.size(); i++) {
+//			arr[order[i] - 'a'] = i + 'a';
+//		}
+//		for (auto& e : words) {
+//			for (auto& i : e) {
+//				i = arr[i - 'a'];
+//			}
+//		}
+//		return is_sorted(words.begin(), words.end());
+//	}
+//};
+//
+//int main()
+//{
+//	vector<string>words = { "kuvp","q" };
+//	string order = "ngxlkthsjuoqcpavbfdermiywz";
+//	cout << Solution().isAlienSorted(words, order);
+//	return 0;
+//}
+
+
+//#include <iostream>
+//#include <string>
+//using namespace std;
+//
+//int main()
+//{
+//	int n;
+//	while (cin >> n)
+//	{
+//		int flag = 0, count = 0;
+//		string str;
+//		char tmp;
+//		while (n--)
+//		{
+//			cin >> tmp >> str;
+//			if (str == "connect") {
+//				if (flag == 0) {
+//					count++;
+//					flag++;
+//				}
+//				flag--;
+//			}
+//			else if (str == "disconnect") {
+//				flag++;
+//			}
+//		}
+//		cout << count << endl;
+//	}
+//	return 0;
+//}
+
+
+//#include <iostream>
+//#include <vector>
+//#include <string>
+//#include <algorithm>
+//
+//using namespace std;
+//
+//int main()
+//{
+//	int n;
+//	while (cin >> n)
+//	{
+//		vector<string>arr(n);
+//		vector<bool>flag(n, true);
+//		for (int i = 0; i < n; i++)
+//			cin >> arr[i];
+//		sort(arr.begin(), arr.end());
+//		for (int i = 0; i < n - 1; i++)
+//		{
+//			string tmp = arr[i] + '/';
+//			if (arr[i + 1].find(tmp) != string::npos || arr[i] == arr[i + 1]) {
+//				flag[i] = false;
+//			}
+//		}
+//		for (int i = 0; i < n; i++)
+//		{
+//			if (flag[i])
+//				cout << "mkdir -p " << arr[i] << endl;
+//		}
+//		cout << endl;
+//	}
+//	return 0;
+//}
+
