@@ -254,3 +254,196 @@
 //     return 0;
 // }
 
+// #include <iostream>
+// using namespace std;
+
+// int main()
+// {
+//     int n;
+//     long arr[21] = {0};
+//     arr[2] = 1;
+//     arr[3] = 2;
+//     for (int i = 4; i <= 20; i++)
+//     {
+//         arr[i] = (i - 1) * (arr[i - 1] + arr[i - 2]);
+//     }
+//     while (cin >> n)
+//     {
+//         cout << arr[n] << endl;
+//     }
+//     return 0;
+// }
+
+// #include <iostream>
+// #include <vector>
+// #include <algorithm>
+// using namespace std;
+
+// int main()
+// {
+//     int n;
+//     while (cin >> n)
+//     {
+//         vector<int> nums(n, 0);
+//         vector<int> flag(n, 1);
+//         for (int i = 0; i < n; i++)
+//             cin >> nums[i];
+//         for (int i = 0; i < n; i++)
+//         {
+//             for (int j = i - 1; j >= 0; j--)
+//             {
+//                 if (nums[j] < nums[i])
+//                 {
+//                     flag[i] = max(flag[j] + 1, flag[i]);
+//                 }
+//             }
+//         }
+//         cout << *max_element(flag.begin(), flag.end()) << endl;
+//     }
+//     return 0;
+// }
+
+// #include <iostream>
+// #include <vector>
+// #include <string>
+// using namespace std;
+
+// int main()
+// {
+// 	vector<string>arr(20, string(20, '0'));
+// 	string tmp;
+// 	while (cin >> arr[0])
+// 	{
+// 		for (int i = 1; i < 20; i++)
+// 			cin >> arr[i];
+// 		int flag = 0;
+// 		for (int i = 0; i < 20; i++)
+// 		{
+// 			for (int j = 0; j < 20; j++)
+// 			{
+// 				if (arr[i][j] != '.') {
+// 					//当前位置的8个方向进行判断
+// 					int count = 0;
+// 					for (int z = j - 1; z >= 0; z--) {
+// 						if (arr[i][z] != arr[i][j])
+// 							break;
+// 						count++;
+// 					}
+// 					for (int z = j + 1; z < 20; z++) {
+// 						if (arr[i][z] != arr[i][j])
+// 							break;
+// 						count++;
+// 					}
+// 					if (count >= 4) {
+// 						flag = 1;
+// 						goto END;
+// 					}
+
+// 					count = 0;
+// 					//上下
+// 					for (int z = i - 1; z >= 0; z--) {
+// 						if (arr[i][j] != arr[z][j])
+// 							break;
+// 						count++;
+// 					}
+// 					for (int z = i + 1; z < 20; z++) {
+// 						if (arr[i][j] != arr[z][j])
+// 							break;
+// 						count++;
+// 					}
+// 					if (count >= 4) {
+// 						flag = 1;
+// 						goto END;
+// 					}
+// 					//正对角
+// 					count = 0;
+// 					for (int x = i - 1, y = j - 1; x >= 0 && y >= 0; x--, y--)
+// 					{
+// 						if (arr[i][j] != arr[x][y])
+// 							break;
+// 						count++;
+// 					}
+
+// 					for (int x = i + 1, y = j + 1; x < 20 && y < 20; x++, y++)
+// 					{
+// 						if (arr[i][j] != arr[x][y])
+// 							break;
+// 						count++;
+// 					}
+
+// 					if (count >= 4)
+// 					{
+// 						flag = 1;
+// 						goto END;
+// 					}
+
+// 					//斜对角
+// 					count = 0;
+// 					for (int x = i - 1, y = j + 1; x >= 0 && y < 20; x--, y++)
+// 					{
+// 						if (arr[i][j] != arr[x][y])
+// 							break;
+// 						count++;
+// 					}
+
+// 					for (int x = i + 1, y = j - 1; x < 20 && y >= 0; x++, y--)
+// 					{
+// 						if (arr[i][j] != arr[x][y])
+// 							break;
+// 						count++;
+// 					}
+// 					if (count >= 4)
+// 					{
+// 						flag = 1;
+// 						goto END;
+// 					}
+// 				}
+// 			}
+// 		}
+// 	END:
+// 		if (flag == 1)
+// 			cout << "Yes" << endl;
+// 		else
+// 			cout << "No" << endl;
+// 	}
+// 	return 0;
+// }
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <stack>
+#include <unordered_map>
+#include <functional>
+using namespace std;
+
+int main()
+{
+    int n = 0;
+    while (cin >> n)
+    {
+        vector<string> nums(n);
+        for (int i = 0; i < n; i++)
+            cin >> nums[i];
+        stack<int>s;
+		int i = 0;
+		unordered_map<string, function<void()>>flag{
+			{"+",[&]() {int num = s.top(); s.pop(); s.top() += num; }},
+			{"-",[&]() {int num = s.top(); s.pop(); s.top() -= num; }},
+			{"*",[&]() {int num = s.top(); s.pop(); s.top() *= num; }},
+			{"/",[&]() {int num = s.top(); s.pop(); s.top() /= num; }}
+
+		};
+		while (i < (int)nums.size())
+		{
+			if (flag.find(nums[i]) != flag.end()) {
+				flag[nums[i]]();
+			}
+			else
+				s.push(stoi(nums[i]));
+			i++;
+		}
+		cout<< s.top()<<endl;
+    }
+    return 0;
+}
