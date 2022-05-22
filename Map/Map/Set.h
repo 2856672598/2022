@@ -15,7 +15,7 @@ namespace wkn
 		};
 	private:
 		typedef typename RBTree<K, K, GetK>::iterator iterator;
-
+		typedef typename RBTree<K, K, GetK>::const_iterator const_iterator;
 		RBTree<K, K, GetK>_root;
 	public:
 
@@ -32,6 +32,21 @@ namespace wkn
 		iterator End()
 		{
 			return _root.End();
+		}
+
+		const_iterator cbegin()
+		{
+			return _root.cbegin();
+		}
+
+		const_iterator cend()
+		{
+			return _root.cend();
+		}
+
+		iterator Find(const K& val)
+		{
+			return  _root.Find(val);
 		}
 	};
 }

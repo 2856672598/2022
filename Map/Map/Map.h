@@ -17,7 +17,7 @@ namespace wkn
 	private:
 		RBTree<K, pair<const K, V>, Getk>_root;
 		typedef typename RBTree<K, pair<const K, V>, Getk>::iterator iterator;
-
+		typedef typename RBTree<K, pair<const K, V>, Getk>::const_iterator const_iterator;
 	public:
 		void Insert(const pair<K, V>& val)
 		{
@@ -32,6 +32,26 @@ namespace wkn
 		iterator End()
 		{
 			return _root.End();
+		}
+
+		const_iterator  cbegin()
+		{
+			return _root.cbegin();
+		}
+
+		const_iterator cend()
+		{
+			return  _root.cend();
+		}
+
+		V& operator[](const K& k)
+		{
+			return _root.Insert({ k,V() }).first->second;
+		}
+
+		iterator Find(const K& val)
+		{
+			return _root.Find(val);
 		}
 	};
 }

@@ -1,2 +1,2 @@
 ﻿  text.cpp
-  Map.vcxproj -> D:\Githup\2022\Map\Debug\Map.exe
+d:\githup\2022\map\map\text.cpp(20): error C3892: “it”: 不能给常量赋值
