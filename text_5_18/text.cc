@@ -409,41 +409,220 @@
 // 	return 0;
 // }
 
+// #include <iostream>
+// #include <string>
+// #include <vector>
+// #include <stack>
+// #include <unordered_map>
+// #include <functional>
+// using namespace std;
+
+// int main()
+// {
+//     int n = 0;
+//     while (cin >> n)
+//     {
+//         vector<string> nums(n);
+//         for (int i = 0; i < n; i++)
+//             cin >> nums[i];
+//         stack<int>s;
+// 		int i = 0;
+// 		unordered_map<string, function<void()>>flag{
+// 			{"+",[&]() {int num = s.top(); s.pop(); s.top() += num; }},
+// 			{"-",[&]() {int num = s.top(); s.pop(); s.top() -= num; }},
+// 			{"*",[&]() {int num = s.top(); s.pop(); s.top() *= num; }},
+// 			{"/",[&]() {int num = s.top(); s.pop(); s.top() /= num; }}
+
+// 		};
+// 		while (i < (int)nums.size())
+// 		{
+// 			if (flag.find(nums[i]) != flag.end()) {
+// 				flag[nums[i]]();
+// 			}
+// 			else
+// 				s.push(stoi(nums[i]));
+// 			i++;
+// 		}
+// 		cout<< s.top()<<endl;
+//     }
+//     return 0;
+// }
+
+// #include <iostream>
+// #include <string>
+// using namespace std;
+
+// int main()
+// {
+// 	string str;
+// 	while(getline(cin,str))
+// 	{
+// 		for(int i=0;i<(int)str.size();i++)
+// 		{
+// 			if(isdigit(str[i]))
+// 			{
+// 				cout<<str[i];
+// 			}
+// 		}
+// 		cout<<endl;
+// 	}
+// 	return 0;
+// }
+
+// #include <iostream>
+// #include <vector>
+// #include <string>
+// #include <limits.h>
+// using namespace std;
+
+// void dfs(const vector<string> path, int x, int y, vector<vector<int>> &nums)
+// {
+//     //四个操作，上下左右
+//     int operate[4][2] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+//     for (int i = 0; i < 4; i++)
+//     {
+//         int nx = x + operate[i][0];
+//         int ny = y + operate[i][1];
+//         if (x >= 0 && x < 10 && nx >= 0 && nx < 10 && y >= 0 && y < 10 && ny >= 0 && ny < 10 && path[nx][ny] == '.' && nums[nx][ny] > nums[x][y] + 1)
+//         {
+//             nums[nx][ny] = nums[x][y] + 1;
+//             dfs(path, nx, ny, nums);
+//         }
+//     }
+// }
+
+// int main()
+// {
+//     vector<string> path(10);
+//     string tmp;
+//     while (cin >> tmp)
+//     {
+//         for (int i = 1; i < 10; i++)
+//         {
+//             cin >> path[i];
+//         }
+//         vector<vector<int>> nums(10, vector<int>(10, INT_MAX));
+//         nums[0][1] = 0;
+//         dfs(path, 0, 1, nums);
+//         cout << nums[9][8] << endl;
+//     }
+//     return 0;
+// }
+
 #include <iostream>
 #include <string>
 #include <vector>
-#include <stack>
 #include <unordered_map>
-#include <functional>
+#include <unordered_set>
+#include <sstream>
+#include <algorithm>
 using namespace std;
 
-int main()
-{
-    int n = 0;
-    while (cin >> n)
-    {
-        vector<string> nums(n);
-        for (int i = 0; i < n; i++)
-            cin >> nums[i];
-        stack<int>s;
-		int i = 0;
-		unordered_map<string, function<void()>>flag{
-			{"+",[&]() {int num = s.top(); s.pop(); s.top() += num; }},
-			{"-",[&]() {int num = s.top(); s.pop(); s.top() -= num; }},
-			{"*",[&]() {int num = s.top(); s.pop(); s.top() *= num; }},
-			{"/",[&]() {int num = s.top(); s.pop(); s.top() /= num; }}
+// class Solution
+// {
+// public:
+//     void Input(string &str, unordered_map<string, int> &flag)
+//     {
+//         stringstream ss(str);
+//         string tmp;
+//         while (ss >> tmp)
+//         {
+//             flag[tmp]++;
+//         }
+//     }
+//     vector<string> uncommonFromSentences(string s1, string s2)
+//     {
+//         unordered_map<string, int> flag;
+//         vector<string> ret;
+//         Input(s1,flag);
+//         Input(s2,flag);
+//         for (const auto &e : flag)
+//         {
+//             if (e.second == 1)
+//                 ret.push_back(e.first);
+//         }
+//         return ret;
+//     }
+// };
 
-		};
-		while (i < (int)nums.size())
-		{
-			if (flag.find(nums[i]) != flag.end()) {
-				flag[nums[i]]();
-			}
-			else
-				s.push(stoi(nums[i]));
-			i++;
-		}
-		cout<< s.top()<<endl;
+// class Solution
+// {
+// public:
+//     bool containsDuplicate(vector<int> &nums)
+//     {
+//         unordered_map<int, int> flag;
+//         for (auto e : nums)
+//         {
+//             flag[e]++;
+//         }
+//         for (auto e : flag)
+//         {
+//             if (e.second >= 2)
+//                 return true;
+//         }
+//         return false;
+//     }
+// };
+
+// class Solution {
+// public:
+//     vector<int> intersection(vector<int>& nums1, vector<int>& nums2)
+//     {
+//         unordered_set<int>flag;
+//         for(auto e:nums1)
+//             flag.insert(e);
+//         unordered_set<int>tmp;
+//         for(auto e:nums2)
+//         {
+//             if(flag.find(e)!=flag.end()){
+//                 tmp.insert(e);
+//             }
+//         }
+//         return vector<int>(tmp.begin(),tmp.end());
+//     }
+// };
+
+// class Solution
+// {
+// public:
+//     vector<int> intersect(vector<int> &nums1, vector<int> &nums2)
+//     {
+//         sort(nums1.begin(), nums1.end());
+//         sort(nums2.begin(), nums2.end());
+//         vector<int> ret;
+//         int begin1 = 0, begin2 = 0;
+//         while (begin1 < (int)nums1.size() && begin2 < (int)nums2.size())
+//         {
+//             if(nums1[begin1] <nums2[begin2]){
+//                 begin1++;
+//             }
+//             else if(nums1[begin1]>nums2[begin2]){
+//                 begin2++;
+//             }
+//             else{
+//                 ret.push_back(nums1[begin1]);
+//                 begin1++;
+//                 begin2++;
+//             }
+//         }
+//         return ret;
+//     }
+// };
+
+class Solution
+{
+public:
+    int repeatedNTimes(vector<int> &nums)
+    {
+        sort(nums.begin(), nums.end());
+        int begin = 0, end = nums.size() / 2 - 1;
+        while (end < (int)nums.size())
+        {
+            if (nums[begin] == nums[end])
+                return nums[begin];
+            begin++;
+            end++;
+        }
+        return -1;
     }
-    return 0;
-}
+};
