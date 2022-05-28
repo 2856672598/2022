@@ -1,0 +1,3 @@
+﻿  text.cpp
+d:\githup\2022\text_5_26\text_5_26\text.cpp(199): warning C4018: “>=”: 有符号/无符号不匹配
+  text_5_26.vcxproj -> D:\Githup\2022\text_5_26\Debug\text_5_26.exe
