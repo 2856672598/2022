@@ -138,40 +138,69 @@ namespace OpenHash
 			,_next(nullptr)
 		{}
 	};
+	template<class K, class T, class Hash, class GetKey>
+	class HashTable;
 
-	template<class K>
-	struct HashFunction
+	template<class K, class T, class Ref, class Ptr, class Hash, class Getk>
+	class Iterator
 	{
-		size_t operator()(const K& key)
+	private:
+		HashNode<T>*_node;
+		HashTable<K, T, Hash, Getk>* _pHashTable;
+	public:
+		typedef Iterator<K, T, Ref, Ptr, Hash, Getk> self;
+
+		Iterator(HashNode<T>* node, HashTable<K, T, Hash, Getk>* _pht)
+			:_node(node)
+			, _pHashTable(_pht)
+		{}
+
+
+		Ref operator*()
 		{
-			return key;
+			return _node->_data;
 		}
-	};
 
-	template<>
-	struct HashFunction <string>
-	{
-		size_t operator()(const string& key)
+		Ptr operator->()
 		{
-			size_t ret = 0;
-			for (int i = 0; i < (int)key.size(); i++)
+			return &_node->_data;
+		}
+
+		self& operator++()
+		{
+			Getk getk;
+			Hash hash;
+			if (_node->_next)
 			{
-				ret = ret * 31 + key[i];
+				_node = _node->_next;
+				return *this;
 			}
-			return ret;
+			size_t sz = _pHashTable->_table.size();
+			//计算当前所在的桶的下标
+			size_t index = hash(getk(_node->_data)) % sz;
+			index++;
+			while (index < sz&& _pHashTable->_table[index] == nullptr)
+				index++;
+			if (index == sz)
+				_node = nullptr;
+			else
+				_node = _pHashTable->_table[index];
+			return *this;
 		}
-	};
 
-	template<class K,class T>
-	struct GetK
-	{
-		const K& operator()(const T& val)
+		bool operator!=(const self& it)
 		{
-			return val.first;
+			return _node != it._node;
+		}
+
+		bool operator==(const self& it)
+		{
+			return _node == it._node;
 		}
 	};
 
-	template<class K, class T, class Hash = HashFunction<K>, class GetKey = GetK<K, T>>
+
+	template<class K, class T, class Hash, class GetKey>
 	class HashTable
 	{
 	private:
@@ -194,7 +223,7 @@ namespace OpenHash
 				}
 			}
 		}
-		void Copy(const HashTable<K, T>& table)
+		void Copy(const HashTable<K, T, Hash, GetKey>& table)
 		{
 			_table.resize(table._table.size());
 			_n = table._n;
@@ -214,27 +243,35 @@ namespace OpenHash
 				}
 			}
 		}
+
+		bool Empty()
+		{
+			return _n == 0;
+		}
 	public:
+		template<class K, class T, class Ref, class Ptr, class Hash, class GetK>
+		friend class Iterator;
+		typedef Iterator<K, T, T&, T*, Hash, GetKey> iterator;
+
 		HashTable()
 			:_n(0)
 		{}
+
 		~HashTable()
 		{
 			Clear();
 		}
-
-		HashTable(const HashTable<K,T>& table)
+		HashTable(const HashTable<K, T, Hash, GetKey>& table)
 		{
 			Copy(table);
 		}
 
-		HashTable& operator=(HashTable<K, T> table)
+		HashTable& operator=(HashTable<K, T, Hash, GetKey> table)
 		{
 			_table.swap(table._table);
 			swap(_n, table._n);
 			return *this;
 		}
-
 	public:
 
 		HashNode<T>* Find(const K& key)
@@ -254,14 +291,15 @@ namespace OpenHash
 			return nullptr;
 		}
 
-		bool Insert(const T& val)
+		pair<iterator, bool> Insert(const T& val)
 		{
 			GetKey getkey;
 			Hash hash;
 			K key = getkey(val);
 			HashNode<T>*pos = Find(key);
-			if (pos != nullptr)
-				return false;
+			if (pos != nullptr) {
+				return { iterator(pos, this), false };
+			}
 			if (_n == _table.size())
 			{
 				//进行扩容
@@ -290,20 +328,19 @@ namespace OpenHash
 			newnode->_next = _table[index];
 			_table[index] = newnode;
 			_n++;
-			return true;
+			return { iterator(newnode, this),true };
 		}
 
 		bool Erase(const K& key)
 		{
 			Hash hash;
 			GetKey getk;
-			HashNode<T>* ret = Find(key);
-			if (ret == nullptr)
+			if (Empty())
 				return false;
 			size_t index = hash(key) % _table.size();
 			HashNode<T>* cur = _table[index];
 			HashNode<T>*prev = nullptr;
-			assert(cur);//出现错误
+
 			while (cur)
 			{
 				if (getk(cur->_data) == key) {
@@ -314,20 +351,29 @@ namespace OpenHash
 						prev->_next = cur->_next;
 					}
 					delete cur;
+					_n--;
 					return true;
 				}
+				prev = cur;
 				cur = cur->_next;
 			}
 			return false;
 		}
+
+		iterator Begin()
+		{
+			for (size_t i = 0; i < _table.size(); i++)
+			{
+				if (_table[i] == nullptr)
+					continue;
+				return  iterator(_table[i], this);
+			}
+			return End();
+		}
+
+		iterator End()
+		{
+			return iterator(nullptr, this);
+		}
 	};
-	void text()
-	{
-		HashTable<int, pair<int, int>>table1;
-		vector<int>nums{ 1,10,4,90 };
-		for (auto e : nums)
-			table1.Insert({ e,1 });
-		HashTable<int, pair<int, int>>table2(table1);
-		table1 = table2;
-	}
 }
