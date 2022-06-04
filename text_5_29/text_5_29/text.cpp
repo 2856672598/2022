@@ -415,3 +415,197 @@
 //	return nums[matrixRowLen - 1][(*matrixColLen) - 1];
 //}
 
+//#include <iostream>
+//#include <string>
+//#include <algorithm>
+//using namespace std;
+//
+//string AddStrings(string num1, string num2)
+//{
+//
+//	string ret;
+//	int begin1 = 0, begin2 = 0;
+//	int tmp1, tmp2, flag = 0;
+//	while (begin1 < num1.size() || begin2 < num2.size())
+//	{
+//		tmp1 = begin1 >= num1.size() ? '0' : num1[begin1++];
+//		tmp2 = begin2 >= num2.size() ? '0' : num2[begin2++];
+//
+//		int sum = tmp1 - '0' + tmp2 - '0' + flag;
+//		if (sum > 9)
+//		{
+//			flag = sum / 10;
+//			sum %= 10;
+//		}
+//		else
+//			flag = 0;
+//		ret += sum + '0';
+//	}
+//	if (flag > 0)
+//		ret += 1 + '0';
+//	return ret;
+//}
+//
+//int main()
+//{
+//	int n;
+//	cin >> n;
+//	string ret = "1";
+//	for (int i = 2; i <= n; i++)
+//	{
+//		string tmp;
+//		int flag = 0;
+//		string str = to_string(i);
+//		reverse(str.begin(), str.end());
+//		for (int j = 0; j < (int)str.size(); j++)
+//		{
+//			string tmp1(j, '0');
+//			for (int z = 0; z < (int)ret.size(); z++)
+//			{
+//				int sum = (str[j] - '0')*(ret[z] - '0') + flag;
+//				if (sum > 9) {
+//					flag = sum / 10;
+//					sum %= 10;
+//				}
+//				else
+//					flag = 0;
+//				tmp1 += sum + '0';
+//			}
+//			if (flag != 0)
+//				tmp1 += flag + '0';
+//			flag = 0;
+//			tmp = AddStrings(tmp, tmp1);
+//		}
+//		ret = tmp;
+//	}
+//	reverse(ret.begin(), ret.end());
+//	cout << ret << endl;
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <vector>
+//#include <string>
+//#include <unordered_set>
+//using namespace std;
+//class Solution {
+//public:
+//	int numUniqueEmails(vector<string>& emails)
+//	{
+//		unordered_set<string>s;
+//		for (int i = 0; i < (int)emails.size(); i++)
+//		{
+//			string tmp = emails[i].substr(0, emails[i].find("@"));
+//			string tail = emails[i].substr(emails[i].find("@"));
+//			string str;
+//			for (int i = 0; i < (int)tmp.size(); i++)
+//			{
+//				if (tmp[i] == '+') {
+//					break;
+//				}
+//				if (tmp[i] != '.')
+//					str += tmp[i];
+//			}
+//			str += tail;
+//			s.insert(str);
+//		}
+//		return s.size();
+//	}
+//};
+//
+//int main()
+//{
+//	vector<string>emails{ "test.email+alex@leetcode.com", "test.email@leetcode.com" };
+//	cout << Solution().numUniqueEmails(emails);
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//
+//struct TreeNode {
+//	int val;
+//	TreeNode *left;
+//	TreeNode *right;
+//	TreeNode() : val(0), left(nullptr), right(nullptr) {}
+//	TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+//	TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+//};
+// 
+//class Solution {
+//public:
+//
+//	void Inorder(vector<int>&nums, TreeNode* root)
+//	{
+//		if (root == nullptr)
+//			return;
+//		Inorder(nums, root->left);
+//		nums.push_back(root->val);
+//		Inorder(nums, root->right);
+//	}
+//
+//	bool findTarget(TreeNode* root, int k)
+//	{
+//		vector<int>nums;
+//		Inorder(nums, root);
+//		for (int i = 0; i < (int)nums.size(); i++)
+//		{
+//			int left = 0, right = nums.size() - 1;
+//			int mid = 0, target = k - nums[i];
+//			if (target == nums[i])
+//				continue;
+//			while (left <= right)
+//			{
+//				int mid = left + (right - left) / 2;
+//				if (nums[mid] > target)
+//					right = mid - 1;
+//				else if (nums[mid] < target)
+//					left = mid + 1;
+//				else
+//					return true;
+//			}
+//		}
+//		return false;
+//	}
+//};
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+struct TreeNode {
+	int val;
+	TreeNode *left;
+	TreeNode *right;
+	TreeNode() : val(0), left(nullptr), right(nullptr) {}
+	TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+	TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+};
+ 
+class BSTIterator {
+private:
+	vector<int>nums;
+	int index;
+public:
+	void Inorder(TreeNode* root, vector<int>&nums)
+	{
+		if (root == nullptr)
+			return;
+		Inorder(root->left, nums);
+		nums.push_back(root->val);
+		Inorder(root->right, nums);
+	}
+	BSTIterator(TreeNode* root) {
+		Inorder(root, nums);
+		index = 0;
+	}
+
+	int next() {
+		return nums[index++];
+	}
+
+	bool hasNext() {
+		return index < nums.size();
+	}
+};
