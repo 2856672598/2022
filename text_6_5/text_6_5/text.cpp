@@ -126,23 +126,102 @@
 //	return 0;
 //}
 
-#include <iostream>
-#include <queue>
-using namespace std;
+//#include <iostream>
+//#include <queue>
+//using namespace std;
+//
+//class RecentCounter {
+//	int count;
+//	queue<int>_q;
+//public:
+//	RecentCounter() {
+//		count = 0;
+//	}
+//
+//	int ping(int t)
+//	{
+//		_q.push(t);
+//		while (_q.front() + 3000 < t)
+//			_q.pop();
+//		return _q.size();
+//	}
+//};
 
-class RecentCounter {
-	int count;
-	queue<int>_q;
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+//
+//class Solution {
+//public:
+//	int minEatingSpeed(vector<int>& piles, int h)
+//	{
+//		size_t sum = 0;
+//		for (auto e : piles)
+//			sum += e;
+//		int k = sum / h;
+//		if (sum%h)
+//			k = 1;
+//		if (h == piles.size())
+//			k = *max_element(piles.begin(), piles.end());
+//		else {
+//			while (k)
+//			{
+//				int count = 0;
+//				for (int i = 0; i < piles.size(); i++)
+//				{
+//					if (count > h)
+//						break;
+//					count += piles[i] / k;
+//					if (piles[i] % k)
+//						count += 1;
+//				}
+//				if (count <= h)
+//					break;
+//				k++;
+//			}
+//		}
+//		return  k;
+//	}
+//};
+
+class Solution {
 public:
-	RecentCounter() {
-		count = 0;
+
+	int GetTime(vector<int>& piles, int k)
+	{
+		int ti = 0;
+		for (auto e : piles)
+		{
+			ti += e / k;
+			if (e%k)
+				ti += 1;
+		}
+		return ti;
 	}
 
-	int ping(int t)
-	{
-		_q.push(t);
-		while (_q.front() + 3000 < t)
-			_q.pop();
-		return _q.size();
+	int minEatingSpeed(vector<int>& piles, int h) {
+		int left = 1, right = *max_element(piles.begin(), piles.end());
+		int ret = right;
+		while (left < right)
+		{
+			int mid = left + (right - left) / 2;
+			int ti = GetTime(piles, mid);
+			if (ti <= h) {
+				ret = mid;
+				right = mid;
+			}
+			else
+				left = mid + 1;
+		}
+		return ret;
 	}
 };
+
+int main()
+{
+	vector<int>nums{ 30,11,23,4,20 };
+	int h = 5;
+	cout << Solution().minEatingSpeed(nums, h);
+	return 0;
+}
