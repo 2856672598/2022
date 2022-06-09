@@ -147,81 +147,217 @@
 //	}
 //};
 
+//#include <iostream>
+//#include <vector>
+//#include <algorithm>
+//using namespace std;
+////
+////class Solution {
+////public:
+////	int minEatingSpeed(vector<int>& piles, int h)
+////	{
+////		size_t sum = 0;
+////		for (auto e : piles)
+////			sum += e;
+////		int k = sum / h;
+////		if (sum%h)
+////			k = 1;
+////		if (h == piles.size())
+////			k = *max_element(piles.begin(), piles.end());
+////		else {
+////			while (k)
+////			{
+////				int count = 0;
+////				for (int i = 0; i < piles.size(); i++)
+////				{
+////					if (count > h)
+////						break;
+////					count += piles[i] / k;
+////					if (piles[i] % k)
+////						count += 1;
+////				}
+////				if (count <= h)
+////					break;
+////				k++;
+////			}
+////		}
+////		return  k;
+////	}
+////};
+//
+//class Solution {
+//public:
+//
+//	int GetTime(vector<int>& piles, int k)
+//	{
+//		int ti = 0;
+//		for (auto e : piles)
+//		{
+//			ti += e / k;
+//			if (e%k)
+//				ti += 1;
+//		}
+//		return ti;
+//	}
+//
+//	int minEatingSpeed(vector<int>& piles, int h) {
+//		int left = 1, right = *max_element(piles.begin(), piles.end());
+//		int ret = right;
+//		while (left < right)
+//		{
+//			int mid = left + (right - left) / 2;
+//			int ti = GetTime(piles, mid);
+//			if (ti <= h) {
+//				ret = mid;
+//				right = mid;
+//			}
+//			else
+//				left = mid + 1;
+//		}
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<int>nums{ 30,11,23,4,20 };
+//	int h = 5;
+//	cout << Solution().minEatingSpeed(nums, h);
+//	return 0;
+//}
+
+
+//#include <iostream>
+//#include <vector>
+//#include <string>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	bool Palindrome(const string&str, int left, int right)
+//	{
+//		while (left < right)
+//		{
+//			if (str[left++] != str[right--])
+//				return false;
+//		}
+//		return true;
+//	}
+//
+//	vector<string>tmp;
+//	void Backtracking(const string& s,int index,vector<vector<string>>& ret)
+//	{
+//		if (index == s.size()) {
+//			ret.push_back(tmp);
+//		}
+//		for (int i = index; i < (int)s.size(); i++)
+//		{
+//			//判断当前子串是否是回文
+//			if (Palindrome(s, index, i)) {
+//				tmp.push_back(s.substr(index, i - index + 1));
+//				Backtracking(s, i + 1, ret);
+//			}
+//			else
+//				continue;
+//			tmp.pop_back();
+//		}
+//	}
+//
+//	vector<vector<string>> partition(string s) {
+//		vector<vector<string>>ret;
+//		Backtracking(s, 0, ret);
+//		return ret;
+//	}
+//};
+
+
+//#include <iostream>
+//#include <vector>
+//#include <queue>
+//using namespace std;
+//
+//struct TreeNode {
+//	int val;
+//	TreeNode *left;
+//	TreeNode *right;
+//	TreeNode() : val(0), left(nullptr), right(nullptr) {}
+//	TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+//	TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+//};
+// 
+//class CBTInserter {
+//public:
+//	vector<TreeNode*>numb;
+//	CBTInserter(TreeNode* root) {
+//		queue<TreeNode*>q;
+//		TreeNode* cur = nullptr;
+//		q.push(root);
+//		while (!q.empty())
+//		{
+//			int sz = q.size();
+//			for (int i = 0; i < sz; i++)
+//			{
+//				cur = q.front();
+//				q.pop();
+//				numb.push_back(cur);
+//				if (cur->left)
+//					q.push(cur->left);
+//				if (cur->right)
+//					q.push(cur->right);
+//			}
+//		}
+//	}
+//
+//	int insert(int v) {
+//		TreeNode* newNode = new TreeNode(v);
+//		numb.push_back(newNode);
+//		int cur = numb.size() - 2;
+//		int parent = cur / 2;
+//		if (cur % 2)
+//			numb[parent]->right = newNode;
+//		else
+//			numb[parent]->left = newNode;
+//		return numb[parent]->val;
+//	}
+//
+//	TreeNode* get_root() {
+//		return numb[0];
+//	}
+//};
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
 using namespace std;
-//
-//class Solution {
-//public:
-//	int minEatingSpeed(vector<int>& piles, int h)
-//	{
-//		size_t sum = 0;
-//		for (auto e : piles)
-//			sum += e;
-//		int k = sum / h;
-//		if (sum%h)
-//			k = 1;
-//		if (h == piles.size())
-//			k = *max_element(piles.begin(), piles.end());
-//		else {
-//			while (k)
-//			{
-//				int count = 0;
-//				for (int i = 0; i < piles.size(); i++)
-//				{
-//					if (count > h)
-//						break;
-//					count += piles[i] / k;
-//					if (piles[i] % k)
-//						count += 1;
-//				}
-//				if (count <= h)
-//					break;
-//				k++;
-//			}
-//		}
-//		return  k;
-//	}
-//};
 
+struct TreeNode {
+	int val;
+	TreeNode *left;
+	TreeNode *right;
+	TreeNode() : val(0), left(nullptr), right(nullptr) {}
+	TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+	TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+};
+ 
 class Solution {
 public:
-
-	int GetTime(vector<int>& piles, int k)
+	void InOrder(TreeNode* root, vector<int>& nums)
 	{
-		int ti = 0;
-		for (auto e : piles)
-		{
-			ti += e / k;
-			if (e%k)
-				ti += 1;
-		}
-		return ti;
+		if (root == nullptr)
+			return;
+		InOrder(root->left, nums);
+		nums.push_back(root->val);
+		InOrder(root->right, nums);
 	}
 
-	int minEatingSpeed(vector<int>& piles, int h) {
-		int left = 1, right = *max_element(piles.begin(), piles.end());
-		int ret = right;
-		while (left < right)
+	bool isValidBST(TreeNode* root) {
+		vector<int>nums;
+		InOrder(root, nums);
+		for (int i = 1; i < (int)nums.size(); i++)
 		{
-			int mid = left + (right - left) / 2;
-			int ti = GetTime(piles, mid);
-			if (ti <= h) {
-				ret = mid;
-				right = mid;
-			}
-			else
-				left = mid + 1;
+			if(nums[i] == nums[i - 1] || nums[i] < nums[i - 1])
+				return false;
 		}
-		return ret;
+		return true;
 	}
 };
-
-int main()
-{
-	vector<int>nums{ 30,11,23,4,20 };
-	int h = 5;
-	cout << Solution().minEatingSpeed(nums, h);
-	return 0;
-}
