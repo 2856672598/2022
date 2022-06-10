@@ -325,39 +325,136 @@
 //	}
 //};
 
+//#include <iostream>
+//#include <vector>
+//#include <algorithm>
+//using namespace std;
+//
+//struct TreeNode {
+//	int val;
+//	TreeNode *left;
+//	TreeNode *right;
+//	TreeNode() : val(0), left(nullptr), right(nullptr) {}
+//	TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+//	TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+//};
+// 
+//class Solution {
+//public:
+//	void InOrder(TreeNode* root, vector<int>& nums)
+//	{
+//		if (root == nullptr)
+//			return;
+//		InOrder(root->left, nums);
+//		nums.push_back(root->val);
+//		InOrder(root->right, nums);
+//	}
+//
+//	bool isValidBST(TreeNode* root) {
+//		vector<int>nums;
+//		InOrder(root, nums);
+//		for (int i = 1; i < (int)nums.size(); i++)
+//		{
+//			if(nums[i] == nums[i - 1] || nums[i] < nums[i - 1])
+//				return false;
+//		}
+//		return true;
+//	}
+//};
+
+//#include <iostream>
+//#include <stack>
+//using namespace std;
+//
+//struct TreeNode {
+//	int val;
+//	TreeNode *left;
+//	TreeNode *right;
+//	TreeNode() : val(0), left(nullptr), right(nullptr) {}
+//	TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+//	TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+//};
+// 
+////class Solution {
+////public:
+////	TreeNode* pruneTree(TreeNode* root) {
+////		if (root == nullptr)
+////			return nullptr;
+////		root->left = pruneTree(root->left);
+////		root->right = pruneTree(root->right);
+////		if (root->val == 0 && root->left == nullptr&&root->right == nullptr)
+////			return nullptr;
+////		return root;
+////	}
+////};
+//
+//class Solution {
+//public:
+//	TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p)
+//	{
+//		stack<TreeNode*>s;
+//		TreeNode* cur = root, *prev = nullptr;
+//		while (!s.empty() || cur)
+//		{
+//			while (cur) {
+//				s.push(cur);
+//				cur = cur->left;
+//			}
+//			cur = s.top();
+//			s.pop();
+//			if (prev == p)
+//				break;
+//			prev = cur;
+//			cur = cur->right;
+//		}
+//		return cur;
+//	}
+//};
+
+
 #include <iostream>
 #include <vector>
+#include <queue>
 #include <algorithm>
 using namespace std;
 
-struct TreeNode {
-	int val;
-	TreeNode *left;
-	TreeNode *right;
-	TreeNode() : val(0), left(nullptr), right(nullptr) {}
-	TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-	TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-};
- 
 class Solution {
 public:
-	void InOrder(TreeNode* root, vector<int>& nums)
-	{
-		if (root == nullptr)
-			return;
-		InOrder(root->left, nums);
-		nums.push_back(root->val);
-		InOrder(root->right, nums);
-	}
 
-	bool isValidBST(TreeNode* root) {
-		vector<int>nums;
-		InOrder(root, nums);
-		for (int i = 1; i < (int)nums.size(); i++)
+	vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k) {
+
+		if (nums1.size() == 0 || nums2.size() == 0 || k == 0)
+			return{};
+
+		auto compar = [&](pair<int, int> x, pair<int, int> y)->bool {
+			return (nums1[x.first] + nums2[x.second]) > (nums1[y.first] + nums2[y.second]);
+		};
+		priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(compar)> q(compar);
+		for (int i = 0; i < min((int)nums1.size(), k); i++)
 		{
-			if(nums[i] == nums[i - 1] || nums[i] < nums[i - 1])
-				return false;
+			q.push({ i,0 });
 		}
-		return true;
+		vector<vector<int>>ret;
+		int i = 1;
+		while (k--)
+		{
+			pair<int, int>tmp = q.top();
+			ret.push_back({ nums1[tmp.first] ,nums2[tmp.second] });
+			q.pop();
+			if (tmp.second + 1 < (int)nums2.size())
+			{
+				q.push({ tmp.first,tmp.second + 1 });
+			}
+		}
+		return ret;
 	}
 };
+
+int  main()
+{
+	vector<int>nums1{ 1,7,11 };
+	vector<int>nums2{ 2,4,6 };
+	int k = 3;
+	Solution().kSmallestPairs(nums1, nums2, k);
+	return 0;
+}
