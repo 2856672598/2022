@@ -412,49 +412,271 @@
 //};
 
 
+//#include <iostream>
+//#include <vector>
+//#include <queue>
+//#include <algorithm>
+//using namespace std;
+//
+//class Solution {
+//public:
+//
+//	vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k) {
+//
+//		if (nums1.size() == 0 || nums2.size() == 0 || k == 0)
+//			return{};
+//
+//		auto compar = [&](pair<int, int> x, pair<int, int> y)->bool {
+//			return (nums1[x.first] + nums2[x.second]) > (nums1[y.first] + nums2[y.second]);
+//		};
+//		priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(compar)> q(compar);
+//		for (int i = 0; i < min((int)nums1.size(), k); i++)
+//		{
+//			q.push({ i,0 });
+//		}
+//		vector<vector<int>>ret;
+//		int i = 1;
+//		while (k--)
+//		{
+//			pair<int, int>tmp = q.top();
+//			ret.push_back({ nums1[tmp.first] ,nums2[tmp.second] });
+//			q.pop();
+//			if (tmp.second + 1 < (int)nums2.size())
+//			{
+//				q.push({ tmp.first,tmp.second + 1 });
+//			}
+//		}
+//		return ret;
+//	}
+//};
+//
+//int  main()
+//{
+//	vector<int>nums1{ 1,7,11 };
+//	vector<int>nums2{ 2,4,6 };
+//	int k = 3;
+//	Solution().kSmallestPairs(nums1, nums2, k);
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <algorithm>
+//using namespace std;
+//int arr[100][100], ret[100][100];
+//
+//int main()
+//{
+//	int n;
+//	cin >> n;
+//	for (int i = 0; i < n; i++)
+//	{
+//		for (int j = 0; j < n; j++)
+//			cin >> arr[i][j];
+//	}
+//	ret[0][0] = arr[0][0];
+//	for (int i = 0; i < n; i++)
+//	{
+//		for (int j = 0; j < n; j++)
+//		{
+//			if (i == 0 && j != 0)
+//				ret[i][j] = ret[i][j - 1] + arr[i][j];
+//			else if (j == 0 && i != 0)
+//				ret[i][j] = ret[i - 1][j] + arr[i][j];
+//			else
+//				ret[i][j] = min(ret[i - 1][j], ret[i][j - 1]) + arr[i][j];
+//		}
+//	}
+//	cout << ret[n - 1][n - 1];
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <vector>
+//#include <algorithm>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int duplicateInArray(vector<int>& nums) {
+//		if (nums.size() == 0)
+//			return -1;
+//		sort(nums.begin(), nums.end());
+//		if (nums[0] < 0 || nums[nums.size() - 1] >= nums.size())
+//			return -1;
+//		for (int i = 1; i < (int)nums.size(); i++)
+//		{
+//			if (nums[i] == nums[i - 1])
+//				return nums[i];
+//		}
+//		return -1;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<int>nums{ 3, 1, -10, 1, 1, 4, 3, 10, 1, 1 };
+//	cout << Solution().duplicateInArray(nums);
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <vector>
+//#include <string>
+//#include <algorithm>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int minFlipsMonoIncr(string s) {
+//		int n = s.size();
+//		vector<int>sum(n + 1, 0);
+//		for (int i = 0; i < n; i++)
+//			sum[i + 1] = sum[i] + s[i] - '0';
+//		int ret = INT_MAX;
+//		for (int i = 0; i <= n; i++)
+//		{
+//			ret = min(ret, sum[i] + n - i - (sum[n] - sum[i]));
+//		}
+//		return ret;
+//	}
+//};
+
+//#include <iostream>
+//#include <string>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	bool digitCount(string num) {
+//		int arr[10] = { 0 };
+//		for (int i = 0; i < (int)num.size(); i++)
+//			arr[num[i] - '0']++;
+//		for (int i = 0; i < (int)num.size(); i++)
+//		{
+//			if (arr[i] != num[i] - '0')
+//				return false;
+//		}
+//		return true;
+//	}
+//};
+//
+//int main()
+//{
+//	string num = "030";
+//	cout << Solution().digitCount(num);
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <string>
+//#include <vector>
+//#include <unordered_map>
+//using namespace std;
+//class Solution {
+//public:
+//	string largestWordCount(vector<string>& messages, vector<string>& senders)
+//	{
+//		unordered_map<string, int>m;
+//		for (int i = 0; i < (int)messages.size(); i++)
+//		{
+//			m[senders[i]] += count(messages[i].begin(), messages[i].end(), ' ') + 1;
+//		}
+//		string ret = senders[0];
+//		for (const auto& e : m)
+//		{
+//			if (e.second > m[ret])
+//				ret = e.first;
+//			else if (e.second == m[ret] && e.first > ret)
+//				ret = e.first;
+//		}
+//		return ret;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<string>messages{ "Hello userTwooo","Hi userThree"
+//		,"Wonderful day Alice","Nice day userThree" };
+//	vector<string>senders{ "Alice","userTwo","userThree","Alice" };
+//	cout << Solution().largestWordCount(messages, senders);
+//	return 0;
+//}
+
+
 #include <iostream>
 #include <vector>
-#include <queue>
-#include <algorithm>
+#include <string>
+#include <sstream>
 using namespace std;
 
+struct Node
+{
+	bool _isWord;
+	vector<Node*>_child;
+	Node()
+		:_isWord(false)
+		, _child(26, nullptr)
+	{}
+};
+
 class Solution {
+	Node* root = nullptr;
 public:
-
-	vector<vector<int>> kSmallestPairs(vector<int>& nums1, vector<int>& nums2, int k) {
-
-		if (nums1.size() == 0 || nums2.size() == 0 || k == 0)
-			return{};
-
-		auto compar = [&](pair<int, int> x, pair<int, int> y)->bool {
-			return (nums1[x.first] + nums2[x.second]) > (nums1[y.first] + nums2[y.second]);
-		};
-		priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(compar)> q(compar);
-		for (int i = 0; i < min((int)nums1.size(), k); i++)
+	void CreateTree(const vector<string>& dictionary)
+	{
+		if (root == nullptr)
+			root = new Node();
+		for (int i = 0; i < (int)dictionary.size(); i++)
 		{
-			q.push({ i,0 });
-		}
-		vector<vector<int>>ret;
-		int i = 1;
-		while (k--)
-		{
-			pair<int, int>tmp = q.top();
-			ret.push_back({ nums1[tmp.first] ,nums2[tmp.second] });
-			q.pop();
-			if (tmp.second + 1 < (int)nums2.size())
-			{
-				q.push({ tmp.first,tmp.second + 1 });
+			Node* tmp = root;
+			for (auto e : dictionary[i]) {
+				if (tmp->_child[e - 'a'] == nullptr)
+					tmp->_child[e - 'a'] = new Node;
+				tmp = tmp->_child[e - 'a'];
 			}
+			tmp->_isWord = true;
+		}
+	}
+
+	string Find(const string& word)
+	{
+		Node* cur = root;
+		string ret;
+		for (auto e : word)
+		{
+			if (cur->_child[e - 'a']) {
+				ret += e;
+				cur = cur->_child[e - 'a'];
+			}
+			else
+				return {};
+			if (cur->_isWord)
+				break;
 		}
 		return ret;
 	}
+
+	string replaceWords(vector<string>& dictionary, string sentence) {
+		stringstream ss(sentence);
+		CreateTree(dictionary);
+		string tmp, ret;
+		while (ss >> tmp)
+		{
+			string res = Find(tmp);
+			if (res.size() == 0)
+				ret += tmp;
+			else
+				ret += res;
+			ret += " ";
+		}
+		return ret.substr(0, ret.size() - 1);
+	}
 };
 
-int  main()
+int main()
 {
-	vector<int>nums1{ 1,7,11 };
-	vector<int>nums2{ 2,4,6 };
-	int k = 3;
-	Solution().kSmallestPairs(nums1, nums2, k);
+	vector<string>dictionary{ "cat","bat","rat" };
+	string sentence{ "the cattle was rattled by the battery" };
+	Solution().replaceWords(dictionary, sentence);
 	return 0;
 }
