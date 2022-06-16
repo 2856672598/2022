@@ -445,56 +445,267 @@
 //	return 0;
 //}
 
+//#include <iostream>
+//#include <vector>
+//#include <string>
+//using namespace std;
+//
+//class Solution {
+//public:
+//	vector<int>arr;
+//
+//	int find(int index)
+//	{
+//		if (arr[index] == index)
+//			return index;
+//		arr[index] = find(arr[index]);
+//		return arr[index];
+//	}
+//
+//	void merge(int index1, int index2)
+//	{
+//		int pos1 = find(index1);
+//		int pos2 = find(index2);
+//		if (pos1 == pos2)
+//			return;
+//		arr[pos2] = pos1;
+//	}
+//
+//	bool equationsPossible(vector<string>& equations)
+//	{
+//		for (int i = 0; i < 26; i++)
+//			arr.push_back(i);
+//
+//		for (int i = 0; i < (int)equations.size(); i++)
+//		{
+//			if (equations[i].find("==") != string::npos)
+//				merge(equations[i][0] - 'a', equations[i][3] - 'a');
+//		}
+//		for (int i = 0; i < (int)equations.size(); i++)
+//		{
+//			if (equations[i].find("!=") != string::npos) {
+//				if (find(equations[i][0] - 'a') == find(equations[i][3] - 'a'))
+//					return false;
+//			}
+//		}
+//		return true;
+//	}
+//};
+//
+//int main()
+//{
+//	vector<string> equations{ "a==b","b!=a" };
+//	cout << Solution().equationsPossible(equations);
+//	return 0;
+//}
+
+
+//#include <iostream>
+//#include <vector>
+//#include <list>
+//#include <unordered_map>
+//using namespace std;
+//
+//class LRUCache {
+//public:
+//	list<pair<int, int>>_list;
+//	typedef  list<pair<int, int>>::iterator ListIt;
+//	unordered_map<int, ListIt> _map;
+//	int _capacity;
+//	LRUCache(int capacity) {
+//		_capacity = capacity;
+//	}
+//
+//	int get(int key) {
+//		auto it = _map.find(key);
+//		if (it == _map.end())
+//			return -1;
+//		_list.splice(_list.end(), _list, it->second);
+//		return it->second->second;
+//	}
+//
+//	void put(int key, int value) {
+//
+//		auto it = _map.find(key);
+//
+//		if (it != _map.end())
+//		{
+//			//存在
+//			it->second->second = value;
+//			_list.splice(_list.end(), _list, it->second);
+//		}
+//		else {
+//			if (_list.size() >= _capacity) {
+//				//没有空间删除最少使用的缓存
+//				_map.erase(_list.front().first);
+//				_list.pop_front();
+//			}
+//			//添加
+//			_list.push_back({ key,value });
+//			_map.insert({ key,--_list.end() });
+//		}
+//	}
+//};
+//
+//int main()
+//{
+//	LRUCache a(10);
+//	a.put(10, 10);
+//	return 0;
+//}
+
+//#include <iostream>
+//#include <vector>
+//#include <unordered_set>
+//#include <algorithm>
+//
+//using namespace std;
+//
+//class Solution {
+//public:
+//	int findPairs(vector<int>& nums, int k) {
+//		unordered_set<int>tmp;
+//		unordered_set<int>ret;
+//		for (int i = 0; i < (int)nums.size(); i++)
+//		{
+//			if (tmp.count(nums[i] - k)) {
+//				ret.insert(nums[i] - k);
+//			}
+//			if (tmp.count(nums[i] + k))
+//				ret.insert(nums[i]);
+//			tmp.insert(nums[i]);
+//		}
+//		return ret.size();
+//	}
+//};
+//
+//int main()
+//{
+//	vector<int>nums{ 3,1,4,1,5 };
+//	int k = 2;
+//	cout << Solution().findPairs(nums, k);
+//	return 0;
+//}
+
+
+//#include <iostream>
+//#include <vector>
+//#include <unordered_map>
+//
+//using namespace std;
+//
+//class MagicDictionary {
+//private:
+//	unordered_map<int, vector<string>>m;
+//public:
+//	MagicDictionary() {
+//
+//	}
+//
+//	void buildDict(vector<string> dictionary) {
+//		for (const auto&e : dictionary)
+//			m[e.size()].push_back(e);
+//	}
+//
+//	bool search(string searchWord) {
+//		int sz = searchWord.size();
+//		for (const auto & e : m[sz]) {
+//			int flag = 0;
+//			for (int i = 0; i < (int)e.size(); i++) {
+//				if (searchWord[i] != e[i])
+//					flag++;
+//				if (flag == 2)
+//					break;
+//			}
+//			if (flag == 1)
+//				return true;
+//		}
+//		return false;
+//	}
+//};
+
+//#include <iostream>
+//#include <vector>
+//using namespace std;
+//
+//struct TreeNode {
+//	int val;
+//	TreeNode *left;
+//	TreeNode *right;
+//	TreeNode *father;
+//	TreeNode(int x) : val(x), left(NULL), right(NULL), father(NULL) {}
+//};
+//
+//class Solution {
+//public:
+//	TreeNode* inorderSuccessor(TreeNode* p) {
+//		if (p->right) {
+//			p = p->right;
+//			while (p && p->left)
+//				p = p->left;
+//			return p;
+//		}
+//		else {
+//			TreeNode* parent = p->father;
+//			while (parent && parent->right == p)
+//			{
+//				p = parent;
+//				parent = parent->father;
+//			}
+//			p = parent;
+//		}
+//		return p;
+//	}
+//};
+
+
 #include <iostream>
-#include <vector>
 #include <string>
+#include <vector>
 using namespace std;
 
 class Solution {
 public:
-	vector<int>arr;
 
-	int find(int index)
+	bool DFS(vector<vector<char>>& matrix, string &str, int row, int col, int index)
 	{
-		if (arr[index] == index)
-			return index;
-		arr[index] = find(arr[index]);
-		return arr[index];
+		if (index == str.size())
+			return true;
+		if (row < 0 || row >= (int)matrix.size() || col < 0 || col >= (int)matrix[0].size() || matrix[row][col] != str[index])
+			return false;
+		char ch = matrix[row][col];
+		matrix[row][col] = '*';
+		if (DFS(matrix, str, row + 1, col, index + 1)
+			|| DFS(matrix, str, row - 1, col, index + 1)
+			|| DFS(matrix, str, row, col + 1, index + 1)
+			|| DFS(matrix, str, row, col - 1, index + 1))
+			return true;
+		matrix[row][col] = ch;
+		return false;
 	}
 
-	void merge(int index1, int index2)
+	bool hasPath(vector<vector<char>>& matrix, string &str)
 	{
-		int pos1 = find(index1);
-		int pos2 = find(index2);
-		if (pos1 == pos2)
-			return;
-		arr[pos2] = pos1;
-	}
-
-	bool equationsPossible(vector<string>& equations)
-	{
-		for (int i = 0; i < 26; i++)
-			arr.push_back(i);
-
-		for (int i = 0; i < (int)equations.size(); i++)
-		{
-			if (equations[i].find("==") != string::npos)
-				merge(equations[i][0] - 'a', equations[i][3] - 'a');
-		}
-		for (int i = 0; i < (int)equations.size(); i++)
-		{
-			if (equations[i].find("!=") != string::npos) {
-				if (find(equations[i][0] - 'a') == find(equations[i][3] - 'a'))
-					return false;
+		for (int i = 0; i < (int)matrix.size(); i++) {
+			for (int j = 0; j < (int)matrix[i].size(); j++) {
+				if(DFS(matrix,str,i,j,0))
+					return true;
 			}
 		}
-		return true;
+		return false;
 	}
 };
 
+
 int main()
 {
-	vector<string> equations{ "a==b","b!=a" };
-	cout << Solution().equationsPossible(equations);
+	vector<vector<char>>matrix =
+	{
+		{'a','b','c','e'},
+		{'s','f','c','s'},
+		{'a','d','e','f'}
+	};
+	string str = "bcce";
+	cout << Solution().hasPath(matrix, str);
 	return 0;
 }
