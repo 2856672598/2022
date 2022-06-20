@@ -423,25 +423,222 @@ for _ in range(10):
 # print(nums1.issuperset(nums3))
 # print(nums1.isdisjoint(nums3))
 
-
-'''
-集合的数学操作
-求两个集合的交集 nums1 & nums2 或者 intersection
-并集 | 或者 union
-差集 difference -
-对称差集
-'''
-
-nums1 = {10,20,30,40}
-nums2 = {30,40,50,60}
-print(nums1 & nums2)
-print(nums1.intersection((nums2)))
-# 并集
-print(nums1 | nums2)
-print(nums1.union(nums2))
-# 差集
-print(nums1.difference(nums2))
-print(nums2 - nums1)
+# '''
+# 集合的数学操作
+# 求两个集合的交集 nums1 & nums2 或者 intersection
+# 并集 | 或者 union
+# 差集 difference -
 # 对称差集
-print(nums2 ^ nums1)
-print(nums1.symmetric_difference(nums2))
+# '''
+#
+# nums1 = {10, 20, 30, 40}
+# nums2 = {30, 40, 50, 60}
+# print(nums1 & nums2)
+# print(nums1.intersection((nums2)))
+# # 并集
+# print(nums1 | nums2)
+# print(nums1.union(nums2))
+# # 差集
+# print(nums1.difference(nums2))
+# print(nums2 - nums1)
+# # 对称差集
+# print(nums2 ^ nums1)
+# print(nums1.symmetric_difference(nums2))
+#
+# # 集合生成式
+# nums = {i for i in range(10)}
+# print(nums)
+
+# '''
+# 字符串是一个不可变的字符序列
+# 字符串驻留机制: 仅保存一份相同且不可变字符串的方法，不同的值被存放在字符串的驻留池中，在Pthon中
+# 驻留机制对相同的字符串只保留一份拷贝，后序在创建相同的字符串时不会开辟新的空间
+#
+# 驻留机制的几种情况（交互模式下）
+# 字符串长度为0或者为1时
+# 符合标识符的字符串
+# 字符串只在编译是进行驻留，而非运行时
+# [-5,256]之间的整数数字
+#
+# sys中的intern方法强制2个字符串指向同一个对象
+# '''
+#
+# a = "Python"
+# b = 'Python'
+# c = '''Python'''
+# print(a, id(a))
+# print(b, id(b))
+# print(c, id(c))
+#
+# s1 = 'hello'
+# s2 = 'hello'
+# print(s1 is s2)
+# s1 = 'abc%'
+# s2 = 'abc%'
+# print(s1 is s2)  # 编译器对这里进行了优化，进行了驻留
+#
+# s1 = -6
+# s2 = -6
+# print(s1 is s2)
+#
+# '''
+# 字符串的查询
+# index()子串第一次出现的位置，不存在抛异常
+# rindex()子串最后一次出现的位置，不存在抛异常
+# find() 正向查找，不存在时返回-1
+# rfind()反向查找，不存在返回-1
+#
+# upper 转成大写
+# lower 转成小写
+# swapcase 大写转小写 小写转大写
+# capitalize 将第一个字符串转大写，其余字符转小写
+# title 每个单词的第一个字符转大写，其余字符转小写
+# '''
+# s1 = 'hello'
+# print(s1.index('lo'))
+# print(s1.rindex('lo'))
+# print(s1.find('p'))
+#
+# s1 = 'hello world'
+# print(s1.upper())
+# print(s1.lower())
+# print(s1.title())
+# print(s1.capitalize())
+#
+# '''居中对齐'''
+# print(s1.center(20, '*'))
+# '''左对齐 宽度为20 宽度不够时默认用空格补齐'''
+# print(s1.ljust(20, '*'))
+# '''右对齐'''
+# print(s1.rjust(20, '*'))
+# ''' 右对齐 使用0进行填充'''
+# print(s1.zfill(20))
+#
+# '''字符串的分隔'''
+#
+# arr = 'hello world python nihao'
+# print(arr.split())  # 默认按照空格进行分隔
+# arr = 'hello|world|python|nihao'
+# print(arr.split('|'))  # 使用 | 作为分隔符
+# print(arr.split('|', 2))  # 使用| 分隔 最多分2个
+#
+# #rsplit 从结尾开始分隔
+
+# '''字符串替换'''
+# s1 = 'hello python python python'
+# print(s1.replace('python', 'Java'))
+# print(s1.replace('python', 'Java', 1))  # 指定最大替换次数
+#
+# # 字符串的合并  调用该方法的字符串将作为元素之间的分隔。
+# print('|'.join(['string', 'left', 'right']))
+#
+# '''字符串的比较'''
+# s1 = 'hello'
+# s2 = 'apple'
+# print(s1 > s2)
+# print(s1 < s2)
+# print(ord('王'))  # ord获取原始值
+#
+# '''格式化字符串 % 占位符'''
+# name = '张三'
+# age = 20
+# print('我叫%s，今年%d岁了' % (name, age))
+#
+# print('我叫{0}，今年{1}岁了'.format(name, age))
+#
+# print(f'我叫{name},今年{age}岁了')
+#
+# s = '离离原上草'
+# # 编码
+# print(s.encode(encoding='GBK'))
+# byte = s.encode(encoding='GBK')
+# print(s.encode(encoding='UTF-8'))
+# # 解码
+# print(byte.decode(encoding='GBK'))
+
+# '''
+# 函数的创建
+# def 函数名 (参数):
+#     函数体
+# '''
+#
+#
+# def add(a, b):
+#     return a + b
+#
+#
+# print(add(10, 20))  # 位置实参 根据形参对应的位置进行实参传递
+# print(add(b=10, a=30))  # 关键字实参 根据形参名称进行实参传递
+#
+#
+# def swap(x, y):
+#     x, y = y, x
+#
+#
+# x, y = 10, 20
+# print('x', x)
+# print('y', y)
+# swap(x, y)
+# print(x, y)
+
+# # * 个数可变的位置参数 个数可变的位置参数只能有一个
+# def fun(*args):
+#     print(args)
+#
+#
+# fun('hello', 'left', 'apple')
+#
+#
+# # ** 可变的关键字参数 字典 个数可变的关键字参数只能有一个
+# def fun(**args):
+#     print(args)
+#
+#
+# fun(a=10, b=20, c=30)
+#
+#
+# # 以下情况报错
+# # def fun2(*args1,*args2):
+# #     pass
+# # def fun3(**args1,**args2):
+# #     pass
+# # def fun4(**args1,*args2):
+# #     pass
+#
+# # 当一个函数中存在 位置可变参数 和 关键字可变参数时，位置可变参数必须放在关键字可变参数的前面
+# def fun5(*aged1, **ages4):
+#     pass
+
+# def fib(n):
+#     if n < 3:
+#         return 1
+#     return fib(n - 1) + fib(n - 2)
+#
+# print(fib(6))
+#
+# for i in range(1,10):
+#     print(fib(i))
+
+# class Solution:
+#     def removeElement(self, nums: List[int], val: int) -> int:
+#         fast,slow = 0,0
+#         while  fast < len(nums):
+#             if nums[fast] != val:
+#                 nums[slow] = nums[fast]
+#                 slow+=1
+#             fast += 1
+#         return slow
+
+class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        index = 0
+        maxindex = 1E9
+        for i in range(0,len(strs)):
+            maxindex = min(maxindex,len(strs[i]))
+        ret = ''
+        for i in range(0,maxindex):
+            for j in range(0,len(strs)):
+                if strs[j][i] != strs[0][i]:
+                    return  ret
+            ret += strs[0][i]
+        return ret
