@@ -629,16 +629,374 @@ for _ in range(10):
 #             fast += 1
 #         return slow
 
-class Solution:
-    def longestCommonPrefix(self, strs: List[str]) -> str:
-        index = 0
-        maxindex = 1E9
-        for i in range(0,len(strs)):
-            maxindex = min(maxindex,len(strs[i]))
-        ret = ''
-        for i in range(0,maxindex):
-            for j in range(0,len(strs)):
-                if strs[j][i] != strs[0][i]:
-                    return  ret
-            ret += strs[0][i]
-        return ret
+# class Solution:
+#     def longestCommonPrefix(self, strs: List[str]) -> str:
+#         index = 0
+#         maxindex = 1E9
+#         for i in range(0,len(strs)):
+#             maxindex = min(maxindex,len(strs[i]))
+#         ret = ''
+#         for i in range(0,maxindex):
+#             for j in range(0,len(strs)):
+#                 if strs[j][i] != strs[0][i]:
+#                     return  ret
+#             ret += strs[0][i]
+#         return ret
+
+# class Solution:
+#     def greatestLetter(self, s: str) -> str:
+#         ret = ''
+#         for i in range(len(s)):
+#             if 'a' <= s[i] <= 'z':
+#                 if s.find(s[i].upper()) != -1:
+#                     ret = max(s[i].upper(), ret)
+#             elif 'A' <= s[i] <= 'Z':
+#                 if s.find(s[i].lower()) != -1:
+#                     ret = max(s[i], ret)
+#         return ret
+#
+# Solution().greatestLetter('hHello')
+
+# '''异常处理'''
+# # 无论程序是否抛异常都会执行finally
+# try:
+#     x = int(input('输入第一个整数'))
+#     y = int(input('输入第二个整数'))
+#     result = x / y
+# except BaseException as e:
+#     print('出错了', e)
+# else:
+#     print('运行结果为:', result)
+# finally:
+#     print('程序结束')
+
+# '''
+# 类
+# class 类名:
+# '''
+#
+#
+# class Student:  # 类名的每个单词首字母大写，其余小写
+#     native_pace = '河北'  # 直接写在类里面的变量叫类属性
+#     # 实例方法
+#     def eat(self):
+#         print('正在吃饭')
+#
+#     # 静态方法
+#     @staticmethod
+#     def method():
+#         print('我是静态方法')
+#
+#     # 类方法
+#     @classmethod
+#     def cm(cls):
+#         print('我是类方法')
+#
+#     def __init__(self, name, age):
+#         self.name = name
+#         self.age = age
+#
+#
+# def show():
+#     print('定义在类外称为函数')
+#
+#
+# stu1 = Student(name='王康宁', age=19)
+# stu2 = Student('李四', 25)
+# stu1.eat()
+# Student.eat(stu1)
+# print(stu1.age, stu1.name)
+#
+# # 动态绑定属性
+# stu2.gender = '男'
+# print(stu2.name, stu2.age, stu2.gender)
+#
+# # 动态绑定方法
+# stu1.show = show
+# stu1.show()
+
+# '''封装'''
+#
+#
+# class Student:
+#
+#     def __init__(self, name, age):
+#         self.name = name
+#         self.__age = age  # 不想在类外面被访问，加两个_
+#
+#     def printf(self):
+#         print(self.name, self.__age)
+#
+#
+# stu = Student('张三', 20)
+# # print(stu.__age)#在类外面无法访问
+# print(stu.name)
+# print(dir(stu))
+# print(stu._Student__age)  # 但是可以通过_Student__age 调用
+#
+# stu.printf()
+#
+
+# '''
+# 继承
+# class 子类类名(父类1，父类2....):
+# 定义子类时，必须在其构造函数中调用父类的构造函数
+# '''
+#
+#
+# class Person:
+#     def __init__(self, name, age):
+#         self.age = age
+#         self.name = name
+#
+#     def info(self):
+#         print(self.age, self.name)
+#
+#
+# # 定义子类
+# class Student(Person):
+#     def __init__(self, name, age, score):
+#         self.score = score
+#         super().__init__(name, age)
+#     def info(self):  #重写父类的方法
+#         super().info()
+#         print(self.score)
+# stu = Student('王康宁', 20, 100)
+# stu.info()
+
+# 一个类没有继承任何类时会默认继承object类，因此所有类都有object类的属性和方法
+# 内置函数 dir()可以查看指定对象的所有属性
+
+# class Student:
+#     def __str__(self):
+#         return '重写了__str__方法，用于返回一个对象的描述'
+#
+#
+# stu = Student()
+# print(dir(stu))
+# print(stu)  # 重写了 __str__
+
+# '''
+# 多态
+# '''
+# class Animal:
+#     def eat(self):
+#         print('吃食物')
+#
+# class Cat(Animal):
+#     def eat(self):
+#         print('猫吃鱼')
+# class Dog(Animal):
+#     def eat(self):
+#         print('狗吃骨头')
+#
+# class People:
+#     def eat(self):
+#         print('小明吃肉')
+#
+# def fun(obj):
+#     obj.eat()
+#
+# fun(Cat())
+# fun(Dog())
+# #对于动态语言来说，不一定非要传Animal类型。只需要保证传入的对象中有一个eat方法就可以
+# fun(People())
+
+# '''
+# 以下划线开始和结束的方法和属性称为特殊方法和属性
+# __dict__ 类对象或者实例对象所绑定的所有属性和方法
+# __class__ 输出对象所属的类型
+# __bases__ 输出父类的元组
+# __mro__ 类的层次结构
+# __subclasses__() 子类的列表
+#
+# ------特殊方法-------
+# __add__() 实现两类的相加
+# __len__()
+# __new __()用于创建对象
+# __init__() 用于初始化对象
+# '''
+#
+# class A:
+#     pass
+# class B:
+#     pass
+# class C(A, B):
+#     def __init__(self,name):
+#         self.name = name
+#
+# x = C('李四')
+# print(x.__dict__)
+# print(C.__dict__)
+#
+# # __class__输出对象的类型
+# print(C.__class__)
+# print(x.__class__)
+#
+# print(C.__bases__) #输出父类的元组
+# print(C.__base__) #输出继承的第一个父类
+# # 类的层次结构 -- 都继承了谁
+# print(C.__mro__)
+# #子类的列表
+# print(A.__subclasses__())
+#
+# class Student(object):
+#     def __init__(self,name):
+#         print('_init__被调用，self的id为',id(self))
+#         self.name = name
+#     def __add__(self, other):
+#         return self.name + other.name
+#     def __len__(self):
+#         return len(self.name)
+#     def __new__(cls, *args, **kwargs):
+#         print('__new__ 被调用 cls id',id(cls))
+#         obj = super().__new__(cls)
+#         print('创建的对象的id',id(obj))
+#         return obj
+# # stu1 = Student('张三')
+# # stu2 = Student('李四')
+# # s = stu1 + stu2 #想让两个类相加可以在类中实现 __add__()
+# # print(s)
+# # print(len(stu1)) #类中实现 __len__(),就可以通过len获取长度
+#
+# print('Student类对象的id为',id(Student))
+# print('object类对象的id为',id(object))
+# stu = Student('王康宁')
+# print('Student实例化对象的id为',id(stu))
+
+# class Basic:
+#     def __init__(self, name, age):
+#         self.age = age
+#         self.name = name
+#
+#
+# class Student:
+#     def __init__(self, basic, score):
+#         self.basic = basic
+#         self.score = score
+#
+#
+# b1 = Basic('王康宁', 20)
+# stu1 = Student(b1, 100)
+# # 赋值
+# stu2 = stu1
+# print(stu2.basic.name, stu2.basic.age)
+# print(stu1, id(stu1), 'basic', id(stu1.basic))
+# print(stu2, id(stu2), 'basic', id(stu2.basic))
+#
+# stu2.basic.name = '李四'
+# print(stu2.basic.name, stu2.basic.age)
+# print(stu1, id(stu1), 'basic', id(stu1.basic))
+# print(stu2, id(stu2), 'basic', id(stu2.basic))
+# '''
+# 浅拷贝
+# 拷贝时，对象包函的子对象内容不拷贝，因此源对象与拷贝对象会引用同一个子对象
+# '''
+# import copy
+#
+# stu3 = copy.copy(stu1)
+# print('-------------浅拷贝-----------------')
+# print(stu3, id(stu3), 'basic', id(stu3.basic))
+#
+# # 深拷贝
+# # 递归拷贝对象中包含的子对象
+# print('-----------深拷贝-----------------')
+# stu4 = copy.deepcopy(stu3)
+# print(stu4, id(stu4), 'basic', id(stu4.basic))
+
+# '''
+# 导入模块
+# import 模块名称 as 别名  -->导入全部
+# from 模块名称 import 函数/变量/类
+# '''
+# import math
+# import sys
+# import time
+# print(sys.getsizeof(12))
+# print(sys.getsizeof(True))
+# print(time.time())
+# print(time.localtime(time.time()))
+
+'''
+文件的读写
+file = open(filename ,打开文件的方式，编码格式)
+'''
+# file = open('a.txt', 'r')
+# print(file.readlines())
+# file.close()
+#
+# with open('a.txt','r') as file:
+#     print(file.read())
+
+# '''
+# 上下文管理器
+# with语句可以自动管理上下文资源，不论什么原因跳出with块，都能确保文件正确的关闭，以此来达到释放资源的目的
+# with open() as src_file:
+# '''
+# class MyCenterMgr:
+#     def __enter__(self):
+#         print('调用enter方法')
+#         return self
+#     def __exit__(self, exc_type, exc_val, exc_tb):
+#         print('调用exit方法')
+#     def show(self):
+#         print('调用show方法')
+#
+# with MyCenterMgr() as file:
+#     file.show()
+
+import os
+
+#os.system('notepad.exe')
+# 调用可执行文件
+#os.startfile('D:\\vmware\\vmware.exe')
+print(os.getcwd())
+#当前目录下的文件
+li = os.listdir()
+print(li)
+#创建目录
+#os.mkdir('code')
+li = os.listdir()
+print(li)
+# 删除目录
+#os.rmdir('code')
+
+# makekdirs 递归创建目录
+# removedirs 删除多级目录
+# chdir 设置工作目录
+
+os.chdir('../')
+print(os.listdir())
+#获取文件或目录的绝对路径  abspath
+print(os.path.abspath('main.py'))
+# exists() 判断文件或目录是否存在
+print(os.path.exists('main.py'))
+#分离文件名和拓展名 split
+print(os.path.splitext('demo1.py'))
+#提取文件名
+print(os.path.basename('D:\\Users\\wang\\PycharmProjects\\pythonProject1\\main.py'))
+#提取路径 不包含文件名
+print(os.path.dirname('D:\\Users\\wang\\PycharmProjects\\pythonProject1\\main.py'))
+# 判断是否是目录
+print(os.path.isdir('D:\\Users\\wang\\PycharmProjects\\pythonProject1\\main.py'))
+print('--------------------')
+# 列出指定目录下的所有py文件
+path = os.getcwd() #获取当前目录
+li = os.listdir(path) #获取当前目录下所有的文件和目录
+
+for filename in li:
+    if filename.endswith('.py'):
+        print(filename)
+'''
+os.walk()方法可以遍历指定目录下的所有文件
+返回的是一个三元组(root,dirs,files)。
+root:当前正在遍历的这个文件夹的地址
+dirs：该文件夹中所有的目录的名字
+files：该文件夹中的所有文件
+'''
+os.chdir('../')
+path = os.getcwd()
+li = os.walk(path)
+for dirpath,dirname,filename in li:
+    for file in filename:
+        print(os.path.join(dirpath,file))
