@@ -165,19 +165,106 @@
 # except:
 #     print('爬取失败')
 
-# 遍历
+# # 遍历
+# import requests
+# from bs4 import  BeautifulSoup
+# url = 'https://www.baidu.com/'
+#
+# r = requests.get(url)
+# r.raise_for_status()
+# r.encoding = r.apparent_encoding
+# demo = r.text
+#
+# soup = BeautifulSoup(demo,'html.parser')
+#
+# for item in soup.head.next_siblings:
+#     print(item.name)
+# for item in soup.body.previous_siblings:
+#     print(item.name)
+
+# # 正则表达式
+# import re
+#
+# # match = re.search(r'[1-9]\d{5}','北京市 123981')
+# # if match:
+# #     print(match.group(0))
+#
+# #math = re.match(r'[1-9]\d{5}','123981hello')
+# #match = re.findall(r'[1-9]\d{5}','123981hello 123456')
+# #match = re.split(r'[1-9]\d{5}','123981hello123456')
+# # if match:
+# #     print(match)
+#
+# # match = re.finditer(r'[1-9]\d{5}','123981hello123456')
+# # for item in match:
+# #     print(item.group(0))
+#
+# math = re.sub(r'[1-9]\d{5}','1111','123981hello123456')
+# print(math)
+
+# import re
+#
+# s = """
+# <div class = '孙悟空'><span id = '1'>孙悟空</span></div>
+# <div class = '猪八戒'><span id = '2'>猪八戒</span></div>
+# <div class = '唐僧'><span id = '3'>唐僧</span></div>
+# <div class = '沙悟净'><span id = '1'>沙悟净</span></div>
+# """
+#
+# # match = re.finditer(r"<div class = '.*?'><span id = '\d+'>.*?</span></div>", s)
+# # for it in match:
+# #     print(it.group(0))
+#
+# match = re.finditer(r"<div class = '.*?'><span id = '\d+'>(?P<name>.*?)</span></div>", s)
+# for it in match:
+#     print(it.group('name'))
+
+# import re
+# import requests
+#
+# try:
+#     url = 'https://movie.douban.com/chart'
+#     header = {
+#         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
+#                       'Chrome/102.0.0.0 Safari/537.36 '
+#     }
+#     r = requests.get(url, headers=header)
+#     r.raise_for_status()
+#     r.encoding = r.apparent_encoding
+#     demo = r.text
+#     match = re.finditer(r'<div class="pl2">.*?'
+#                         r' <a href=.*? class="">(?P<name>.*?)(/|<).*?'
+#                         r'<span class="rating_nums">(?P<score>.*?)</span>.*?'
+#                         r'<span class="pl">(?P<evaluation>.*?)</span>', demo, re.S)
+#     for it in match:
+#         dic = it.groupdict()
+#         dic['name'] = dic['name'].strip()
+#         print(dic)
+#     r.close()
+# except:
+#     print('爬取失败')
+
 import requests
-from bs4 import  BeautifulSoup
-url = 'https://www.baidu.com/'
+import re
 
-r = requests.get(url)
-r.raise_for_status()
-r.encoding = r.apparent_encoding
-demo = r.text
-
-soup = BeautifulSoup(demo,'html.parser')
-
-for item in soup.head.next_siblings:
-    print(item.name)
-for item in soup.body.previous_siblings:
-    print(item.name)
+try:
+    goods = '手机'
+    url = 'https://search.jd.com/Search?keyword=' + goods
+    header = {
+        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/102.0.0.0 Safari/537.36 '
+    }
+    r = requests.get(url, headers=header)
+    r.raise_for_status()
+    print(r.request.url)
+    r.encoding = r.apparent_encoding
+    demo = r.text
+    match = re.finditer(r'<li data-sku=.*? data-spu=.*? ware-type="10"   class="gl-item">.*?'
+                        r'<div class="p-name p-name-type-2">.*?'
+                        r'<em>(?P<name>.*?)<', demo, re.S)
+    for it in match:
+        print(it.group('name').strip())
+    with open('code.txt','w',encoding='utf-8') as file:
+        file.write(demo)
+except:
+    print('爬取失败')
