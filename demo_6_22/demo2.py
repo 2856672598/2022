@@ -243,28 +243,130 @@
 #     r.close()
 # except:
 #     print('爬取失败')
+import tempfile
+import textwrap
 
 import requests
 import re
 
-try:
-    goods = '手机'
-    url = 'https://search.jd.com/Search?keyword=' + goods
-    header = {
-        'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
-                      'Chrome/102.0.0.0 Safari/537.36 '
-    }
-    r = requests.get(url, headers=header)
-    r.raise_for_status()
-    print(r.request.url)
-    r.encoding = r.apparent_encoding
-    demo = r.text
-    match = re.finditer(r'<li data-sku=.*? data-spu=.*? ware-type="10"   class="gl-item">.*?'
-                        r'<div class="p-name p-name-type-2">.*?'
-                        r'<em>(?P<name>.*?)<', demo, re.S)
-    for it in match:
-        print(it.group('name').strip())
-    with open('code.txt','w',encoding='utf-8') as file:
-        file.write(demo)
-except:
-    print('爬取失败')
+# try:
+#     goods = '手机'
+#     url = 'https://search.jd.com/Search?keyword=' + goods
+#     header = {
+#         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
+#                       'Chrome/102.0.0.0 Safari/537.36 '
+#     }
+#     r = requests.get(url, headers=header)
+#     r.raise_for_status()
+#     print(r.request.url)
+#     r.encoding = r.apparent_encoding
+#     demo = r.text
+#     match = re.finditer(r'<li data-sku=.*? data-spu=.*? ware-type="10"   class="gl-item">.*?'
+#                         r'<div class="p-name p-name-type-2">.*?'
+#                         r'<em>(?P<name>.*?)<', demo, re.S)
+#     for it in match:
+#         print(it.group('name').strip())
+#     with open('code.txt','w',encoding='utf-8') as file:
+#         file.write(demo)
+# except:
+#     print('爬取失败')
+
+# import requests
+# import re
+#
+# try:
+#     child_url_list = []
+#     domain = 'https://www.dy2018.com/'
+#     r = requests.get(domain)
+#     r.raise_for_status()
+#     r.encoding = r.apparent_encoding
+#     demo = r.text
+#     obj1 = re.compile(r'2022必看热片.*?<ul>(?P<ul>.*?)</ul>', re.S)
+#     obj2 = re.compile(r'<li><a href=\'(?P<child_url>.*?)\' title', re.S)
+#     obj3 = re.compile(r'◎片　　名(?P<name>.*?)<br />'
+#                       r'.*?<td style="WORD-WRAP: break-word" bgcolor="#fdfddf"><a href="(?P<down>.*?)">', re.S)
+#     r1 = obj1.finditer(demo)
+#     for item in r1:
+#         # 提取子页面的链接
+#         ul = item.group('ul')
+#         child = obj2.finditer(ul)
+#         for url in child:
+#             child_url_list.append(domain + url.group('child_url'))
+#
+#     # 对子页面进行爬取
+#     for item in child_url_list:
+#         r = requests.get(item)
+#         r.raise_for_status()
+#         r.encoding = r.apparent_encoding
+#         r2 = obj3.search(r.text)
+#         print(r2.group('name'))
+#         print(r2.group('down'))
+# except:
+#     print('爬取失败')
+
+# 解析数据
+# find(标签，属性=值)
+# find_all(标签，属性=值)
+
+# import requests
+# import bs4
+#
+# try:
+#     domain = 'https://www.umei.cc/'
+#     url = 'https://www.umei.cc/bizhitupian/fengjingbizhi'
+#     r = requests.get(url)
+#     r.raise_for_status()
+#     r.encoding = r.apparent_encoding
+#     soup = bs4.BeautifulSoup(r.text, 'html.parser')
+#     li = soup.find('div', class_='swiper-wrapper after').findAll('a')
+#     child_url_list = []
+#     for item in li:
+#         child_url = domain + item.get('href')
+#         child_response = requests.get(child_url)
+#         child_response.raise_for_status()
+#         child_response.encoding = child_response.apparent_encoding
+#         page = bs4.BeautifulSoup(child_response.text, 'html.parser')
+#         li = page.find('section', class_='img-content').find('img')
+#         down = li.get('src')
+#         print(down)
+#         # 下载图片
+#         img_response = requests.get(down)
+#         img_response.raise_for_status()
+#         file_name = down.split('/')[-1]
+#         print(file_name)
+#         with open(file_name, mode='wb') as file:
+#             file.write(img_response.content)
+# except:
+#     print('爬取失败')
+
+'''
+xpath
+'''
+
+xml = """
+<book>
+    <p>野花遍地香</p>
+    <price>1.23</price>
+    <nick>臭豆腐</nick>
+    <author>
+        <nick id = '10086'>周大强</nick>
+        <nick id = '10010'>周芷若</nick>
+        <nick class = 'joy'>周杰伦</nick>
+        <nick class = 'join'>蔡依林</nick>
+        <div>
+            <nick> hello world </nick>
+        </div>
+        <span> hello python </span>
+    </author>
+</book>
+"""
+from lxml import etree
+
+tree = etree.XML(xml)
+# result = tree.xpath("/book")
+# result = tree.xpath("/book/p/text()") # text()用于获取文本
+result = tree.xpath("/book/author/nick/text()")
+result = tree.xpath("/book/author//nick/text()")  # //后代
+result = tree.xpath("/book/author/*/nick/text()")  # /*/ 匹配任意节点，通配符
+result = tree.xpath("/book//nick/text()")
+print(result)
